@@ -67,6 +67,13 @@ Isso precisa ser validado jogando.
 | T17 | Memória após 20 disparos igual à referência |
 | T18 | Saúde: geometria vazada por disparo (defeito pré-existente) |
 | V01–V08 | Capturas: vale, pôr do sol, noite, castelo, floresta, costa, caverna, Limbo |
+| D01 | Sem `?debug=1`: overlay ausente, `renderFrame` original, `renderer.info` intacto |
+| D02 | Com `?debug=1`: painel ativo; FPS/frame batem com o relógio virtual; draw calls e triângulos batem com medição independente |
+| D03 | Wrapper de `renderFrame`: preserva `this`, argumentos, retorno, relança exceção e restaura `renderer.info.autoReset` |
+| D04 | Com `?debug=1` a imagem 3D é idêntica à referência (instrumentação não muda o render) |
+| D05 | Custo do wrapper por frame < 5 µs |
+
+Os testes D só rodam no modo comparação (`npm test`).
 
 Tolerância das capturas: um pixel conta como diferente se algum canal variar mais que 8/255;
 o teste reprova se mais de 0,1% dos pixels mudar ou se a câmera mudar.

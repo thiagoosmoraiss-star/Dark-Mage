@@ -69,7 +69,7 @@ async function launch() {
     browser = await chromium.launch({ args });
 }
 
-async function newGamePage(label, { initExtra = '' } = {}) {
+async function newGamePage(label, { initExtra = '', query = '' } = {}) {
     const context = await browser.newContext({ viewport: CONFIG.viewport, deviceScaleFactor: CONFIG.deviceScaleFactor });
     const page = await context.newPage();
     page.on('pageerror', e => consoleErrors.push(`[${label}] pageerror: ${e.message}`));
@@ -84,7 +84,7 @@ async function newGamePage(label, { initExtra = '' } = {}) {
         return route.abort(); // fontes e outros recursos externos: bloqueados (condição fixa)
     });
     await page.addInitScript(`window.__HARNESS_CONFIG__ = ${JSON.stringify({ seed: CONFIG.seed, frameMs: CONFIG.frameMs })};\n${HARNESS_SRC}\n${initExtra}`);
-    await page.goto(pathToFileURL(GAME).href, { waitUntil: 'load' });
+    await page.goto(pathToFileURL(GAME).href + query, { waitUntil: 'load' });
     await page.waitForFunction(() => window.__harness && window.__harness.pending() > 0, null, { timeout: 60000 });
     await page.evaluate(() => window.__harness.step(1)); // primeiro frame do loop
     return { page, context };
@@ -379,21 +379,105 @@ async function collectMemory() {
     return r;
 }
 
+function shootPose(page, pose) {
+    return page.evaluate(([pose, settle]) => {
+        const H = window.__harness;
+        if (pose.dim === 'cave') enterCaveDimension(caves[0]);
+        else if (pose.dim === 'limbo') enterLimboDimension();
+        else { player.x = pose.x; player.z = pose.z; player.y = getTerrainHeight(pose.x, pose.z); player.vy = 0; player.onGround = true; }
+        camYaw = pose.yaw; camPitch = pose.pitch; world.hour = pose.hour;
+        H.tick(settle);
+        const shot = H.capture();
+        return { ...shot, camera: H.cameraState() };
+    }, [pose, CONFIG.settleFrames]);
+}
+
+// Testes do overlay de diagnóstico (?debug=1). Só rodam no modo comparação.
+async function collectDebug(imgDir) {
+    const out = {};
+    // D01 sem o parâmetro: nada instalado
+    {
+        const { page, context } = await newGamePage('debug-off');
+        await page.evaluate(() => window.__harness.step(30));
+        out.off = await page.evaluate(() => ({
+            panel: !!document.getElementById('debug-overlay'),
+            api: typeof window.__debugOverlay,
+            wrapped: !!window.renderFrame.__debugOriginal,
+            autoReset: renderer.info.autoReset
+        }));
+        await context.close();
+    }
+    // D02/D03/D05 com ?debug=1
+    {
+        const { page, context } = await newGamePage('debug-on', { query: '?debug=1' });
+        out.on = await page.evaluate(() => {
+            const H = window.__harness;
+            H.step(130);   // ~2,2 s de tempo virtual a 16,67 ms/frame
+            const D = window.__debugOverlay;
+            const s = D ? { ...D.stats } : null;
+            const autoResetAfterFrame = renderer.info.autoReset;
+            const cap = H.capture();   // contagem independente do mesmo frame
+            return {
+                api: !!D, wrapped: !!window.renderFrame.__debugOriginal,
+                panel: !!document.getElementById('debug-overlay'),
+                stats: s, autoResetAfterFrame,
+                overlayCalls: D.stats.calls, overlayTris: D.stats.triangles,
+                harnessCalls: cap.stats.calls, harnessTris: cap.stats.triangles,
+                gpuName: D.gpuName
+            };
+        });
+        await page.waitForTimeout(400); // painel redesenha a cada 250 ms (tempo real)
+        out.on.panelText = await page.evaluate(() => document.getElementById('debug-overlay').textContent);
+
+        out.contract = await page.evaluate(() => {
+            const wrap = window.__debugOverlay.wrapRender;
+            const info = renderer.info;
+            const r = {};
+            const fake = function (a, b) { return { self: this, a, b, n: arguments.length }; };
+            const w = wrap(fake);
+            const ctx = { tag: 'ctx' };
+            const ret = w.call(ctx, 1, 'x', 3);
+            r.returnsValue = ret.self === ctx && ret.a === 1 && ret.b === 'x' && ret.n === 3;
+            r.keepsOriginal = w.__debugOriginal === fake;
+            const boom = new Error('boom');
+            info.autoReset = true;
+            try { wrap(() => { throw boom; })(); r.rethrows = false; } catch (e) { r.rethrows = e === boom; }
+            r.autoResetRestoredAfterThrow = info.autoReset === true;
+            info.autoReset = false;
+            wrap(() => 1)();
+            r.autoResetRestoredFalse = info.autoReset === false;
+            info.autoReset = true;
+            r.liveWrapperKeepsGameFunction = typeof window.renderFrame.__debugOriginal === 'function'
+                && window.renderFrame.__debugOriginal.name === 'renderFrame';
+            // custo do wrapper (Date.now, pois performance.now é virtual no teste)
+            const noop = function () {};
+            const wn = wrap(noop);
+            const N = 200000;
+            let t = Date.now(); for (let i = 0; i < N; i++) noop(); const raw = Date.now() - t;
+            t = Date.now(); for (let i = 0; i < N; i++) wn(); const wrapped = Date.now() - t;
+            r.overheadMicrosPerCall = (wrapped - raw) * 1000 / N;
+            return r;
+        });
+        await context.close();
+    }
+    // D04 com ?debug=1 o canvas renderizado tem que ser idêntico à referência
+    {
+        const { page, context } = await newGamePage('debug-render', { query: '?debug=1' });
+        const r = await shootPose(page, POSES[0]);
+        fs.writeFileSync(path.join(imgDir, `debug_${POSES[0].id}.png`), Buffer.from(r.img.split(',')[1], 'base64'));
+        await page.screenshot({ path: path.join(imgDir, `debug_${POSES[0].id}__tela_com_hud.png`) });
+        out.render = { camera: roundDeep(r.camera), stats: r.stats };
+        await context.close();
+    }
+    return out;
+}
+
 async function collectCaptures(outDir) {
     const caps = {};
     fs.mkdirSync(outDir, { recursive: true });
     for (const pose of POSES) {
         const { page, context } = await newGamePage(pose.id);
-        const r = await page.evaluate(([pose, settle]) => {
-            const H = window.__harness;
-            if (pose.dim === 'cave') enterCaveDimension(caves[0]);
-            else if (pose.dim === 'limbo') enterLimboDimension();
-            else { player.x = pose.x; player.z = pose.z; player.y = getTerrainHeight(pose.x, pose.z); player.vy = 0; player.onGround = true; }
-            camYaw = pose.yaw; camPitch = pose.pitch; world.hour = pose.hour;
-            H.tick(settle);
-            const shot = H.capture();
-            return { ...shot, camera: H.cameraState() };
-        }, [pose, CONFIG.settleFrames]);
+        const r = await shootPose(page, pose);
         const png = Buffer.from(r.img.split(',')[1], 'base64');
         fs.writeFileSync(path.join(outDir, `${pose.id}.png`), png);
         await page.screenshot({ path: path.join(outDir, `${pose.id}__tela_com_hud.png`) });
@@ -467,6 +551,7 @@ async function main() {
     result.save = await collectSave(baseline ? baseline.save.fixture : null);
     result.memory = await collectMemory();
     result.captures = await collectCaptures(imgDir);
+    if (!UPDATE) result.debug = await collectDebug(imgDir);
     result.consoleErrors = consoleErrors.slice();
     result.durationSec = Math.round((Date.now() - t0) / 1000);
 
@@ -527,6 +612,33 @@ async function main() {
         const ok = camOk && !r.sizeMismatch && r.diffFraction <= CONFIG.imageTolerance.maxFraction;
         add(id.toUpperCase().slice(0, 3), `Captura: ${pose.desc}`, 'visual (render real do jogo, câmera simulada)', ok ? 'APROVADO' : 'REPROVADO',
             r.sizeMismatch ? 'tamanho diferente' : `${(r.diffFraction * 100).toFixed(4)}% pixels diferentes, diferença média ${r.meanAbsDiff.toFixed(3)}, câmera ${camOk ? 'igual' : 'DIFERENTE'}`);
+    }
+
+    {
+        const d = result.debug;
+        add('D01', 'Sem ?debug: overlay ausente e renderFrame original', 'simulado',
+            (!d.off.panel && d.off.api === 'undefined' && !d.off.wrapped && d.off.autoReset === true) ? 'APROVADO' : 'REPROVADO', JSON.stringify(d.off));
+        const on = d.on, st = on.stats || {};
+        const okOn = on.api && on.wrapped && on.panel && on.autoResetAfterFrame === true
+            && Math.abs(st.fps - 60) < 0.2 && Math.abs(st.frameAvg - CONFIG.frameMs) < 0.05
+            && on.overlayCalls === on.harnessCalls && on.overlayTris === on.harnessTris && on.overlayCalls > 0
+            && /FPS/.test(on.panelText) && !!on.gpuName;
+        add('D02', 'Com ?debug=1: painel ativo e números coerentes', 'simulado (relógio virtual)', okOn ? 'APROVADO' : 'REPROVADO',
+            `FPS ${st.fps && st.fps.toFixed(2)} (esperado 60,00), frame ${st.frameAvg && st.frameAvg.toFixed(3)} ms (esperado ${CONFIG.frameMs}), draw calls overlay ${on.overlayCalls} = medição independente ${on.harnessCalls}, tris ${on.overlayTris} = ${on.harnessTris}, autoReset restaurado ${on.autoResetAfterFrame}, GPU "${on.gpuName}"`);
+        const c = d.contract;
+        const okC = c.returnsValue && c.keepsOriginal && c.rethrows && c.autoResetRestoredAfterThrow && c.autoResetRestoredFalse && c.liveWrapperKeepsGameFunction;
+        add('D03', 'Wrapper de renderFrame: this, argumentos, retorno, exceção e estado', 'simulado', okC ? 'APROVADO' : 'REPROVADO', JSON.stringify({ ...c, overheadMicrosPerCall: undefined }));
+        const b = path.join(BASE_DIR, 'img', `${POSES[0].id}.png`), a = path.join(imgDir, `debug_${POSES[0].id}.png`);
+        if (!sameEnv) add('D04', 'Com ?debug=1 a imagem 3D é idêntica à referência', 'visual', 'INCONCLUSIVO', 'ambiente diferente da referência');
+        else {
+            const r = await compareImages(b, a, path.join(imgDir, `debug_${POSES[0].id}__diff.png`));
+            const camOk = eq(baseline.captures[POSES[0].id].camera, d.render.camera);
+            add('D04', 'Com ?debug=1 a imagem 3D é idêntica à referência', 'visual (render real, câmera simulada)',
+                camOk && r.diffFraction === 0 ? 'APROVADO' : 'REPROVADO', `${(r.diffFraction * 100).toFixed(4)}% pixels diferentes, diferença média ${r.meanAbsDiff.toFixed(3)}, câmera ${camOk ? 'igual' : 'DIFERENTE'}`);
+        }
+        // critério: < 5 µs por frame (0,03% de um frame de 60 FPS)
+        add('D05', 'Custo do wrapper por frame (< 5 µs)', 'medição (CPU deste ambiente)', c.overheadMicrosPerCall < 5 ? 'APROVADO' : 'REPROVADO',
+            `${c.overheadMicrosPerCall.toFixed(3)} µs por chamada (1 chamada por frame; um frame a 60 FPS = 16.667 µs)`);
     }
 
     const report = { environment: result.environment, sameEnvironmentAsBaseline: sameEnv, tests: T, result };

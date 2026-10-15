@@ -4673,5 +4673,116 @@ requestAnimationFrame(animate);
     addLog("🔥 <b>Patch v2.4 Aplicado!</b> Bola azul removida, olhar furioso ajustado, magias saindo da ponta do cajado e 5 animações diferentes de ataque e caminhada!", "#ffd54f");
 })();
 </script>
+<script>
+// =============================================================================
+// DEBUG OVERLAY (Etapa 0 / C2) — ativo SOMENTE com ?debug=1 na URL.
+// Sem o parâmetro este bloco termina na primeira verificação e não altera nada.
+// Para remover: apagar este <script> inteiro.
+//
+// Como cada número é medido:
+//   FPS / frame      intervalo de relógio (performance.now) entre chamadas
+//                    consecutivas de renderFrame, numa janela de ~1 s.
+//                    "pior" = maior intervalo da janela.
+//   CPU render       tempo gasto DENTRO de renderFrame (envio de comandos pelo
+//                    JavaScript). Não é o tempo da GPU, que o navegador não expõe.
+//   draw calls/tris  renderer.info somado de TODOS os render() do frame: cena,
+//                    sombras e os ~6 passes do pós-processamento (quads de 2 tris).
+//   geometrias/tex   renderer.info.memory (objetos alocados na GPU).
+//   heap JS          performance.memory (só Chrome/Edge; aproximado).
+//   GPU              WEBGL_debug_renderer_info (nome real da placa, se o
+//                    navegador permitir; senão, o nome genérico do WebGL).
+// O painel é redesenhado 4x por segundo para não pesar na medição.
+// =============================================================================
+(function debugOverlay() {
+    let enabled = false;
+    try { enabled = new URLSearchParams(window.location.search).get('debug') === '1'; } catch (e) {}
+    if (!enabled) return;
+    if (typeof window.renderFrame !== 'function' || typeof renderer === 'undefined') {
+        console.warn('[debug] renderFrame/renderer não encontrados; overlay desativado.');
+        return;
+    }
+
+    const info = renderer.info;
+    const WINDOW_MS = 1000;
+    const stats = { frames: 0, windowStart: null, lastFrame: null, worst: 0, cpuSum: 0,
+                    fps: 0, frameAvg: 0, frameWorst: 0, cpuAvg: 0, calls: 0, triangles: 0 };
+
+    // Envolve uma função de render preservando this, argumentos, retorno e exceções.
+    // O estado de renderer.info.autoReset é restaurado depois de cada chamada.
+    function wrapRender(original) {
+        function renderFrameWithDebug() {
+            const t0 = performance.now();
+            const prevAutoReset = info.autoReset;
+            info.autoReset = false;
+            info.reset();
+            try {
+                return original.apply(this, arguments);
+            } finally {
+                const t1 = performance.now();
+                stats.calls = info.render.calls;
+                stats.triangles = info.render.triangles;
+                info.autoReset = prevAutoReset;
+                record(t0, t1);
+            }
+        }
+        renderFrameWithDebug.__debugOriginal = original;
+        return renderFrameWithDebug;
+    }
+
+    function record(t0, t1) {
+        if (stats.lastFrame !== null) stats.worst = Math.max(stats.worst, t0 - stats.lastFrame);
+        if (stats.windowStart === null) stats.windowStart = t0;
+        stats.lastFrame = t0;
+        stats.frames++;
+        stats.cpuSum += t1 - t0;
+        const elapsed = t0 - stats.windowStart;
+        if (elapsed >= WINDOW_MS && stats.frames > 1) {
+            stats.fps = (stats.frames - 1) * 1000 / elapsed;
+            stats.frameAvg = elapsed / (stats.frames - 1);
+            stats.frameWorst = stats.worst;
+            stats.cpuAvg = stats.cpuSum / stats.frames;
+            stats.frames = 1; stats.windowStart = t0; stats.worst = 0; stats.cpuSum = t1 - t0;
+        }
+    }
+
+    let gpuName = 'desconhecida';
+    try {
+        const gl = renderer.getContext();
+        const ext = gl.getExtension('WEBGL_debug_renderer_info');
+        gpuName = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
+    } catch (e) {}
+
+    const panel = document.createElement('div');
+    panel.id = 'debug-overlay';
+    panel.style.cssText = 'position:fixed;top:8px;left:8px;z-index:40;pointer-events:none;' +
+        'font:11px/1.45 monospace;color:#e8e0ff;background:rgba(10,6,18,0.82);' +
+        'border:1px solid #f0b44c;border-radius:6px;padding:6px 9px;white-space:pre-wrap;max-width:46vw;overflow:hidden;';
+    document.body.appendChild(panel);
+
+    const fmt = (n, d = 1) => (typeof n === 'number' && isFinite(n) ? n.toFixed(d) : '-');
+    function draw() {
+        const mem = info.memory;
+        const heap = performance.memory ? (performance.memory.usedJSHeapSize / 1048576).toFixed(0) + ' MB' : 'n/d';
+        const size = renderer.domElement.width + 'x' + renderer.domElement.height;
+        panel.textContent =
+            'DEBUG  Dark Wizard\n' +
+            'FPS ' + fmt(stats.fps) + '   frame ' + fmt(stats.frameAvg) + ' ms (pior ' + fmt(stats.frameWorst) + ')\n' +
+            'CPU render ' + fmt(stats.cpuAvg, 2) + ' ms\n' +
+            'draw calls ' + stats.calls + '   tris ' + stats.triangles.toLocaleString('pt-BR') + '\n' +
+            'geometrias ' + mem.geometries + '   texturas ' + mem.textures + '   programas ' + (info.programs ? info.programs.length : '-') + '\n' +
+            'heap JS ' + heap + '\n' +
+            'canvas ' + size + ' @' + fmt(renderer.getPixelRatio(), 2) + 'x   WebGL' + (renderer.capabilities.isWebGL2 ? '2' : '1') + '\n' +
+            'sombras ' + (renderer.shadowMap.enabled ? 'on' : 'off') + '   pós-fx ' + (typeof postFx !== 'undefined' && postFx.enabled && postFx.ok ? 'on' : 'off') +
+            '   grama ' + (typeof bladeGeo !== 'undefined' ? bladeGeo.instanceCount : '-') + '\n' +
+            'GPU ' + gpuName;
+    }
+
+    window.renderFrame = wrapRender(window.renderFrame);
+    setInterval(draw, 250);
+    draw();
+    window.__debugOverlay = { stats, wrapRender, gpuName };
+    console.info('[debug] overlay ativo. GPU: ' + gpuName);
+})();
+</script>
 </body>
 </html>
