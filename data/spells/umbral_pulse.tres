@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://combat/spell_data.gd" id="1_ohnap"]
+
+[resource]
+script = ExtResource("1_ohnap")
+id = &"umbral_pulse"
+name_key = "SPELL_UMBRAL_PULSE"
+desc_key = "SPELL_UMBRAL_PULSE_DESC"
+kind = 1
+mana_cost = 20.0
+cooldown = 6.0
+damage = 22.0
+radius = 5.5
+knockback = 10.0
+stagger = 1.0
+color = Color(0.41960785, 0.18431373, 0.8392157, 1)
+world_tags = PackedStringArray("shatter")
+cast_anim = &"cast_area"
+cast_lock = 0.45

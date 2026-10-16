@@ -93,7 +93,8 @@ func test_dodge_gives_iframes_and_costs_stamina() -> void:
 	assert_bool(p.has_iframes()).is_true()
 	assert_float(p.stats.stamina).is_less(100.0)
 	var hp: float = p.stats.health
-	p.stats.damage(20.0)
+	var hit: DamageInfo = DamageInfo.make(20.0, DamageInfo.Element.PHYSICAL, null)
+	assert_bool(p.take_damage(hit)).is_false()
 	assert_float(p.stats.health).is_equal(hp)
 	await _steps(p, 40)
 	assert_bool(p.has_iframes()).is_false()

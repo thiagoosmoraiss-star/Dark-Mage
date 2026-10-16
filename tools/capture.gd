@@ -82,6 +82,7 @@ func _setup_shot(shot: Dictionary) -> void:
 		if terrain_node != null:
 			pp.y = JsonUtil.num(terrain_node.call(&"height_at", pp), pp.y) + 0.05
 		player.call(&"teleport", pp)
+		player.set(&"god_mode", true)
 		player.rotation.y = deg_to_rad(JsonUtil.get_f(shot, "player_yaw", 0.0))
 		var rig: Node3D = player.get_node_or_null(^"CameraRig") as Node3D
 		if rig != null:
@@ -98,6 +99,13 @@ func _setup_shot(shot: Dictionary) -> void:
 				fog.call(&"reveal", JsonUtil.vec3(p), 160.0)
 			if not ms.call(&"is_open"):
 				ms.call(&"toggle")
+	if shot.has("cast") and player != null:
+		var caster: Node = player.get_node_or_null(^"SpellCaster")
+		if caster != null:
+			var spell: Resource = (load("res://data/spells/%s.tres" % str(shot["cast"])) as Resource)
+			var cds: RefCounted = caster.get(&"cooldowns")
+			cds.call(&"reset")
+			caster.call(&"cast_spell", spell, JsonUtil.get_f(shot, "charge", 0.0))
 	if shot.has("cam_rel") and player != null:
 		var base: Vector3 = player.global_position
 		shot["cam"] = _arr(base + player.global_basis * JsonUtil.vec3(shot["cam_rel"]))

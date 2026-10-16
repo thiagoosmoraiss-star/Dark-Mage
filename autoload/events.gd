@@ -20,6 +20,17 @@ signal time_of_day_changed(hours: float)
 signal region_entered(region_id: StringName)
 signal region_purified(region_id: StringName)
 
+# Combate
+signal damage_dealt(target: Node, info: RefCounted)
+signal player_damaged(info: RefCounted)
+signal enemy_killed(enemy: Node)
+signal spell_cast(spell_id: StringName)
+## Um feitiço acertou o mundo (objetos reativos: braseiros, espinhos, água, runas).
+signal spell_hit_world(spell_id: StringName, element: int, pos: Vector3, collider: Node)
+signal perfect_dodge
+signal combat_state_changed(in_combat: bool)
+signal lock_on_changed(target: Node)
+
 # Debug
 signal dev_overlay_toggled(visible: bool)
 

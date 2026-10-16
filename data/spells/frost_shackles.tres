@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://combat/spell_data.gd" id="1_rndku"]
+
+[resource]
+script = ExtResource("1_rndku")
+id = &"frost_shackles"
+name_key = "SPELL_FROST_SHACKLES"
+desc_key = "SPELL_FROST_SHACKLES_DESC"
+kind = 6
+element = 2
+mana_cost = 20.0
+cooldown = 8.0
+damage = 12.0
+radius = 4.0
+range_m = 14.0
+duration = 3.0
+stagger = 0.4
+color = Color(0.62352943, 0.8901961, 1, 1)
+world_tags = PackedStringArray("freeze_water")

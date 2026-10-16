@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3]
+
+[ext_resource type="Script" path="res://ai/enemy_data.gd" id="1_8akso"]
+
+[resource]
+script = ExtResource("1_8akso")
+id = &"bone_archer"
+name_key = "ENEMY_BONE_ARCHER"
+model_path = "res://assets/models/characters/kaykit_skeletons/Skeleton_Rogue.glb"
+weapon_path = "res://assets/models/props/kaykit_skeleton_weapons/Skeleton_Crossbow.gltf"
+tint = Color(0.78, 0.74, 0.7, 1)
+eye_color = Color(1, 0.47843137, 0.3529412, 1)
+health = 42.0
+damage = 13.0
+walk_speed = 1.5
+run_speed = 4.2
+sight_range = 30.0
+hearing_range = 16.0
+attack_kind = 1
+attack_range = 24.0
+preferred_range = 15.0
+attack_cooldown = 2.6
+windup = 0.9
+projectile_speed = 26.0
+poise = 0.45
+xp = 14
+souls = 8
+anim_attack = &"1H_Ranged_Shoot"
+anim_run = &"Running_B"

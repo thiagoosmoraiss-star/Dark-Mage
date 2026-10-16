@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3]
+
+[ext_resource type="Script" path="res://ai/enemy_data.gd" id="1_cqcsk"]
+
+[resource]
+script = ExtResource("1_cqcsk")
+id = &"mist_crawler"
+name_key = "ENEMY_MIST_CRAWLER"
+model_path = "res://assets/models/characters/kaykit_skeletons/Skeleton_Minion.glb"
+weapon_path = "res://assets/models/props/kaykit_skeleton_weapons/Skeleton_Blade.gltf"
+tint = Color(0.62, 0.55, 0.72, 1)
+health = 55.0
+damage = 11.0
+walk_speed = 1.7
+run_speed = 4.9
+sight_range = 20.0
+attack_range = 2.1
+attack_cooldown = 1.9
+windup = 0.6
+poise = 0.55
+xp = 12
+souls = 6

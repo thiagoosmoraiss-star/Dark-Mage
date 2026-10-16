@@ -22,6 +22,7 @@ Rng="*res://autoload/rng.gd"
 Game="*res://autoload/game.gd"
 Settings="*res://autoload/settings.gd"
 SaveSystem="*res://autoload/save_system.gd"
+Audio="*res://autoload/audio.gd"
 DevOverlay="*res://ui/debug/dev_overlay.gd"
 
 [debug]
@@ -189,6 +190,7 @@ debug_overlay={
 
 [internationalization]
 
+locale/translations=PackedStringArray("res://data/i18n/strings.en.translation", "res://data/i18n/strings.pt_BR.translation")
 locale/fallback="pt_BR"
 
 [physics]

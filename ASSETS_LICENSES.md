@@ -33,3 +33,193 @@ Todo arquivo em `assets/` precisa aparecer aqui pelo caminho relativo a `assets/
 | textures/terrain/snow014_normal_rough.png | Snow014 (1K-JPG, empacotado por tools/pack_terrain_textures.gd) | ambientCG (Lennart Demes) | https://ambientcg.com/view?id=Snow014 | CC0 1.0 | 2026-10-16 |
 | models/characters/kaykit_mage/Mage.glb | KayKit Adventurers 1.0 — Mage (modelo, rig e 75 animações) | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0 | CC0 1.0 (`models/characters/kaykit_mage/LICENSE_KayKit.md`) | 2026-10-16 |
 | models/characters/kaykit_mage/Mage_mage_texture.png | Atlas de textura extraído do Mage.glb na importação | Kay Lousberg | (idem) | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/computerNoise_000.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/computerNoise_001.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/computerNoise_002.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/computerNoise_003.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/explosionCrunch_000.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/explosionCrunch_001.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/explosionCrunch_002.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/explosionCrunch_003.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/explosionCrunch_004.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/forceField_000.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/forceField_001.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/forceField_002.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/forceField_003.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/forceField_004.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserLarge_000.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserLarge_001.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserLarge_002.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserLarge_003.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserLarge_004.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserSmall_000.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserSmall_001.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserSmall_002.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserSmall_003.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/laserSmall_004.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/lowFrequency_explosion_000.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/lowFrequency_explosion_001.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/slime_000.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/slime_001.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/thrusterFire_000.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/thrusterFire_001.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/thrusterFire_002.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/thrusterFire_003.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/sci-fi-sounds/thrusterFire_004.ogg | Sci-Fi Sounds 1.0 | Kenney | https://kenney.nl/assets/sci-fi-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_concrete_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_concrete_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_concrete_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_concrete_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_concrete_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_grass_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_grass_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_grass_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_grass_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_grass_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_snow_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_snow_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_snow_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_snow_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_snow_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_wood_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_wood_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_wood_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_wood_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/footstep_wood_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactBell_heavy_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactBell_heavy_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactBell_heavy_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactBell_heavy_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactBell_heavy_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_light_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_light_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_light_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_light_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_light_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_medium_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_medium_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_medium_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_medium_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactGlass_medium_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactMining_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactMining_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactMining_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactMining_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactMining_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPlate_light_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPlate_light_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPlate_light_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPlate_light_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPlate_light_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_heavy_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_heavy_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_heavy_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_heavy_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_heavy_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_medium_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_medium_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_medium_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_medium_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactPunch_medium_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactSoft_heavy_000.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactSoft_heavy_001.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactSoft_heavy_002.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactSoft_heavy_003.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/impact-sounds/impactSoft_heavy_004.ogg | Impact Sounds 1.0 | Kenney | https://kenney.nl/assets/impact-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/bookClose.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/bookFlip1.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/bookFlip2.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/bookFlip3.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/bookOpen.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/chop.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/cloth1.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/cloth2.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/cloth3.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/cloth4.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/clothBelt.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/clothBelt2.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/creak1.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/creak2.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/creak3.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/drawKnife1.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/drawKnife2.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/drawKnife3.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/dropLeather.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/handleCoins.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/handleCoins2.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/knifeSlice.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/knifeSlice2.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/rpg-audio/metalLatch.ogg | RPG Audio 1.0 | Kenney | https://kenney.nl/assets/rpg-audio | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/back_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/back_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/back_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/back_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/click_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/click_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/click_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/click_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/click_005.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/close_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/close_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/close_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/close_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/confirmation_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/confirmation_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/confirmation_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/confirmation_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/error_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/error_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/error_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/error_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/error_005.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/error_006.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/error_007.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/error_008.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/glass_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/glass_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/glass_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/glass_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/glass_005.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/glass_006.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/open_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/open_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/open_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/open_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/scroll_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/scroll_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/scroll_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/scroll_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/scroll_005.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/select_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/select_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/select_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/select_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/select_005.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/select_006.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/select_007.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/select_008.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/toggle_001.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/toggle_002.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/toggle_003.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| audio/sfx/interface-sounds/toggle_004.ogg | Interface Sounds 1.0 | Kenney | https://kenney.nl/assets/interface-sounds | CC0 1.0 | 2026-10-16 |
+| models/characters/kaykit_skeletons/Skeleton_Mage.glb | KayKit Character Pack: Skeletons 1.0 | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/characters/kaykit_skeletons/Skeleton_Mage_skeleton_texture.png | KayKit Character Pack: Skeletons 1.0 | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/characters/kaykit_skeletons/Skeleton_Minion.glb | KayKit Character Pack: Skeletons 1.0 | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/characters/kaykit_skeletons/Skeleton_Minion_skeleton_texture.png | KayKit Character Pack: Skeletons 1.0 | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/characters/kaykit_skeletons/Skeleton_Rogue.glb | KayKit Character Pack: Skeletons 1.0 | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/characters/kaykit_skeletons/Skeleton_Rogue_skeleton_texture.png | KayKit Character Pack: Skeletons 1.0 | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/characters/kaykit_skeletons/Skeleton_Warrior.glb | KayKit Character Pack: Skeletons 1.0 | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/characters/kaykit_skeletons/Skeleton_Warrior_skeleton_texture.png | KayKit Character Pack: Skeletons 1.0 | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Arrow.bin | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Arrow.gltf | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Axe.bin | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Axe.gltf | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Blade.bin | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Blade.gltf | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Crossbow.bin | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Crossbow.gltf | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Shield_Small_A.bin | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Shield_Small_A.gltf | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Staff.bin | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/Skeleton_Staff.gltf | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |
+| models/props/kaykit_skeleton_weapons/skeleton_texture.png | KayKit Skeletons 1.0 — armas/acessórios | Kay Lousberg | https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Skeletons-1.0 | CC0 1.0 | 2026-10-16 |

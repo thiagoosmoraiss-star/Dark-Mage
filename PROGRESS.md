@@ -1,15 +1,16 @@
 # Progresso
 
 ## Estado atual (para retomar)
-- **Marcos concluídos:** M0, M1, M2, M3, M4, M5 (tags `m0`…`m5`). **Próximo:** M6 — combate e magia (fatia vertical).
+- **Marcos concluídos:** M0–M6 (tags `m0`…`m6`). **Próximo:** M7 — conteúdo do mundo (6 regiões, faróis, fogueiras, baús, segredos, 6 inimigos).
 - **Godot:** `../tools/godot/Godot_v4.7.2-stable_win64.exe` (ou `GODOT_BIN`).
-- **Verificação:** `bash tools/check.sh` (APROVADO, 59 testes) · capturas `bash tools/capture.sh tests/golden/<m>/shots.json`
+- **Verificação:** `bash tools/check.sh` (APROVADO, 75 testes) · capturas `bash tools/capture.sh tests/golden/<m>/shots.json`
   · benchmark `godot --path . -- --bench --preset=high`.
-- **Regerar a ilha** (só se mudar o gerador): `QUIT_AFTER=100000 bash tools/run.sh res://tools/generate_island.gd` (~3,5 min).
+- **Geradores de dados:** `tools/run.sh res://tools/make_spells.gd` · `tools/run.sh res://tools/make_enemies.gd`
+  · ilha: `QUIT_AFTER=100000 bash tools/run.sh res://tools/generate_island.gd` (~3,5 min).
 - **Próximos 3 passos:**
-  1. M6: sistema de dano/status (`combat/`), `SpellData` (Resource) e pool de projéteis/efeitos.
-  2. M6: ataque básico (combo de 3), 4 feitiços (projétil carregável, área, raio em cadeia, barreira), mira e lock-on, hit-stop e tremor.
-  3. M6: 2 inimigos com FSM + NavigationAgent3D, VFX e áudio de impacto, teste de vazamento com 200 conjurações.
+  1. M7: `Beacon` (interação no topo, revela o mapa da região, purifica: cor/névoa), `Bonfire` (descanso, cura, save, viagem rápida), `Chest`.
+  2. M7: POIs das 6 regiões em `data/world_pois.gd`; identidade por região (névoa violeta, LUT, FogVolume, água do pântano); rios/lagos.
+  3. M7: inimigos 3–6 (morcego, golem, bruxa, serpente) e teste de POIs (posição e alcance).
 
 ## Ao iniciar uma sessão
 Ler `docs/ROTEIRO.md`, este arquivo, `DECISIONS.md` e `TODO.md`; rodar `bash tools/check.sh`; só então continuar.
@@ -149,3 +150,29 @@ revela e salva (APROVADO).
 
 **Autocrítica:** mecânicas funcionam e são testadas; o mapa ainda é simples (cores de prévia, sem ícones)
 e será refeito com a UI completa no M9.
+
+### 2026-10-16 · M6 — Combate e magia (fatia vertical)
+
+**Feito:** núcleo de combate (`DamageInfo`, `StatusEffects`, `Cooldowns`, `HitStop`); 8 `SpellData.tres` com
+nomes/descrições em `data/i18n/strings.csv` (pt_BR/en); `SpellCaster` (ataque básico em combo de 3, slots Q/E/R/F,
+carga, mira de ombro com retícula, auto-alvo suave, lock-on com câmera, ultimate carregada pelo dano); os 4
+feitiços da fatia (Lança Arcana carregável, Pulso Umbral, Corrente Etérea, Égide Violeta) + Passo Umbral (blink);
+os outros 3 (Queda Astral, Grilhões de Gelo, Ira do Farol) já funcionam e serão destravados na progressão;
+esquiva com i-frames e esquiva perfeita (câmera lenta + mana); hit-stop, tremor, flash branco, números de dano,
+VFX em pool e áudio em camadas; inimigos Rastejante da Névoa e Arqueiro Esqueleto com FSM completa,
+percepção (visão + som), telegrafia (pose, olhos acendendo, anel no chão), diretor de combate e navegação
+assada em tempo de execução; HUD (vida, mana, slots com recarga e ícones próprios, carga, ultimate, mira, alvo
+travado, barras de inimigos); ruínas esculpidas e torre do farol no Vale; acampamentos de inimigos; autoload `Audio`.
+
+**Testes (75/75 APROVADO):** combo acerta; carga causa mais dano (toque 18,6 vs. carregada 55); pulso atinge e
+empurra só quem está perto; corrente salta entre 3 inimigos; égide absorve; gelo congela; inimigo persegue,
+telegrafa e acerta; esquiva perfeita evita dano; máximo de 2 atacantes; 200 conjurações sem vazamento
+(+8 objetos / +8 recursos após aquecimento); lógica de status/recarga/feitiços/hit-stop.
+
+**Autocrítica (M6):** o loop de combate funciona e lê bem (telegrafia clara, números, flash, sons). Bonito:
+ruínas ao entardecer, a Égide dourada à noite, o cristal do cajado iluminando inimigos. Feio/limitado: os efeitos
+de impacto são pequenos e rápidos demais para "peso" (aumentar no M10); o arco da ruína ainda parece montado
+por blocos soltos; a torre do farol é um cilindro de blocos repetidos sem detalhe no topo (M7); inimigos e
+mago no estilo KayKit (fofo) contrastam com o tom sombrio pretendido. "Fatia vertical de 10 minutos com aparência
+de produto final": jogável no Vale (explorar, ruínas, dois grupos de inimigos, farol para escalar), mas **ainda
+sem menu inicial, música e polimento de UI** (M9/M10) — aprovado como fatia jogável, não como produto final.

@@ -13,3 +13,9 @@ Roteiro manual. Preencher a cada marco; o checklist de polimento (M10) e a campa
 - [ ] Rodar `godot --path . -- --bench --preset=high` e colar o JSON em PERFORMANCE.md.
 - [ ] Jogar 10 min no Vale: câmera, escalar uma encosta, planar de um morro, nadar no mar, abrir o mapa (M).
 - [ ] Conferir se o mouse fica preso na janela (clique) e se Esc libera.
+
+## M6 — Fatia vertical (dono)
+- [ ] Jogar 10 min no Vale: lutar com o grupo ao norte (Q/E/R/F, botão esquerdo, direito para mirar, Tab/meio para travar).
+- [ ] Esquivar (Ctrl/C) no momento do golpe e ver a câmera lenta da esquiva perfeita.
+- [ ] Morrer de propósito e renascer no início.
+- [ ] Escalar a torre do farol e as colunas das ruínas.

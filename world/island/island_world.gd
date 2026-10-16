@@ -16,6 +16,13 @@ var vegetation: VegetationSystem
 var grass: GrassField
 var fog: FogOfWar = FogOfWar.new()
 var map_screen: MapScreen
+var vfx: Vfx
+var projectiles: ProjectilePool
+var director: CombatDirector
+var nav: NavBaker
+var game_hud: Hud
+var enemies: Array[Enemy] = []
+var structures: Dictionary[StringName, Node3D] = {}
 var _reveal_timer: float = 0.0
 
 
@@ -42,6 +49,23 @@ func _ready() -> void:
 			add_child(layer_node)
 			if which == GrassField.Layer.GRASS:
 				grass = layer_node
+	vfx = Vfx.new()
+	vfx.name = "Vfx"
+	add_child(vfx)
+	projectiles = ProjectilePool.new()
+	projectiles.name = "Projectiles"
+	add_child(projectiles)
+	director = CombatDirector.new()
+	director.name = "CombatDirector"
+	add_child(director)
+	if terrain != null:
+		_build_structures()
+		nav = NavBaker.new()
+		nav.name = "Navigation"
+		nav.terrain = terrain
+		add_child(nav)
+		if not Game.has_arg("--no-enemies") and not Game.has_arg("--bench"):
+			_spawn_camps()
 	if Game.has_arg("--bench"):
 		var bench: BenchFlight = BenchFlight.new()
 		bench.name = "BenchFlight"
@@ -79,12 +103,54 @@ func _spawn_player() -> void:
 	var wheel: StaminaWheel = StaminaWheel.new()
 	wheel.player = player
 	hud.add_child(wheel)
+	game_hud = Hud.new()
+	game_hud.name = "GameHud"
+	hud.add_child(game_hud)
+	game_hud.bind(player)
 	map_screen = MapScreen.new()
 	map_screen.name = "MapScreen"
 	map_screen.fog = fog
 	map_screen.player = player
 	add_child(map_screen)
 	fog.reveal(player.global_position, 90.0)
+
+
+func _build_structures() -> void:
+	for poi: Dictionary in WorldPois.POIS:
+		var p2: Vector2 = WorldPois.pos2(poi)
+		var pos: Vector3 = Vector3(p2.x, terrain.height_at(Vector3(p2.x, 0, p2.y)), p2.y)
+		match poi["kind"] as StringName:
+			&"ruin":
+				structures[poi["id"]] = RuinBuilder.build_ruin(self, pos, StableHash.fnv1a_string(String(poi["id"] as StringName)), terrain)
+			&"beacon":
+				structures[poi["id"]] = RuinBuilder.build_beacon_tower(self, pos - Vector3.UP * 0.5, 7)
+
+
+## Acampamentos: rastejantes em grupo perto do centro e arqueiros nas bordas.
+func _spawn_camps() -> void:
+	var crawler: EnemyData = load("res://data/enemies/mist_crawler.tres") as EnemyData
+	var archer: EnemyData = load("res://data/enemies/bone_archer.tres") as EnemyData
+	for poi: Dictionary in WorldPois.by_kind(&"camp"):
+		var c: Vector2 = WorldPois.pos2(poi)
+		var rng: RandomNumberGenerator = Rng.make_rng(Rng.WORLD_SEED, "camp_" + String(poi["id"] as StringName))
+		var layout: Array[Array] = [[crawler, Vector2(0, 0)], [crawler, Vector2(3, 2)], [crawler, Vector2(-3, 1.5)],
+			[archer, Vector2(10, -6)], [archer, Vector2(-11, -5)]]
+		for entry: Array in layout:
+			var off: Vector2 = entry[1]
+			var p: Vector2 = c + off + Vector2(rng.randf_range(-1, 1), rng.randf_range(-1, 1))
+			spawn_enemy(entry[0] as EnemyData, Vector3(p.x, 0.0, p.y), rng.randf() < 0.12)
+
+
+func spawn_enemy(data: EnemyData, pos: Vector3, elite: bool = false) -> Enemy:
+	var e: Enemy = Enemy.new()
+	e.data = data
+	e.elite = elite
+	add_child(e)
+	var y: float = terrain.height_at(pos) if terrain != null else pos.y
+	e.global_position = Vector3(pos.x, y + 0.1, pos.z)
+	e.home = e.global_position
+	enemies.append(e)
+	return e
 
 
 func _physics_process(delta: float) -> void:

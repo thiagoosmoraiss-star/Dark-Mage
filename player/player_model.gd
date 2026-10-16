@@ -63,6 +63,7 @@ func _ready() -> void:
 	staff_light = MageLook.attach_staff(skeleton)
 	cape = MageLook.attach_cape(skeleton)
 	MageLook.attach_eyes(skeleton)
+	CharacterLayers.apply(_visual)
 	_resolve_animations()
 	_build_tree()
 	_align_staff_after_pose.call_deferred()

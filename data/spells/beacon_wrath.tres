@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://combat/spell_data.gd" id="1_tx0mg"]
+
+[resource]
+script = ExtResource("1_tx0mg")
+id = &"beacon_wrath"
+name_key = "SPELL_BEACON_WRATH"
+desc_key = "SPELL_BEACON_WRATH_DESC"
+kind = 7
+mana_cost = 0.0
+damage = 160.0
+radius = 12.0
+knockback = 16.0
+stagger = 1.0
+count = 300
+color = Color(0.9098039, 0.7058824, 0.29803923, 1)
+world_tags = PackedStringArray("ignite", "shatter", "reveal")
+cast_anim = &"cast_area"
+cast_lock = 0.8

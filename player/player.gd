@@ -15,6 +15,9 @@ enum State { GROUND, AIR, CLIMB, GLIDE, SWIM, DODGE, DEAD }
 const STATE_NAMES: Array[String] = ["ground", "air", "climb", "glide", "swim", "dodge", "dead"]
 const CAPSULE_RADIUS: float = 0.35
 const CAPSULE_HEIGHT: float = 1.7
+## Ações cujo "acabou de apertar" é derivado no modo de input roteirizado.
+const TRACKED_ACTIONS: Array[StringName] = [&"jump", &"dodge", &"sprint", &"attack", &"aim", &"lock_on",
+	&"spell_1", &"spell_2", &"spell_3", &"spell_4", &"interact"]
 
 @export var tuning: PlayerTuning = PlayerTuning.new()
 ## Desliga a leitura de input (cutscenes, menus).
@@ -28,6 +31,14 @@ var use_scripted_input: bool = false
 var scripted_input: Dictionary[StringName, bool] = {}
 var physics_frames: int = 0
 var stats: PlayerStats = PlayerStats.new()
+var caster: SpellCaster
+## Égide Violeta: dano absorvido restante e duração.
+var barrier_hp: float = 0.0
+var barrier_time: float = 0.0
+## Modo deus de depuração (testes de chefe, capturas): não recebe dano.
+var god_mode: bool = false
+## Ponto de renascimento (fogueira ativa; no M6, o início).
+var respawn_point: Vector3 = Vector3.ZERO
 var state: State = State.AIR
 var cam_rig: CameraRig
 var model: PlayerModel
@@ -52,6 +63,11 @@ var _iframes: float = 0.0
 var _air_time: float = 0.0
 var _last_fall_speed: float = 0.0
 var _prev_pressed: Dictionary[StringName, bool] = {}
+var _dodge_started_ms: int = -100000
+var _barrier_mesh: MeshInstance3D
+var _step_accum: float = 0.0
+var _dead_time: float = 0.0
+var _combat_timer: float = 0.0
 
 
 func _ready() -> void:
@@ -80,8 +96,13 @@ func _ready() -> void:
 		add_child(cam_rig)
 		cam_rig.set_target(self)
 		cam_rig.yaw = global_rotation.y
+	caster = SpellCaster.new()
+	caster.name = "SpellCaster"
+	add_child(caster)
+	_build_barrier()
 	facing = -global_basis.z
 	last_safe_position = global_position
+	respawn_point = global_position
 	if with_camera and DisplayServer.get_name() != "headless":
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -96,7 +117,11 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	stats.tick(delta)
 	_iframes = maxf(_iframes - delta, 0.0)
-	stats.invulnerable = _iframes > 0.0
+	_tick_barrier(delta)
+	_combat_timer = maxf(_combat_timer - delta, 0.0)
+	if stats.in_combat and _combat_timer <= 0.0:
+		stats.in_combat = false
+		Events.combat_state_changed.emit(false)
 	_read_input()
 	match state:
 		State.GROUND:
@@ -114,13 +139,18 @@ func _physics_process(delta: float) -> void:
 		State.DEAD:
 			velocity = Vector3(0.0, velocity.y - tuning.gravity * delta, 0.0)
 			move_and_slide()
+			_dead_time += delta
+			if _dead_time > 3.0:
+				_respawn()
 	_track_safe_position(delta)
 	var h: Vector3 = Vector3(velocity.x, 0.0, velocity.z)
 	ground_speed = h.length()
+	_footsteps(delta)
 	if model != null:
 		model.update_pose(self, delta)
-	for a: StringName in [&"jump", &"dodge", &"sprint"]:
-		_prev_pressed[a] = pressed(a)
+	if use_scripted_input:
+		for a: StringName in TRACKED_ACTIONS:
+			_prev_pressed[a] = pressed(a)
 	physics_frames += 1
 	stepped.emit(physics_frames)
 
@@ -411,6 +441,8 @@ func _start_dodge() -> void:
 	_dodge_dir = move_input.normalized() if move_input.length() > 0.1 else -facing
 	_dodge_time = tuning.dodge_time
 	_iframes = tuning.dodge_iframes
+	_dodge_started_ms = Time.get_ticks_msec()
+	Audio.play(&"dodge", global_position)
 	set_state(State.DODGE)
 	if model != null:
 		model.on_dodge(_dodge_dir.dot(facing) < -0.3)
@@ -431,6 +463,148 @@ func is_dodging() -> bool:
 
 func has_iframes() -> bool:
 	return _iframes > 0.0
+
+
+func grant_iframes(seconds: float) -> void:
+	_iframes = maxf(_iframes, seconds)
+
+
+func is_alive() -> bool:
+	return state != State.DEAD
+
+
+# --- Dano --------------------------------------------------------------------------
+
+## Recebe um golpe. Retorna se causou dano.
+func take_damage(info: DamageInfo) -> bool:
+	if state == State.DEAD or god_mode:
+		return false
+	_enter_combat()
+	if _iframes > 0.0:
+		var since: float = (Time.get_ticks_msec() - _dodge_started_ms) / 1000.0
+		if info.dodgeable and since <= tuning.perfect_dodge_window + tuning.dodge_iframes:
+			_perfect_dodge()
+		return false
+	if barrier_hp > 0.0:
+		var absorbed: float = minf(barrier_hp, info.amount)
+		barrier_hp -= absorbed
+		info.amount -= absorbed
+		if _barrier_mesh != null:
+			(_barrier_mesh.material_override as ShaderMaterial).set_shader_parameter(&"hit_flash", 1.0)
+		Audio.play(&"barrier", global_position, -6.0)
+		if info.amount <= 0.0:
+			return false
+	stats.damage(info.amount)
+	Events.player_damaged.emit(info)
+	Audio.play(&"player_hurt", global_position)
+	if cam_rig != null:
+		cam_rig.shake(clampf(info.amount / 30.0, 0.2, 0.8), 0.25)
+	var vfx: Vfx = Vfx.get_for(self)
+	if vfx != null:
+		vfx.impact(global_position + Vector3.UP * 1.1, Color("d0443a"), 0.8, 16)
+	if info.knockback > 0.0 and state == State.GROUND:
+		velocity += info.direction * info.knockback
+	if model != null and info.stagger >= 0.5:
+		model.play_oneshot(&"hit", 0.3)
+	if stats.health <= 0.0:
+		_die()
+	return true
+
+
+func _perfect_dodge() -> void:
+	_dodge_started_ms = -100000  # no máximo um por esquiva
+	stats.set_mana(stats.mana + 15.0)
+	HitStop.slow_motion(get_tree(), 450, 0.35)
+	Audio.play(&"perfect_dodge", global_position)
+	var vfx: Vfx = Vfx.get_for(self)
+	if vfx != null:
+		vfx.shockwave(global_position, 3.0, Color("e8b44c"), 0.4)
+	Events.perfect_dodge.emit()
+
+
+func _enter_combat() -> void:
+	if not stats.in_combat:
+		Events.combat_state_changed.emit(true)
+	stats.in_combat = true
+	_combat_timer = 6.0
+
+
+## Inimigos chamam ao perceber o jogador (entra em combate: HUD, música).
+func notify_combat() -> void:
+	_enter_combat()
+
+
+func _die() -> void:
+	set_state(State.DEAD)
+	_dead_time = 0.0
+	if model != null:
+		model.play_oneshot(&"death", 3.0)
+
+
+func _respawn() -> void:
+	stats.set_health(stats.max_health)
+	stats.set_mana(stats.max_mana)
+	stats.set_stamina(stats.max_stamina)
+	stats.exhausted = false
+	teleport(respawn_point)
+	grant_iframes(2.0)
+	respawned.emit()
+
+
+# --- Égide e passos -------------------------------------------------------------------
+
+func _build_barrier() -> void:
+	_barrier_mesh = MeshInstance3D.new()
+	_barrier_mesh.name = "Aegis"
+	var sm: SphereMesh = SphereMesh.new()
+	sm.radius = 1.15
+	sm.height = 2.3
+	sm.radial_segments = 32
+	sm.rings = 16
+	_barrier_mesh.mesh = sm
+	var mat: ShaderMaterial = ShaderMaterial.new()
+	mat.shader = preload("res://shaders/barrier.gdshader")
+	_barrier_mesh.material_override = mat
+	_barrier_mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_barrier_mesh.position.y = 1.0
+	_barrier_mesh.visible = false
+	add_child(_barrier_mesh)
+
+
+func _tick_barrier(delta: float) -> void:
+	if barrier_time > 0.0:
+		barrier_time -= delta
+		if barrier_time <= 0.0 or barrier_hp <= 0.0:
+			barrier_time = 0.0
+			barrier_hp = 0.0
+	if _barrier_mesh == null:
+		return
+	_barrier_mesh.visible = barrier_hp > 0.0
+	if _barrier_mesh.visible:
+		var m: ShaderMaterial = _barrier_mesh.material_override as ShaderMaterial
+		var flash: float = JsonUtil.num(m.get_shader_parameter(&"hit_flash"), 0.0)
+		m.set_shader_parameter(&"hit_flash", maxf(flash - delta * 4.0, 0.0))
+		m.set_shader_parameter(&"strength", clampf(barrier_time, 0.0, 1.0))
+
+
+func _footsteps(delta: float) -> void:
+	if state != State.GROUND or ground_speed < 1.0:
+		_step_accum = 0.0
+		return
+	_step_accum += delta * ground_speed
+	if _step_accum < 2.1:
+		return
+	_step_accum = 0.0
+	var id: StringName = &"step_grass"
+	var island: Node = get_tree().get_first_node_in_group(&"island_terrain")
+	if island != null:
+		var region: int = roundi(JsonUtil.num(island.call(&"region_at", global_position), 2.0))
+		if region == IslandLayout.Region.PEAKS and global_position.y > 120.0:
+			id = &"step_snow"
+		elif region == IslandLayout.Region.CITADEL or region == IslandLayout.Region.BURNT:
+			id = &"step_stone"
+	Audio.play(id, global_position)
+
 
 
 # --- Água e segurança ---------------------------------------------------------------

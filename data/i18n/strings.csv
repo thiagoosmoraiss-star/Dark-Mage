@@ -1,0 +1,27 @@
+keys,pt_BR,en
+GAME_TITLE,Dark Mage — A Ilha do Medo,Dark Mage — The Isle of Fear
+SPELL_ARCANE_LANCE,Lança Arcana,Arcane Lance
+SPELL_ARCANE_LANCE_DESC,"Projétil violeta. Segure para carregar e perfurar com mais força. Acende braseiros.","Violet bolt. Hold to charge for a stronger hit. Lights braziers."
+SPELL_UMBRAL_PULSE,Pulso Umbral,Umbral Pulse
+SPELL_UMBRAL_PULSE_DESC,"Onda de sombra ao seu redor que empurra e atordoa inimigos próximos.","A wave of shadow around you that pushes and staggers nearby foes."
+SPELL_ETHER_CHAIN,Corrente Etérea,Ether Chain
+SPELL_ETHER_CHAIN_DESC,"Raio que salta entre até quatro inimigos. Revela runas ocultas.","Lightning that leaps between up to four foes. Reveals hidden runes."
+SPELL_VIOLET_AEGIS,Égide Violeta,Violet Aegis
+SPELL_VIOLET_AEGIS_DESC,"Barreira que absorve dano e devolve projéteis por alguns segundos.","A barrier that absorbs damage and reflects projectiles for a few seconds."
+SPELL_ASTRAL_FALL,Queda Astral,Astral Fall
+SPELL_ASTRAL_FALL_DESC,"Invoca um astro em chamas no ponto mirado. Fique fora do círculo!","Calls down a burning star at the aimed spot. Stay out of the circle!"
+SPELL_UMBRAL_STEP,Passo Umbral,Umbral Step
+SPELL_UMBRAL_STEP_DESC,"Teletransporte curto. Atravessa ataques e ajuda a explorar.","Short-range blink. Passes through attacks and helps exploration."
+SPELL_FROST_SHACKLES,Grilhões de Gelo,Frost Shackles
+SPELL_FROST_SHACKLES_DESC,"Congela inimigos numa área e transforma água em gelo caminhável.","Freezes foes in an area and turns water into walkable ice."
+SPELL_BEACON_WRATH,Ira do Farol,Beacon's Wrath
+SPELL_BEACON_WRATH_DESC,"Libera a luz dos faróis numa explosão. Carrega com o dano causado.","Unleashes the beacons' light in a blast. Charges with damage dealt."
+ENEMY_MIST_CRAWLER,Rastejante da Névoa,Mist Crawler
+ENEMY_BONE_ARCHER,Arqueiro Esqueleto,Bone Archer
+ENEMY_SPECTRAL_BAT,Morcego Espectral,Spectral Bat
+ENEMY_STONE_GOLEM,Golem de Pedra Corrompida,Corrupted Stone Golem
+ENEMY_SWAMP_WITCH,Bruxa do Pântano,Swamp Witch
+ENEMY_LAKE_SERPENT,Serpente do Lago,Lake Serpent
+HUD_LOCKED,Alvo travado,Target locked
+HUD_NO_MANA,Mana insuficiente,Not enough mana
+HUD_COOLDOWN,Recarregando,Recharging

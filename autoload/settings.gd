@@ -29,6 +29,7 @@ const DEFAULTS: Dictionary = {
 		"colorblind_markers": false,
 		"damage_numbers": true,
 		"aim_assist": false,
+		"hud_hide_out_of_combat": false,
 	},
 }
 

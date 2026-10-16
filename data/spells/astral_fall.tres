@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://combat/spell_data.gd" id="1_pcdin"]
+
+[resource]
+script = ExtResource("1_pcdin")
+id = &"astral_fall"
+name_key = "SPELL_ASTRAL_FALL"
+desc_key = "SPELL_ASTRAL_FALL_DESC"
+kind = 4
+element = 1
+mana_cost = 35.0
+cooldown = 10.0
+damage = 75.0
+radius = 4.8
+range_m = 32.0
+duration = 1.1
+knockback = 12.0
+stagger = 1.0
+color = Color(1, 0.7176471, 0.39607844, 1)
+world_tags = PackedStringArray("ignite", "shatter")
+cast_anim = &"cast_area"
+cast_lock = 0.5

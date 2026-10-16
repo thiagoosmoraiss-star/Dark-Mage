@@ -150,3 +150,33 @@ procedurais (`TreeMesh`, `DetailMeshes`, `RockMesh`); três níveis + impostor c
 **D36 · Benchmark fixo implementado** (`-- --bench [--preset=X] [--bench-seconds=N]`) com flags de perfil
 de desenvolvimento (`--no-veg`, `--no-grass`, `--no-water`, `--no-shadows`, `--no-fsr`, `--fsr1`, `--no-glow`,
 `--no-fog`, `--no-sky`, `--no-terrain`).
+
+## 2026-10-16 (M6)
+
+**D37 · Inimigos: KayKit Skeletons 1.0 (CC0)** — Minion = Rastejante da Névoa (corpo a corpo), Rogue com besta =
+Arqueiro Esqueleto, Mage = Bruxa do Pântano (M7), Warrior = base de chefes (M8). Mesmo autor do mago, então o
+estilo combina. Recolor por tipo com materiais compartilhados (cache) e olhos emissivos.
+
+**D38 · Sons: Kenney (CC0)** — Impact, Sci-Fi, RPG e Interface Sounds; 169 arquivos escolhidos, mapeados em
+`data/sound_bank.gd` (ids lógicos, variação de tom, barramento). Magia em camadas = vários ids juntos.
+
+**D39 · Combate sem nós criados por golpe:** projéteis (48), faíscas, anéis, raios, números, luzes e decals em
+pools (`ProjectilePool`, `Vfx`). Teste de 200 conjurações: +8 objetos/+8 recursos após aquecimento (estável).
+
+**D40 · Projéteis por raycast entre posições** (sem Area3D), com máscaras por lado (jogador: mundo+inimigos;
+inimigo: mundo+jogador). Dano em área por consulta de esfera.
+
+**D41 · Diretor de combate:** no máximo 2 inimigos atacando ao mesmo tempo; os outros rodeiam. Teste com 5
+inimigos ao redor do jogador por 8 s: máximo medido = 2.
+
+**D42 · Navegação:** `NavBaker` assa uma NavigationRegion3D de 140 m ao redor do jogador em thread
+(Terrain3D + colisores estáticos próximos), re-assando a cada 45 m. Sem rota válida, o inimigo segue direto
+com desvio por raycast (o que também cobre o primeiro frame antes do bake).
+
+**D43 · Camadas visuais:** 1 = mundo, 2 = personagens. Decals de telegrafia só projetam na camada 1 (antes
+pintavam o mago de rosa nas capturas).
+
+**D44 · Controles de feitiço:** tocar Q/E/R/F conjura; segurar carrega (Lança Arcana); Q+F juntos = ultimate;
+esquiva no ar ou mirando = Passo Umbral (blink). Égide absorve dano (a reflexão de projéteis ficou para o M10).
+
+**D45 · `god_mode` de depuração no Player** (testes de chefe e capturas).
