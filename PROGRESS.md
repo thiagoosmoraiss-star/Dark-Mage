@@ -279,3 +279,17 @@ cinza.
 tecnicamente (arquivos decodificam, loops ligados, níveis normalizados, troca de faixa testada). Os ambientes
 sintetizados tendem a soar artificiais perto das gravações; o loop MP3 pode ter um pequeno respiro na emenda.
 Ouvir e ajustar a mixagem está no QA_CHECKLIST do dono.
+
+### 2026-10-16 · M11 — Exportação Windows
+
+**Feito:** `export_presets.cfg` (Windows Desktop x86_64, PCK embutido, sem console no release, ícone próprio, nome
+"Dark Mage - The Isle of Fear", versão 0.10.0, exclui testes/ferramentas/GdUnit4); templates 4.7.2 oficiais
+baixados do GitHub e conferidos pelo SHA-512 publicado (só os do Windows extraídos); `tools/export.sh` exporta e
+roda o teste de fumaça no próprio .exe (`--export-smoke`). Corrigidos 4 pontos que só quebrariam no export: 3
+imagens lidas como PNG bruto (agora pela textura importada) e `data/world_pois.json` incluído no pacote.
+
+**Testes:** export sem erros; **executável exportado: menu → novo jogo → salvar → menu → continuar → estado
+conferido = APROVADO**; 112/112 GdUnit4. Offline: o jogo não faz nenhuma chamada de rede (não há HTTPRequest no
+código). SmartScreen vai alertar (sem assinatura de código — fora do escopo).
+
+**Tamanho:** `DarkMage.exe` 190 MB + `libterrain.windows.release.x86_64.dll` 3,5 MB.

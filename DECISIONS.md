@@ -244,3 +244,10 @@ interior/corrupção > noite/dia.
 gotas) e codificados em MP3 com lameenc — obra própria CC0, sem depender de gravações de licença incerta.
 
 **D64 · Dificuldade** como multiplicadores: dano recebido (0,6 / 1 / 1,4) e vida dos inimigos (0,8 / 1 / 1,25).
+
+**D65 · PCK embutido no .exe:** um arquivo só para o jogador (mais a DLL do Terrain3D, que precisa ficar ao lado).
+190 MB está longe de qualquer limite. Console desligado no release; o build de debug continua com console.
+
+**D66 · Teste de fumaça do executável** (`-- --export-smoke`): roda o fluxo real de menu, novo jogo, salvar e
+carregar dentro do .exe e grava o resultado em `user://export_smoke.txt`, para o aceite do M11 não depender do
+editor.

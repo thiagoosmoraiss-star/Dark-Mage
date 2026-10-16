@@ -79,7 +79,7 @@ func generate() -> void:
 	_cells.clear()
 	var data: Terrain3DData = terrain.terrain.data
 	var path: String = IslandTerrain.REGION_MAP_PATH
-	_region_map = Image.load_from_file(ProjectSettings.globalize_path(path)) if FileAccess.file_exists(path) else null
+	_region_map = (load(path) as Texture2D).get_image() if ResourceLoader.exists(path) else null
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.seed = StableHash.derive_seed(Rng.WORLD_SEED, "vegetation")
 	var grove: FastNoiseLite = FastNoiseLite.new()

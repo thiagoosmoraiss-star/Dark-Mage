@@ -47,3 +47,8 @@ Roteiro manual. Preencher a cada marco; o checklist de polimento (M10) e a campa
 - [x] Lava na cratera; fogueira apagada visível à noite; braseiro do farol legível de baixo.
 - [x] Autocrítica visual e sonora registrada em PROGRESS.md (a sonora como NÃO EXECUTADA por ouvido).
 - [ ] (Dono) Ouvir 10 min: transição dia → noite, entrar em combate e sair, entrar num covil; ajustar volumes se algo estourar.
+
+## M11 — Executável (dono)
+- [x] `tools/export.sh` exporta e o teste de fumaça no .exe passa (automatizado).
+- [ ] Copiar `build/export/windows/` para outra pasta (ou outro PC), desligar a internet e jogar 5 min.
+- [ ] Confirmar o alerta do SmartScreen ("Mais informações" → "Executar assim mesmo").

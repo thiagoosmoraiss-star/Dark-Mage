@@ -357,3 +357,5 @@ Todo arquivo em `assets/` precisa aparecer aqui pelo caminho relativo a `assets/
 | audio/ambience/fire.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
 | audio/ambience/cave.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
 | audio/ambience/corruption.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/icon.svg | Ícone do jogo (cajado com cristal) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/icon.png | Ícone do jogo (cajado com cristal) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |

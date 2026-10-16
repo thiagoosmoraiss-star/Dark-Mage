@@ -56,8 +56,8 @@ func _ready() -> void:
 	_map.offset_top = 60
 	_map.offset_bottom = -60
 	_map.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if FileAccess.file_exists(MAP_TEXTURE):
-		_map.texture = ImageTexture.create_from_image(Image.load_from_file(ProjectSettings.globalize_path(MAP_TEXTURE)))
+	if ResourceLoader.exists(MAP_TEXTURE):
+		_map.texture = load(MAP_TEXTURE) as Texture2D
 	var mat: ShaderMaterial = ShaderMaterial.new()
 	mat.shader = preload("res://shaders/ui_map.gdshader")
 	var nt: NoiseTexture2D = NoiseTexture2D.new()

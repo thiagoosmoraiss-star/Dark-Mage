@@ -122,7 +122,7 @@ func difficulty_mult(index: int) -> float:
 func apply_window_mode() -> void:
 	# Capturas, benchmark e testes passam --windowed/--resolution: não mexe na janela.
 	var args: PackedStringArray = OS.get_cmdline_args()
-	if DisplayServer.get_name() == "headless" or args.has("--windowed") or args.has("--resolution") or Game.has_arg("--bench"):
+	if DisplayServer.get_name() == "headless" or args.has("--windowed") or args.has("--resolution") or Game.has_arg("--bench") or Game.has_arg("--export-smoke"):
 		return
 	# Rodando uma ferramenta (-s capture.gd, GdUnit): a janela é da ferramenta.
 	if Engine.get_main_loop() != null and Engine.get_main_loop().get_script() != null:

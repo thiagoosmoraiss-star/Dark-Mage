@@ -33,7 +33,8 @@ func _ready() -> void:
 	terrain.collision.radius = collision_radius
 	terrain.cast_shadows = RenderingServer.SHADOW_CASTING_SETTING_ON
 	terrain.assets = build_assets()
-	var img: Image = Image.load_from_file(ProjectSettings.globalize_path(REGION_MAP_PATH)) if FileAccess.file_exists(REGION_MAP_PATH) else null
+	# Pela textura importada (o PNG bruto não vai para o .pck exportado).
+	var img: Image = (load(REGION_MAP_PATH) as Texture2D).get_image() if ResourceLoader.exists(REGION_MAP_PATH) else null
 	_region_map = img
 
 
