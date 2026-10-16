@@ -132,3 +132,21 @@ os passos do próprio jogador, o que tornou o movimento exatamente determinísti
 
 **D32 · Interpolação de física desligada em quem se move em `_process`** (câmera, mar, grama,
 vegetação estática); o jogador continua interpolado.
+
+## 2026-10-16 (M4–M5)
+
+**D33 · FSR1 (espacial) nos presets Baixo e Médio.** Medido nesta Intel UHD em 720p: o FSR2 custava ~30 ms
+por frame (base a 22 FPS); com FSR1 a mesma cena foi a 85 FPS. FSR2 fica disponível só como opção futura
+para Alto/Ultra com escala < 100%.
+
+**D34 · Presets controlam distâncias de vegetação, alcance da grama, sombras do LOD1 e qualidade da água**
+(`data/graphics_presets.gd`). No Baixo a água usa `water_simple.gdshader` (sem SCREEN/DEPTH_TEXTURE), a
+grama usa tufos de 8 lâminas e o glow só os níveis largos. Resultado no Baixo/720p: de 9 para 31,5 FPS.
+
+**D35 · Vegetação determinística gerada na carga** (cerca de 6 mil instâncias, menos de 1 s) em vez de
+gravada em disco: nada de dados extras, e a mesma seed sempre gera a mesma ilha. Árvores e detalhes são
+procedurais (`TreeMesh`, `DetailMeshes`, `RockMesh`); três níveis + impostor com fade por dither.
+
+**D36 · Benchmark fixo implementado** (`-- --bench [--preset=X] [--bench-seconds=N]`) com flags de perfil
+de desenvolvimento (`--no-veg`, `--no-grass`, `--no-water`, `--no-shadows`, `--no-fsr`, `--fsr1`, `--no-glow`,
+`--no-fog`, `--no-sky`, `--no-terrain`).

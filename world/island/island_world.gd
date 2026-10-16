@@ -24,16 +24,29 @@ func _ready() -> void:
 	atmosphere = get_node_or_null(^"Atmosphere") as Atmosphere
 	terrain = get_node_or_null(^"IslandTerrain") as IslandTerrain
 	ocean = get_node_or_null(^"Ocean") as Ocean
-	if terrain != null:
+	# Flags de perfil (só desenvolvimento): -- --no-veg --no-grass --no-water --no-shadows
+	if ocean != null and Game.has_arg("--no-water"):
+		ocean.visible = false
+	if atmosphere != null and Game.has_arg("--no-shadows"):
+		atmosphere.sun.shadow_enabled = false
+	if terrain != null and not Game.has_arg("--no-veg"):
 		vegetation = VegetationSystem.new()
 		vegetation.name = "Vegetation"
 		vegetation.terrain = terrain
 		add_child(vegetation)
-		grass = GrassField.new()
-		grass.name = "Grass"
-		grass.terrain = terrain
-		add_child(grass)
-	if spawn_player:
+	if terrain != null and not Game.has_arg("--no-grass"):
+		for which: int in [GrassField.Layer.GRASS, GrassField.Layer.FLOWERS, GrassField.Layer.FERNS,
+				GrassField.Layer.BUSHES, GrassField.Layer.MUSHROOMS]:
+			var layer_node: GrassField = GrassField.make_layer(which as GrassField.Layer)
+			layer_node.terrain = terrain
+			add_child(layer_node)
+			if which == GrassField.Layer.GRASS:
+				grass = layer_node
+	if Game.has_arg("--bench"):
+		var bench: BenchFlight = BenchFlight.new()
+		bench.name = "BenchFlight"
+		add_child(bench)
+	elif spawn_player:
 		_spawn_player()
 	else:
 		# Sem jogador (vistas e capturas): câmera livre no Vale olhando a Cidadela.

@@ -39,6 +39,9 @@ var _cells: Dictionary[Vector2i, Array] = {}  # célula -> índices de instances
 var _collision_cells: Dictionary[Vector2i, Node3D] = {}
 var _region_map: Image
 var _built: bool = false
+var _preset: Dictionary = GraphicsPresets.get_preset(GraphicsPresets.HIGH)
+## [MultiMeshInstance3D, nível (0 = LOD0, 1 = LOD1, 2 = impostor, 3 = rocha perto, 4 = rocha longe)]
+var _lod_nodes: Array[Array] = []
 
 
 func _ready() -> void:
@@ -48,9 +51,17 @@ func _ready() -> void:
 		terrain = get_tree().get_first_node_in_group(&"island_terrain") as IslandTerrain
 	clearings.append(Vector3(L.CITADEL_CENTER.x, L.CITADEL_RADIUS + 10.0, L.CITADEL_CENTER.y))
 	clearings.append(Vector3(IslandWorld.SPAWN.x, 14.0, IslandWorld.SPAWN.y))
+	_preset = GraphicsPresets.get_preset(Settings.current_preset())
+	Events.graphics_preset_changed.connect(_on_preset)
 	if terrain != null:
 		generate()
 		build_render()
+
+
+func _on_preset(p: String) -> void:
+	_preset = GraphicsPresets.get_preset(StringName(p))
+	for entry: Array in _lod_nodes:
+		_apply_range(entry[0] as MultiMeshInstance3D, entry[1] as int)
 
 
 func add_clearing(pos: Vector3, radius: float) -> void:
@@ -140,7 +151,7 @@ func _add(kind: int, p: Vector3, h: float, nrm: Vector3, rng: RandomNumberGenera
 	var s: float = rng.randf_range(0.8, 1.2)
 	var b: Basis = Basis(Vector3.UP, rng.randf() * TAU)
 	if kind == Kind.ROCK:
-		s = rng.randf_range(0.6, 1.6) * (1.0 + (1.0 - nrm.y) * 1.5)
+		s = minf(rng.randf_range(0.6, 1.4) * (1.0 + (1.0 - nrm.y) * 0.8), 2.4)
 		b = Basis(Quaternion(Vector3.UP, nrm)) * b
 		b = b.scaled(Vector3(s, s * rng.randf_range(0.7, 1.1), s))
 		inst.radius = 1.0 * s if s > 0.9 else 0.0
@@ -228,16 +239,16 @@ func build_render() -> void:
 			var rm: Dictionary = _rock_mesh(variant)
 			var rock_mat: Material = Materials.rock(0.5 if _region_for_xforms(xforms) != L.Region.BURNT else 0.1,
 				0.6 if _region_for_xforms(xforms) == L.Region.SWAMP else 0.0)
-			_add_mmi(rm["lod0"] as Mesh, xforms, 0.0, 120.0, rock_mat, true)
-			_add_mmi(rm["lod1"] as Mesh, xforms, 110.0, ROCK_LOD1_END, rock_mat, true)
+			_add_mmi(rm["lod0"] as Mesh, xforms, 3, rock_mat)
+			_add_mmi(rm["lod1"] as Mesh, xforms, 4, rock_mat)
 		else:
 			var tm: Dictionary = _tree_mesh(kind, variant)
-			_add_mmi(tm["lod0"] as Mesh, xforms, 0.0, LOD0_END, null, true)
-			_add_mmi(tm["lod1"] as Mesh, xforms, LOD0_END - 10.0, LOD1_END, null, true)
+			_add_mmi(tm["lod0"] as Mesh, xforms, 0, null)
+			_add_mmi(tm["lod1"] as Mesh, xforms, 1, null)
 	for ik: String in imp_groups:
 		var kind: int = ik.split("_")[2].to_int()
 		var tm: Dictionary = _tree_mesh(kind, 0)
-		_add_mmi(tm["impostor"] as Mesh, imp_groups[ik] as Array, LOD1_END - 25.0, IMPOSTOR_END, null, false)
+		_add_mmi(tm["impostor"] as Mesh, imp_groups[ik] as Array, 2, null)
 	_built = true
 
 
@@ -246,7 +257,7 @@ func _region_for_xforms(xforms: Array) -> int:
 	return _region_at(t.origin.x, t.origin.z)
 
 
-func _add_mmi(mesh: Mesh, xforms: Array, begin: float, end: float, mat: Material, shadows: bool) -> void:
+func _add_mmi(mesh: Mesh, xforms: Array, level: int, mat: Material) -> void:
 	var mm: MultiMesh = MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_3D
 	mm.mesh = mesh
@@ -255,15 +266,30 @@ func _add_mmi(mesh: Mesh, xforms: Array, begin: float, end: float, mat: Material
 		mm.set_instance_transform(i, xforms[i] as Transform3D)
 	var mmi: MultiMeshInstance3D = MultiMeshInstance3D.new()
 	mmi.multimesh = mm
+	mmi.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	if mat != null:
 		mmi.material_override = mat
-	mmi.visibility_range_begin = begin
-	mmi.visibility_range_begin_margin = 10.0 if begin > 0.0 else 0.0
-	mmi.visibility_range_end = end
-	mmi.visibility_range_end_margin = 12.0
 	mmi.visibility_range_fade_mode = GeometryInstance3D.VISIBILITY_RANGE_FADE_SELF
-	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if shadows else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(mmi)
+	_lod_nodes.append([mmi, level])
+	_apply_range(mmi, level)
+
+
+## Faixas de visibilidade e sombra por nível, conforme o preset.
+func _apply_range(mmi: MultiMeshInstance3D, level: int) -> void:
+	var lod0: float = JsonUtil.get_f(_preset, "veg_lod0_end", LOD0_END)
+	var lod1: float = JsonUtil.get_f(_preset, "veg_lod1_end", LOD1_END)
+	var imp: float = JsonUtil.get_f(_preset, "veg_impostor_end", IMPOSTOR_END)
+	var rock_far: float = JsonUtil.get_f(_preset, "rock_far_end", ROCK_LOD1_END)
+	var ranges: Array[Vector2] = [Vector2(0.0, lod0), Vector2(lod0 - 10.0, lod1), Vector2(lod1 - 25.0, imp),
+		Vector2(0.0, 110.0), Vector2(100.0, rock_far)]
+	var r: Vector2 = ranges[level]
+	mmi.visibility_range_begin = r.x
+	mmi.visibility_range_begin_margin = 10.0 if r.x > 0.0 else 0.0
+	mmi.visibility_range_end = r.y
+	mmi.visibility_range_end_margin = 12.0
+	var shadows: bool = level == 0 or level == 3 or (level == 1 and _preset.get("tree_shadows_lod1", true) == true) or level == 4
+	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if shadows else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 
 # --- Colisão perto do jogador ---------------------------------------------------------

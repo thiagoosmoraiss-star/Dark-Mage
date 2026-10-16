@@ -8,3 +8,8 @@ Roteiro manual. Preencher a cada marco; o checklist de polimento (M10) e a campa
 - [x] Overlay mostra FPS, P95/P99, draw calls, memória, GPU, preset e posição (verificado por captura com `-- --overlay`).
 - [ ] (Dono) Apertar F3 com o jogo aberto alterna o overlay (não automatizado ainda).
 - [ ] (Dono) Abrir o projeto no editor Godot 4.7.2 no Nitro V15 e confirmar que não há erros no painel Saída.
+
+## M2–M5 (dono, no Nitro V15)
+- [ ] Rodar `godot --path . -- --bench --preset=high` e colar o JSON em PERFORMANCE.md.
+- [ ] Jogar 10 min no Vale: câmera, escalar uma encosta, planar de um morro, nadar no mar, abrir o mapa (M).
+- [ ] Conferir se o mouse fica preso na janela (clique) e se Esc libera.

@@ -1,13 +1,15 @@
 # Progresso
 
 ## Estado atual (para retomar)
-- **Marco atual:** M1 concluído (tag `m1`). **Próximo:** M2 — terreno da ilha (Terrain3D).
+- **Marcos concluídos:** M0, M1, M2, M3, M4, M5 (tags `m0`…`m5`). **Próximo:** M6 — combate e magia (fatia vertical).
 - **Godot:** `../tools/godot/Godot_v4.7.2-stable_win64.exe` (ou `GODOT_BIN`).
-- **Verificação:** `bash tools/check.sh` (APROVADO, 33 testes) e `bash tools/capture.sh tests/golden/<m>/shots.json`.
+- **Verificação:** `bash tools/check.sh` (APROVADO, 59 testes) · capturas `bash tools/capture.sh tests/golden/<m>/shots.json`
+  · benchmark `godot --path . -- --bench --preset=high`.
+- **Regerar a ilha** (só se mudar o gerador): `QUIT_AFTER=100000 bash tools/run.sh res://tools/generate_island.gd` (~3,5 min).
 - **Próximos 3 passos:**
-  1. M2: baixar texturas PBR CC0 (ambientCG/Poly Haven) e montar o `Terrain3DAssets`.
-  2. M2: `world/island/island_generator.gd` (heightmap autoral por seed + máscaras de região) e `tools/generate_island.gd` gravando os dados do Terrain3D.
-  3. M2: teste de hash por seed, teste de colisão × altura em 10 mil pontos, capturas de relevo.
+  1. M6: sistema de dano/status (`combat/`), `SpellData` (Resource) e pool de projéteis/efeitos.
+  2. M6: ataque básico (combo de 3), 4 feitiços (projétil carregável, área, raio em cadeia, barreira), mira e lock-on, hit-stop e tremor.
+  3. M6: 2 inimigos com FSM + NavigationAgent3D, VFX e áudio de impacto, teste de vazamento com 200 conjurações.
 
 ## Ao iniciar uma sessão
 Ler `docs/ROTEIRO.md`, este arquivo, `DECISIONS.md` e `TODO.md`; rodar `bash tools/check.sh`; só então continuar.
@@ -88,3 +90,62 @@ ajudam. O estado corrompido ainda é tímido (lavanda em vez de violeta ameaçad
 região no M7. **Feio:** o chão provisório tem manchas grandes e repetitivas e listras do normal map. Vai sair
 no M2. Na primeira rodada a névoa de altura lavava todas as cenas de dia; reduzi a densidade em 45%, a
 altura da névoa e o efeito no céu.
+
+### 2026-10-16 · M2 — Terreno da ilha
+
+**Feito:** `IslandGenerator`/`IslandLayout` (regiões com pesos gaussianos perturbados, platô da Cidadela,
+vulcão com cratera, pântano no nível do mar, costa com praias, falésias e ilhotas, suavização 1-2-1);
+`tools/generate_island.gd` grava 64 regiões do Terrain3D + `region_map.png` + `preview.png` + `meta.json`;
+8 texturas PBR CC0 (ambientCG) empacotadas; material com projeção em encostas e macro variação; mapa de
+controle por regras (região, altura, inclinação, costa) e mapa de cor por região; mar com malha polar que
+segue a câmera, ondas Gerstner, cor por profundidade, refração, espuma e fresnel.
+
+**Testes:** mesma seed → mesmo hash (APROVADO); seeds diferentes diferem (APROVADO); composição (APROVADO);
+colisão × visual — vértices 0,0007 m em 10 mil pontos (APROVADO), entre vértices P99 0,021 m e 0,14% > 5 cm
+(APROVADO com o critério de D27); dados gravados = gerador (APROVADO); regiões no mapa (APROVADO).
+
+**Autocrítica:** relevo legível com regiões distintas (vale dourado, picos rochosos, vulcão avermelhado,
+pântano com poças, floresta). Na primeira captura o terreno saiu quadriculado: os assets do Terrain3D eram
+descartados (D29). Feio ainda: vista aérea com névoa pesada a 1,4 km; pântano e terras calcinadas pouco
+característicos (M7); rios não existem (M7).
+
+### 2026-10-16 · M3 — Personagem jogável
+
+**Feito:** `Player` (estados chão/ar/escalada/planador/natação/esquiva, coyote time, buffer de pulo, input
+roteirizado), `CameraRig` (SpringArm3D, suavização, zoom, ombro, tremor com acessibilidade), `PlayerStats`,
+`PlayerModel` (AnimationTree: máquina de estados + BlendSpace1D, inclinação nas curvas, balanço da capa),
+`MageLook` (recolor do atlas, cajado com cristal e luz, olhos violeta), roda de stamina contextual.
+
+**Testes:** andar 2 s determinístico (~10,4 m, posições idênticas) (APROVADO); não atravessa o chão
+(APROVADO); pulo ~1,05 m e aterrissagem (APROVADO); sprint consome stamina (APROVADO); stats (APROVADO).
+
+**Autocrítica:** silhueta legível (chapéu alto com faixa dourada, cajado com cristal violeta acima da cabeça,
+olhos brilhando), muito boa à noite com a luz do cristal. Limitações: proporções "chibi" do KayKit, menos
+sombrias do que o ideal (D30); escalada/planador/natação usam clipes aproximados (o pacote não os tem).
+
+### 2026-10-16 · M4 — Vegetação e composição
+
+**Feito:** grama em chunks de MultiMesh (vento, abre passagem ao redor do jogador, cor por material, fade
+sem pop); flores, samambaias, arbustos e cogumelos bioluminescentes; árvores procedurais (carvalho, gigante,
+pinheiro, morta) com LOD0/LOD1/impostor e fade; rochas procedurais; distribuição por regras com clareiras;
+colisão só perto do jogador; benchmark fixo e otimizações por preset (D33, D34).
+
+**Testes:** contagens, tudo assentado, nada de árvore na água, clareiras, determinismo, grama por regras
+(APROVADO). Benchmark: Baixo/720p 31,5 FPS nesta Intel UHD; **Alto no Nitro V15: NÃO EXECUTADO (dono)**.
+
+**Autocrítica:** campo do vale e chão da floresta ficaram vivos. Pinheiros pareciam postes e foram
+refeitos. Feio ainda: "gigantes" não parecem gigantes; lâminas de grama largas de perto; pântano e terras
+calcinadas sem identidade (M7).
+
+### 2026-10-16 · M5 — Travessia avançada
+
+**Feito:** escalada (parede, stamina, salto, borda, chuva), planador, natação (afunda e volta à margem),
+esquiva com i-frames; `WaterBody` para lagos; névoa de guerra (`FogOfWar`, serializável) e tela de mapa.
+O blink entra com os feitiços no M6.
+
+**Testes:** percurso roteirizado escala parede de 8 m, plana sobre o vale e nada até o marcador
+(APROVADO); esquiva com i-frames (APROVADO); nadador exausto volta à margem (APROVADO); névoa de guerra
+revela e salva (APROVADO).
+
+**Autocrítica:** mecânicas funcionam e são testadas; o mapa ainda é simples (cores de prévia, sem ícones)
+e será refeito com a UI completa no M9.

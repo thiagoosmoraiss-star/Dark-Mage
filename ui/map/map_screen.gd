@@ -116,6 +116,6 @@ func _draw_overlay() -> void:
 		var f: Vector3 = -player.global_basis.z
 		var dir: Vector2 = Vector2(f.x, f.z).normalized()
 		var side: Vector2 = Vector2(-dir.y, dir.x)
-		var pts: PackedVector2Array = [p + dir * 12.0, p - dir * 7.0 + side * 7.0, p - dir * 3.0, p - dir * 7.0 - side * 7.0]
+		var pts: PackedVector2Array = [p + dir * 18.0, p - dir * 10.0 + side * 11.0, p - dir * 4.0, p - dir * 10.0 - side * 11.0]
 		_overlay.draw_colored_polygon(pts, Color("b67cff"))
 		_overlay.draw_polyline(pts + PackedVector2Array([pts[0]]), GOLD, 1.5)

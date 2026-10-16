@@ -161,18 +161,18 @@ static func _leaf_card(st: SurfaceTool, center: Vector3, size: float, rot: float
 
 
 static func _pine_layers(st: SurfaceTool, top: Vector3, height: float, rng: RandomNumberGenerator, detail: float) -> void:
-	var layers: int = maxi(4, roundi(9 * detail))
+	var layers: int = maxi(6, roundi(14 * detail))
 	for i: int in layers:
 		var t: float = float(i) / layers
-		var y: float = height * lerpf(0.22, 0.97, t)
-		var r: float = lerpf(3.0, 0.5, t) * (height / 12.0)
-		var cards: int = maxi(3, roundi(6 * detail))
+		var y: float = height * lerpf(0.18, 0.98, t)
+		var r: float = lerpf(3.4, 0.6, t) * (height / 12.0)
+		var cards: int = maxi(5, roundi(10 * detail))
 		for c: int in cards:
 			var a: float = TAU * c / cards + rng.randf() * 0.5 + i
 			var dir: Vector3 = Vector3(cos(a), -0.35, sin(a))
 			var center: Vector3 = Vector3(top.x * t, y, top.z * t) + dir * r * 0.5
-			var right: Vector3 = Vector3(-sin(a), 0.0, cos(a)) * r * 0.55
-			var along: Vector3 = dir * r * 0.6
+			var right: Vector3 = Vector3(-sin(a), 0.0, cos(a)) * r * 0.75
+			var along: Vector3 = dir * r * 0.7
 			var nrm: Vector3 = (dir + Vector3.UP * 1.5).normalized()
 			var corners: Array[Vector3] = [center - along - right, center - along + right, center + along + right, center + along - right]
 			var uvs: Array[Vector2] = [Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(0, 0)]
@@ -264,14 +264,14 @@ static func leaf_texture(species: Species) -> ImageTexture:
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.seed = 77 + species
 	var needles: bool = species == Species.PINE
-	var count: int = 260 if needles else 150
+	var count: int = 900 if needles else 150
 	for i: int in count:
 		var c: Vector2 = Vector2(rng.randf_range(0.12, 0.88), rng.randf_range(0.12, 0.88)) * size
 		# Concentra no centro (forma de tufo arredondado).
 		c = c.lerp(Vector2(size, size) * 0.5, rng.randf_range(0.0, 0.35))
 		var ang: float = rng.randf() * TAU
 		var len: float = rng.randf_range(10.0, 18.0) if not needles else rng.randf_range(14.0, 26.0)
-		var wid: float = len * (0.42 if not needles else 0.09)
+		var wid: float = len * (0.42 if not needles else 0.16)
 		var shade: float = rng.randf_range(0.65, 1.15)
 		var col: Color = Color(shade, shade * rng.randf_range(0.95, 1.05), shade * 0.9, 1.0)
 		var dir: Vector2 = Vector2(cos(ang), sin(ang))

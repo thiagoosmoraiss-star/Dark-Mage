@@ -90,7 +90,8 @@ func apply_graphics() -> void:
 	vp.msaa_3d = Viewport.MSAA_DISABLED
 	vp.use_taa = p["taa"]
 	vp.screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA if p["fxaa"] else Viewport.SCREEN_SPACE_AA_DISABLED
-	vp.scaling_3d_mode = Viewport.SCALING_3D_MODE_FSR2 if p["fsr"] else Viewport.SCALING_3D_MODE_BILINEAR
+	# FSR1 (espacial) nos presets baixos: o FSR2 custa ~30 ms numa GPU integrada (D33).
+	vp.scaling_3d_mode = Viewport.SCALING_3D_MODE_FSR if p["fsr"] else Viewport.SCALING_3D_MODE_BILINEAR
 	vp.scaling_3d_scale = p["render_scale"]
 	var atlas: int = p["shadow_atlas"]
 	RenderingServer.directional_shadow_atlas_set_size(atlas, true)

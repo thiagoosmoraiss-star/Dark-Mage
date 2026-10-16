@@ -247,6 +247,11 @@ func _on_preset_changed(preset_name: String) -> void:
 	environment.ssil_enabled = _preset["ssil"]
 	environment.ssr_enabled = _preset["ssr"]
 	environment.volumetric_fog_enabled = _preset["volumetric_fog"]
+	# Glow: no Baixo só os níveis mais largos (mais baratos).
+	var low_q: bool = JsonUtil.get_i(_preset, "volumetric_quality") == 0
+	environment.set_glow_level(1, 0.0)
+	environment.set_glow_level(2, 0.0 if low_q else 0.6)
+	environment.set_glow_level(4, 0.6)
 	var q: int = _preset["volumetric_quality"]
 	var vol_sizes: Array[int] = [32, 64, 96, 128]
 	var vol_depths: Array[int] = [32, 48, 64, 96]

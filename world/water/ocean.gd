@@ -5,6 +5,7 @@ extends MeshInstance3D
 ## coordenadas de mundo, então não "andam" com a malha.
 
 const WATER_SHADER: Shader = preload("res://shaders/water.gdshader")
+const WATER_SIMPLE_SHADER: Shader = preload("res://shaders/water_simple.gdshader")
 const SNAP: float = 8.0
 
 @export var sea_level: float = 0.0
@@ -18,6 +19,8 @@ func _ready() -> void:
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	mesh = build_polar_mesh(radius, rings, segments)
 	material_override = make_material()
+	Events.graphics_preset_changed.connect(_on_preset)
+	_on_preset(String(Settings.current_preset()))
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	extra_cull_margin = 64.0
 	position.y = sea_level
@@ -29,6 +32,12 @@ func _process(_delta: float) -> void:
 		return
 	var p: Vector3 = cam.global_position
 	global_position = Vector3(snappedf(p.x, SNAP), sea_level, snappedf(p.z, SNAP))
+
+
+## Baixo: shader simples (sem refração nem cor por profundidade).
+func _on_preset(p: String) -> void:
+	var q: int = JsonUtil.get_i(GraphicsPresets.get_preset(StringName(p)), "water_quality", 1)
+	(material_override as ShaderMaterial).shader = WATER_SHADER if q >= 1 else WATER_SIMPLE_SHADER
 
 
 static func make_material() -> ShaderMaterial:

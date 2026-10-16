@@ -89,6 +89,15 @@ func _setup_shot(shot: Dictionary) -> void:
 			rig.set(&"yaw", player.rotation.y + deg_to_rad(JsonUtil.get_f(shot, "cam_yaw", 0.0)))
 			rig.set(&"pitch", deg_to_rad(JsonUtil.get_f(shot, "cam_pitch", -12.0)))
 			rig.global_position = pp + Vector3.UP * 1.55
+	if shot.has("map"):
+		var world_node: Node = root.get_tree().get_first_node_in_group(&"world")
+		var ms: Node = world_node.get(&"map_screen") if world_node != null else null
+		if ms != null:
+			var fog: RefCounted = world_node.get(&"fog")
+			for p: Variant in shot.get("reveal", []):
+				fog.call(&"reveal", JsonUtil.vec3(p), 160.0)
+			if not ms.call(&"is_open"):
+				ms.call(&"toggle")
 	if shot.has("cam_rel") and player != null:
 		var base: Vector3 = player.global_position
 		shot["cam"] = _arr(base + player.global_basis * JsonUtil.vec3(shot["cam_rel"]))

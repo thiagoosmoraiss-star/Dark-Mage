@@ -26,7 +26,11 @@ func _process(delta: float) -> void:
 	_alpha = move_toward(_alpha, want, delta * (4.0 if want > 0.0 else 1.5))
 	visible = _alpha > 0.01
 	var cam: Camera3D = get_viewport().get_camera_3d()
-	if cam != null and visible:
+	# Só aparece com a câmera do jogador (em capturas/cutscenes some).
+	if cam == null or player.cam_rig == null or cam != player.cam_rig.camera:
+		visible = false
+		return
+	if visible:
 		var anchor: Vector3 = player.global_position + player.global_basis.x * 0.7 + Vector3.UP * 1.5
 		if not cam.is_position_behind(anchor):
 			var ui_scale: float = JsonUtil.num(Settings.get_value("accessibility", "ui_scale"), 1.0)

@@ -1,0 +1,10 @@
+[
+	{"name": "m4_01_campo_vale", "scene": "res://levels/island/island.tscn", "hour": 9.5, "player": [30, 0, 180], "player_yaw": 160, "cam_yaw": 0, "cam_pitch": -8, "frames": 150},
+	{"name": "m4_02_floresta_chao", "hour": 11.0, "player": [60, 0, 560], "player_yaw": 0, "cam_yaw": 180, "cam_pitch": -4, "frames": 150},
+	{"name": "m4_03_floresta_noite", "hour": 22.0, "player": [60, 0, 560], "player_yaw": 40, "cam_yaw": 200, "cam_pitch": -4, "frames": 120},
+	{"name": "m4_04_montanha", "hour": 14.0, "player": [-120, 0, -520], "player_yaw": 0, "cam_yaw": 180, "cam_pitch": -6, "frames": 150},
+	{"name": "m4_05_pantano", "hour": 16.0, "player": [-560, 0, 140], "player_yaw": 90, "cam_yaw": 160, "cam_pitch": -5, "frames": 150},
+	{"name": "m4_06_terras_calcinadas", "hour": 15.0, "player": [520, 0, 80], "player_yaw": -60, "cam_yaw": 180, "cam_pitch": -5, "frames": 150},
+	{"name": "m4_07_vale_alto", "hour": 10.0, "cam": [80, 75, 260], "target": [-40, 30, 40], "frames": 150},
+	{"name": "m4_08_rochas_encosta", "hour": 16.5, "cam": [-210, 120, -380], "target": [-120, 140, -520], "frames": 150}
+]
