@@ -20,3 +20,7 @@ Prioridade: P1 (bloqueia marco) · P2 (antes do RC) · P3 (desejável).
 - [ ] P2 · M7: rios e lagos com WaterBody próprio; água do pântano turva e violeta.
 - [ ] P3 · Atualizar o Terrain3D quando sair versão para o Godot 4.7 e remover `tools/known_log_messages.txt` (D28).
 - [ ] P3 · Névoa de longe ainda pesada na vista aérea (1,4 km); calibrar com o benchmark no Nitro.
+- [ ] P2 · Lava nas Terras Calcinadas (material de água emissivo nas poças da região) e cratera do vulcão.
+- [ ] P2 · Brasas da fogueira apagada mais visíveis à noite; topo do farol mais imponente.
+- [ ] P2 · M9: ícones de POIs descobertos no mapa, marcadores personalizados e viagem pelo mapa.
+- [ ] P3 · Fauna ambiente (pássaros, corvos, peixes) e sons por região (M10).

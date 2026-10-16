@@ -22,7 +22,18 @@ const TABLE: Array[Dictionary] = [
 		"health": 70.0, "damage": 14.0, "walk_speed": 1.4, "run_speed": 3.6, "sight_range": 26.0, "hearing_range": 18.0,
 		"attack_kind": A.CASTER, "attack_range": 20.0, "preferred_range": 13.0, "attack_cooldown": 3.2, "windup": 1.0,
 		"projectile_speed": 18.0, "poise": 0.6, "xp": 22, "souls": 12, "anim_attack": &"Spellcast_Shoot",
-		"anim_run": &"Running_A"},
+		"anim_run": &"Running_A", "behavior": &"witch"},
+	{"id": &"spectral_bat", "name_key": "ENEMY_SPECTRAL_BAT", "behavior": &"bat", "eye_color": Color("ff5ad1"),
+		"model_scale": 1.1, "health": 30.0, "damage": 10.0, "walk_speed": 3.0, "run_speed": 6.5, "sight_range": 24.0,
+		"hearing_range": 22.0, "attack_range": 9.0, "attack_cooldown": 2.8, "windup": 0.7, "poise": 0.3, "xp": 10, "souls": 5},
+	{"id": &"stone_golem", "name_key": "ENEMY_STONE_GOLEM", "behavior": &"golem", "eye_color": Color("b67cff"),
+		"model_scale": 1.25, "health": 260.0, "damage": 32.0, "walk_speed": 1.2, "run_speed": 2.2, "sight_range": 22.0,
+		"hearing_range": 12.0, "attack_range": 4.6, "preferred_range": 3.5, "attack_cooldown": 4.0, "windup": 1.1,
+		"knockback_resist": 0.9, "poise": 1.2, "xp": 60, "souls": 35},
+	{"id": &"lake_serpent", "name_key": "ENEMY_LAKE_SERPENT", "behavior": &"serpent", "eye_color": Color("7fff9e"),
+		"model_scale": 1.0, "health": 140.0, "damage": 16.0, "sight_range": 22.0, "attack_range": 22.0,
+		"attack_cooldown": 1.6, "windup": 0.7, "projectile_speed": 20.0, "knockback_resist": 1.0, "poise": 0.9,
+		"xp": 45, "souls": 25},
 ]
 
 

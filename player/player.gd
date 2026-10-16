@@ -99,6 +99,9 @@ func _ready() -> void:
 	caster = SpellCaster.new()
 	caster.name = "SpellCaster"
 	add_child(caster)
+	var interactor: Interactor = Interactor.new()
+	interactor.name = "Interactor"
+	add_child(interactor)
 	_build_barrier()
 	facing = -global_basis.z
 	last_safe_position = global_position

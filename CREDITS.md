@@ -8,6 +8,8 @@
 
 - Texturas de terreno: [ambientCG](https://ambientcg.com) (CC0).
 - Personagem base do mago e esqueletos: KayKit Adventurers e Skeletons por [Kay Lousberg](https://www.kaylousberg.com) (CC0).
+- Adereços: KayKit Dungeon Remastered e Halloween Bits por Kay Lousberg (CC0).
+- Fontes: Cinzel e Alegreya Sans (SIL Open Font License 1.1).
 - Efeitos sonoros: [Kenney](https://kenney.nl) — Impact, Sci-Fi, RPG e Interface Sounds (CC0).
 
 Lista completa em `ASSETS_LICENSES.md`.

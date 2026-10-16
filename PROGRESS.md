@@ -1,16 +1,15 @@
 # Progresso
 
 ## Estado atual (para retomar)
-- **Marcos concluídos:** M0–M6 (tags `m0`…`m6`). **Próximo:** M7 — conteúdo do mundo (6 regiões, faróis, fogueiras, baús, segredos, 6 inimigos).
+- **Marcos concluídos:** M0–M7 (tags `m0`…`m7`). **Próximo:** M8 — santuários, covis, chefes e chefe final.
 - **Godot:** `../tools/godot/Godot_v4.7.2-stable_win64.exe` (ou `GODOT_BIN`).
-- **Verificação:** `bash tools/check.sh` (APROVADO, 75 testes) · capturas `bash tools/capture.sh tests/golden/<m>/shots.json`
+- **Verificação:** `bash tools/check.sh` (APROVADO, 82 testes) · capturas `bash tools/capture.sh tests/golden/<m>/shots.json`
   · benchmark `godot --path . -- --bench --preset=high`.
-- **Geradores de dados:** `tools/run.sh res://tools/make_spells.gd` · `tools/run.sh res://tools/make_enemies.gd`
-  · ilha: `QUIT_AFTER=100000 bash tools/run.sh res://tools/generate_island.gd` (~3,5 min).
+- **Geradores de dados:** `make_spells.gd`, `make_enemies.gd`, `place_pois.gd` (via `tools/run.sh`) · ilha: `generate_island.gd` (~3,5 min).
 - **Próximos 3 passos:**
-  1. M7: `Beacon` (interação no topo, revela o mapa da região, purifica: cor/névoa), `Bonfire` (descanso, cura, save, viagem rápida), `Chest`.
-  2. M7: POIs das 6 regiões em `data/world_pois.gd`; identidade por região (névoa violeta, LUT, FogVolume, água do pântano); rios/lagos.
-  3. M7: inimigos 3–6 (morcego, golem, bruxa, serpente) e teste de POIs (posição e alcance).
+  1. M8: entrada de santuário/covil no mundo + cena interna instanciada (KayKit Dungeon) com retorno ao ponto de entrada.
+  2. M8: 12 santuários (quebra-cabeça com feitiço, combate, plataforma) com recompensa (fragmento de vida/mana).
+  3. M8: 4 Guardiões (2 fases) + chefe final (3 fases) com god mode de teste; purificação da região ao vencer.
 
 ## Ao iniciar uma sessão
 Ler `docs/ROTEIRO.md`, este arquivo, `DECISIONS.md` e `TODO.md`; rodar `bash tools/check.sh`; só então continuar.
@@ -176,3 +175,26 @@ por blocos soltos; a torre do farol é um cilindro de blocos repetidos sem detal
 mago no estilo KayKit (fofo) contrastam com o tom sombrio pretendido. "Fatia vertical de 10 minutos com aparência
 de produto final": jogável no Vale (explorar, ruínas, dois grupos de inimigos, farol para escalar), mas **ainda
 sem menu inicial, música e polimento de UI** (M9/M10) — aprovado como fatia jogável, não como produto final.
+
+### 2026-10-16 · M7 — Conteúdo do mundo
+
+**Feito:** 85 POIs por regras (4 faróis com torre e braseiro no topo, 8 fogueiras, 15 acampamentos, 4 covis,
+12 santuários, 30 baús, 5 mirantes, 5 histórias + ruína do Vale e Cidadela); `Interactable`/`Interactor` e
+prompt na HUD; Baú (KayKit, tampa animada, saque determinístico por região), Farol (acende, revela mapa,
+purifica, feixe de luz), Fogueira (chamas, descanso, save, renascimento, ressurreição, espera e viagem rápida),
+Mirantes e Histórias (KayKit Halloween, textos de lore pt_BR/en); `GameState` (flags, almas, cristais,
+materiais, XP/nível, fogueiras, purificação) salvo junto com névoa de guerra, feitiços e atributos;
+`RegionAmbience` (corrupção, LUT, FogVolume no Pântano, neve/cinzas/fogos-fátuos/vagalumes, frio nos Picos,
+anúncio de região); 4 inimigos novos (morcego, golem, bruxa, serpente) e acampamentos com composição por região;
+inimigos dormentes a distância; fontes Cinzel/Alegreya Sans e tema de UI.
+
+**Testes (82/82 APROVADO):** quantidades de POIs e cobertura das 6 regiões; nenhum POI submerso, flutuando ou
+em encosta inviável (raycast na colisão); todos alcançáveis a partir do início (grade de 6 m, andar/nadar +
+escalada ≤ 30 m); saque determinístico; GameState ida e volta; os 6 inimigos nascem e recebem dano; ponto
+fraco do golem; serpente submersa imune.
+
+**Autocrítica (M7):** cada região tem cor própria nas capturas (vale dourado, floresta violeta e densa, picos
+rochosos com pinheiros, terras calcinadas avermelhadas com golem, pântano roxo de árvores mortas, costa ao pôr
+do sol). Feio/limitado: as poças das Terras Calcinadas são água escura em vez de lava; o topo da torre do farol
+é pequeno visto de baixo; a fogueira apagada some à noite (precisa de brasas mais visíveis); faltam fauna e
+som ambiente por região (M10); o mapa ainda não mostra ícones dos POIs descobertos (M9).

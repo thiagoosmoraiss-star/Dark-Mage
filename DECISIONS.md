@@ -180,3 +180,31 @@ pintavam o mago de rosa nas capturas).
 esquiva no ar ou mirando = Passo Umbral (blink). Égide absorve dano (a reflexão de projéteis ficou para o M10).
 
 **D45 · `god_mode` de depuração no Player** (testes de chefe e capturas).
+
+## 2026-10-16 (M7)
+
+**D46 · POIs gerados por regras** (`tools/place_pois.gd` → `data/world_pois.json`, versionado): faróis no ponto mais
+alto da região, covis perto do centro das regiões corrompidas, demais tipos em terreno pouco inclinado, com
+distância mínima, fora da Cidadela e **conectados ao início** (mesma regra de alcance do teste). 85 POIs.
+
+**D47 · Faróis:** Vale, Floresta, Picos e Terras Calcinadas. O Pântano (centro da corrupção) é revelado e purificado
+pelo seu Guardião (M8). Acender um farol revela 420 m no mapa e purifica 35% da região.
+
+**D48 · Interação na tecla G** (`Interactor` escolhe o objeto mais próximo à frente; prompt na HUD). Painéis do
+mundo pausam o jogo e são navegáveis por mouse/teclado/gamepad.
+
+**D49 · Fogueiras:** descansar cura, salva (slot 0), define o renascimento, ressuscita os inimigos, permite esperar
+até o amanhecer/anoitecer e viajar entre fogueiras descobertas. Autosave a cada 5 min fora de combate.
+
+**D50 · Save v1 estendido sem quebrar o formato:** `progress` (GameState), `world.fog`, `player.stats/equipped/
+unlocked`. A migração formal para v2 entra no M9 junto com o inventário.
+
+**D51 · Corrupção por região** (`GameState.BASE_CORRUPTION` × (1 − purificação)) controla névoa violeta, céu e LUT;
+`FogVolume` elipsoidal no Pântano; partículas de clima por região; frio nos Picos acima de 125 m (stamina mais
+lenta e dano leve após ~18 s, aquecido perto de fogueira acesa ou com a proteção `ward:frost`).
+
+**D52 · Inimigos 3–6:** Morcego Espectral (voador, mergulho telegrafado), Golem (golpe em área com marcador; cristal
+nas costas = 3× dano), Bruxa do Pântano (KayKit Skeleton Mage; cura aliados), Serpente do Lago (imune submersa,
+emerge, cospe veneno em arco, mergulha). Morcego, golem e serpente são esculpidos e animados por código.
+
+**D53 · Inimigos dormentes a mais de 110 m** do jogador (sem física, sem render) para caber ~70 inimigos na ilha.

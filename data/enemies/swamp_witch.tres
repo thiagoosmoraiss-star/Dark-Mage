@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_156ec")
 id = &"swamp_witch"
+behavior = &"witch"
 name_key = "ENEMY_SWAMP_WITCH"
 model_path = "res://assets/models/characters/kaykit_skeletons/Skeleton_Mage.glb"
 weapon_path = "res://assets/models/props/kaykit_skeleton_weapons/Skeleton_Staff.gltf"

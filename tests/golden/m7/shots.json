@@ -1,0 +1,184 @@
+[
+ {
+  "name": "m7_01_valley",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 10.0,
+  "player": [
+   -22.0,
+   0,
+   70.0
+  ],
+  "player_yaw": 35,
+  "cam_rel": [
+   2.5,
+   3.2,
+   7.5
+  ],
+  "target_rel": [
+   0,
+   1.0,
+   -12
+  ],
+  "fov": 65,
+  "frames": 150
+ },
+ {
+  "name": "m7_02_forest",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 11.0,
+  "player": [
+   -112.0,
+   0,
+   457.5
+  ],
+  "player_yaw": 35,
+  "cam_rel": [
+   2.5,
+   3.2,
+   7.5
+  ],
+  "target_rel": [
+   0,
+   1.0,
+   -12
+  ],
+  "fov": 65,
+  "frames": 150
+ },
+ {
+  "name": "m7_03_peaks",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 13.0,
+  "player": [
+   209.0,
+   0,
+   -592.0
+  ],
+  "player_yaw": 35,
+  "cam_rel": [
+   2.5,
+   3.2,
+   7.5
+  ],
+  "target_rel": [
+   0,
+   1.0,
+   -12
+  ],
+  "fov": 65,
+  "frames": 150
+ },
+ {
+  "name": "m7_04_burnt",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 16.0,
+  "player": [
+   365.0,
+   0,
+   275.5
+  ],
+  "player_yaw": 35,
+  "cam_rel": [
+   2.5,
+   3.2,
+   7.5
+  ],
+  "target_rel": [
+   0,
+   1.0,
+   -12
+  ],
+  "fov": 65,
+  "frames": 150
+ },
+ {
+  "name": "m7_05_swamp",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 15.0,
+  "player": [
+   -403.5,
+   0,
+   -86.5
+  ],
+  "player_yaw": 35,
+  "cam_rel": [
+   2.5,
+   3.2,
+   7.5
+  ],
+  "target_rel": [
+   0,
+   1.0,
+   -12
+  ],
+  "fov": 65,
+  "frames": 150
+ },
+ {
+  "name": "m7_06_coast",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 17.5,
+  "player": [
+   -566.5,
+   0,
+   578.5
+  ],
+  "player_yaw": 35,
+  "cam_rel": [
+   2.5,
+   3.2,
+   7.5
+  ],
+  "target_rel": [
+   0,
+   1.0,
+   -12
+  ],
+  "fov": 65,
+  "frames": 150
+ },
+ {
+  "name": "m7_07_farol_vale_aceso",
+  "hour": 19.5,
+  "player": [
+   82.0,
+   0,
+   32.0
+  ],
+  "player_yaw": 45,
+  "cam_rel": [
+   3,
+   6,
+   14
+  ],
+  "target_rel": [
+   0,
+   14,
+   -16
+  ],
+  "fov": 65,
+  "frames": 120
+ },
+ {
+  "name": "m7_08_fogueira_noite",
+  "hour": 22.0,
+  "player": [
+   379.0,
+   0,
+   705.5
+  ],
+  "player_yaw": 45,
+  "cam_rel": [
+   1.5,
+   2.2,
+   4.5
+  ],
+  "target_rel": [
+   0,
+   0.8,
+   -2.5
+  ],
+  "fov": 60,
+  "frames": 90
+ }
+]

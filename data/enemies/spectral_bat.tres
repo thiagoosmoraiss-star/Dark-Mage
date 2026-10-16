@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3]
+
+[ext_resource type="Script" path="res://ai/enemy_data.gd" id="1_ly7ah"]
+
+[resource]
+script = ExtResource("1_ly7ah")
+id = &"spectral_bat"
+behavior = &"bat"
+name_key = "ENEMY_SPECTRAL_BAT"
+eye_color = Color(1, 0.3529412, 0.81960785, 1)
+model_scale = 1.1
+health = 30.0
+damage = 10.0
+walk_speed = 3.0
+run_speed = 6.5
+sight_range = 24.0
+hearing_range = 22.0
+attack_range = 9.0
+attack_cooldown = 2.8
+windup = 0.7
+poise = 0.3

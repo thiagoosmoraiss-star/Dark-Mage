@@ -21,20 +21,54 @@ var _message: String = ""
 var _message_t: float = 0.0
 var _font: Font
 var _hurt_flash: float = 0.0
+var _prompt: String = ""
+var _banner_title: String = ""
+var _banner_sub: String = ""
+var _banner_t: float = 0.0
+var _loot_lines: PackedStringArray = []
+var _loot_t: float = 0.0
+var _title_font: Font
 
 
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_font = ThemeDB.fallback_font
+	add_to_group(&"hud")
+	_font = UiStyle.body_font()
+	_title_font = UiStyle.title_font()
+	Events.region_entered.connect(func(region: StringName) -> void:
+		show_banner(tr("REGION_" + String(region).to_upper()), ""))
 	Events.perfect_dodge.connect(func() -> void: _show_message("ESQUIVA PERFEITA", 1.2))
 	Events.player_damaged.connect(func(_i: RefCounted) -> void: _hurt_flash = 1.0)
 
 
 func bind(p: Player) -> void:
 	player = p
+	var inter: Interactor = p.get_node_or_null(^"Interactor") as Interactor
+	if inter != null:
+		inter.focus_changed.connect(func(t: Interactable) -> void:
+			_prompt = "" if t == null else t.prompt_text())
 	p.caster.cast_failed.connect(func(reason: StringName) -> void:
 		_show_message(tr("HUD_NO_MANA") if reason == &"mana" else tr("HUD_COOLDOWN"), 0.8))
+
+
+## Faixa grande no centro-alto (região, farol aceso, chefe).
+func show_banner(title: String, subtitle: String, seconds: float = 3.5) -> void:
+	_banner_title = title
+	_banner_sub = subtitle
+	_banner_t = seconds
+
+
+func show_loot(loot: Dictionary) -> void:
+	_loot_lines = []
+	if JsonUtil.get_i(loot, "souls") > 0:
+		_loot_lines.append("+%d %s" % [JsonUtil.get_i(loot, "souls"), tr("ITEM_SOULS")])
+	if JsonUtil.get_i(loot, "crystals") > 0:
+		_loot_lines.append("+%d %s" % [JsonUtil.get_i(loot, "crystals"), tr("ITEM_CRYSTALS")])
+	var mat: String = JsonUtil.get_s(loot, "material")
+	if mat != "":
+		_loot_lines.append("+%d %s" % [JsonUtil.get_i(loot, "material_count"), tr("MAT_" + mat.to_upper())])
+	_loot_t = 4.0
 
 
 func _show_message(text: String, seconds: float) -> void:
@@ -56,6 +90,8 @@ func _process(delta: float) -> void:
 	_alpha = move_toward(_alpha, want, delta * 2.0)
 	_message_t = maxf(_message_t - delta, 0.0)
 	_hurt_flash = maxf(_hurt_flash - delta * 2.5, 0.0)
+	_banner_t = maxf(_banner_t - delta, 0.0)
+	_loot_t = maxf(_loot_t - delta, 0.0)
 	var ui_scale: float = JsonUtil.num(Settings.get_value("accessibility", "ui_scale"), 1.0)
 	scale = Vector2(ui_scale, ui_scale)
 	size = get_viewport_rect().size / ui_scale
@@ -75,8 +111,39 @@ func _draw() -> void:
 		var w: float = _font.get_string_size(_message, HORIZONTAL_ALIGNMENT_LEFT, -1, 26).x
 		draw_string(_font, Vector2(vs.x * 0.5 - w * 0.5, vs.y * 0.3), _message, HORIZONTAL_ALIGNMENT_LEFT, -1, 26,
 			Color(GOLD, a))
+	_draw_world_ui(vs)
 	if _hurt_flash > 0.0 and Settings.get_value("accessibility", "reduce_flashes") != true:
 		draw_rect(Rect2(Vector2.ZERO, vs), Color(0.6, 0.05, 0.1, 0.12 * _hurt_flash), false, 24.0)
+
+
+func _draw_world_ui(vs: Vector2) -> void:
+	# Prompt de interação.
+	if _prompt != "":
+		var text: String = "[G]  " + _prompt
+		var w: float = _font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x
+		var r: Rect2 = Rect2(Vector2(vs.x * 0.5 - w * 0.5 - 16, vs.y * 0.7), Vector2(w + 32, 38))
+		draw_rect(r, Color(BG, 0.75))
+		draw_rect(r, GOLD_DIM, false, 1.0)
+		draw_string(_font, r.position + Vector2(16, 26), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color(0.95, 0.9, 0.82))
+	# Faixa (região, farol).
+	if _banner_t > 0.0:
+		var a: float = clampf(_banner_t, 0.0, 1.0) * clampf((3.5 - _banner_t) * 2.0 + 0.2, 0.0, 1.0)
+		var tw: float = _title_font.get_string_size(_banner_title, HORIZONTAL_ALIGNMENT_LEFT, -1, 40).x
+		var y: float = vs.y * 0.2
+		draw_string(_title_font, Vector2(vs.x * 0.5 - tw * 0.5, y), _banner_title, HORIZONTAL_ALIGNMENT_LEFT, -1, 40, Color(GOLD, a))
+		draw_line(Vector2(vs.x * 0.5 - tw * 0.6, y + 12), Vector2(vs.x * 0.5 + tw * 0.6, y + 12), Color(GOLD_DIM, a), 1.0)
+		if _banner_sub != "":
+			var sw: float = _font.get_string_size(_banner_sub, HORIZONTAL_ALIGNMENT_LEFT, -1, 22).x
+			draw_string(_font, Vector2(vs.x * 0.5 - sw * 0.5, y + 42), _banner_sub, HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color(0.93, 0.9, 0.84, a))
+	# Saque recebido.
+	if _loot_t > 0.0:
+		var a2: float = clampf(_loot_t, 0.0, 1.0)
+		for i: int in _loot_lines.size():
+			draw_string(_font, Vector2(vs.x - 300, vs.y * 0.45 + i * 28), _loot_lines[i], HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color(GOLD, a2))
+	# Almas (canto superior direito, discreto).
+	var souls: String = "%d  %s" % [GameState.souls, tr("ITEM_SOULS")]
+	draw_string(_font, Vector2(vs.x - 28 - _font.get_string_size(souls, HORIZONTAL_ALIGNMENT_LEFT, -1, 18).x, 40), souls,
+		HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color(0.85, 0.8, 0.95, 0.75 * _alpha))
 
 
 func _panel(r: Rect2) -> void:

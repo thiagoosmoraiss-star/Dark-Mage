@@ -54,7 +54,7 @@ func _ready() -> void:
 	col.shape = cap
 	col.position.y = cap.height * 0.5
 	add_child(col)
-	model = EnemyModel.new()
+	model = _make_model()
 	model.name = "Model"
 	add_child(model)
 	model.setup(data)
@@ -84,6 +84,21 @@ func _ready() -> void:
 
 func is_alive() -> bool:
 	return state != State.DEAD
+
+
+## Subclasses trocam o visual (criaturas procedurais).
+func _make_model() -> EnemyModel:
+	return EnemyModel.new()
+
+
+## Gravidade aplicada a cada passo (voadores e criaturas aquáticas desligam).
+func _uses_gravity() -> bool:
+	return true
+
+
+## Multiplicador de dano recebido conforme o ponto atingido (ponto fraco).
+func _hit_multiplier(_info: DamageInfo) -> float:
+	return 1.0
 
 
 func set_state(s: State) -> void:
@@ -124,7 +139,8 @@ func _physics_process(delta: float) -> void:
 	velocity.x = move.x * speed_mult + _knock.x
 	velocity.z = move.z * speed_mult + _knock.z
 	_knock = _knock.move_toward(Vector3.ZERO, 18.0 * delta)
-	velocity.y = -1.0 if is_on_floor() else velocity.y - GRAVITY * delta
+	if _uses_gravity():
+		velocity.y = -1.0 if is_on_floor() else velocity.y - GRAVITY * delta
 	move_and_slide()
 	_animate(move)
 
@@ -373,7 +389,9 @@ func _animate(move: Vector3) -> void:
 func take_damage(info: DamageInfo) -> bool:
 	if state == State.DEAD:
 		return false
-	var amount: float = info.amount * status.damage_taken_multiplier()
+	var amount: float = info.amount * status.damage_taken_multiplier() * _hit_multiplier(info)
+	if amount > info.amount * 1.5:
+		info.is_critical = true
 	_apply_raw_damage(amount, info.is_critical)
 	Events.damage_dealt.emit(self, info)
 	model.flash()
@@ -444,6 +462,25 @@ func _release_token() -> void:
 		director.release_token(self)
 
 
+## Longe do jogador: para de processar e some (sem perder o estado).
+var dormant: bool = false
+
+
+func set_dormant(on: bool) -> void:
+	if on == dormant or state == State.DEAD:
+		return
+	dormant = on
+	set_physics_process(not on)
+	model.visible = not on
+	model.set_process(not on)
+	if model.anim != null:
+		model.anim.active = not on
+	if on and target != null:
+		target = null
+		_release_token()
+		set_state(State.RETURN)
+
+
 ## Ressuscita no lugar de origem (descanso nas fogueiras).
 func revive() -> void:
 	health = max_health
@@ -451,6 +488,9 @@ func revive() -> void:
 	collision_mask = 1 | 4
 	global_position = home
 	visible = true
+	dormant = false
+	model.visible = true
+	model.set_process(true)
 	target = null
 	status.active.clear()
 	set_physics_process(true)

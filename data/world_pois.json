@@ -1,0 +1,682 @@
+[
+	{
+		"id": "ruin_awakening",
+		"kind": "ruin",
+		"radius": 16.0,
+		"region": "valley",
+		"x": -35.0,
+		"z": 95.0
+	},
+	{
+		"id": "beacon_valley",
+		"kind": "beacon",
+		"radius": 9.0,
+		"region": "valley",
+		"x": 70.0,
+		"z": 20.0
+	},
+	{
+		"id": "bonfire_valley",
+		"kind": "bonfire",
+		"radius": 4.0,
+		"region": "valley",
+		"x": 18.0,
+		"z": 165.0
+	},
+	{
+		"id": "camp_valley_north",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "valley",
+		"x": -30.0,
+		"z": 60.0
+	},
+	{
+		"id": "citadel",
+		"kind": "citadel",
+		"radius": 95.0,
+		"region": "citadel",
+		"x": 0.0,
+		"z": -360.0
+	},
+	{
+		"id": "beacon_forest_1",
+		"kind": "beacon",
+		"radius": 9.0,
+		"region": "forest",
+		"x": 539.5,
+		"z": 615.5
+	},
+	{
+		"id": "beacon_peaks_1",
+		"kind": "beacon",
+		"radius": 9.0,
+		"region": "peaks",
+		"x": 54.5,
+		"z": -743.5
+	},
+	{
+		"id": "beacon_burnt_1",
+		"kind": "beacon",
+		"radius": 9.0,
+		"region": "burnt",
+		"x": 672.0,
+		"z": -133.5
+	},
+	{
+		"id": "lair_forest_1",
+		"kind": "lair",
+		"radius": 22.0,
+		"region": "forest",
+		"x": 27.5,
+		"z": 521.0
+	},
+	{
+		"id": "lair_peaks_1",
+		"kind": "lair",
+		"radius": 22.0,
+		"region": "peaks",
+		"x": -41.5,
+		"z": -585.5
+	},
+	{
+		"id": "lair_burnt_1",
+		"kind": "lair",
+		"radius": 22.0,
+		"region": "burnt",
+		"x": 533.5,
+		"z": -51.5
+	},
+	{
+		"id": "lair_swamp_1",
+		"kind": "lair",
+		"radius": 22.0,
+		"region": "swamp",
+		"x": -511.0,
+		"z": 54.5
+	},
+	{
+		"id": "bonfire_valley_1",
+		"kind": "bonfire",
+		"radius": 4.0,
+		"region": "valley",
+		"x": 237.0,
+		"z": 293.5
+	},
+	{
+		"id": "bonfire_forest_1",
+		"kind": "bonfire",
+		"radius": 4.0,
+		"region": "forest",
+		"x": 376.5,
+		"z": 703.0
+	},
+	{
+		"id": "bonfire_peaks_1",
+		"kind": "bonfire",
+		"radius": 4.0,
+		"region": "peaks",
+		"x": 291.0,
+		"z": -659.5
+	},
+	{
+		"id": "bonfire_burnt_1",
+		"kind": "bonfire",
+		"radius": 4.0,
+		"region": "burnt",
+		"x": 723.5,
+		"z": 296.5
+	},
+	{
+		"id": "bonfire_swamp_1",
+		"kind": "bonfire",
+		"radius": 4.0,
+		"region": "swamp",
+		"x": -419.0,
+		"z": -15.0
+	},
+	{
+		"id": "bonfire_coast_1",
+		"kind": "bonfire",
+		"radius": 4.0,
+		"region": "coast",
+		"x": -714.5,
+		"z": -303.0
+	},
+	{
+		"id": "bonfire_coast_2",
+		"kind": "bonfire",
+		"radius": 4.0,
+		"region": "forest",
+		"x": 34.5,
+		"z": 291.0
+	},
+	{
+		"id": "shrine_valley_1",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "valley",
+		"x": 313.5,
+		"z": 163.0
+	},
+	{
+		"id": "shrine_valley_2",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "valley",
+		"x": 280.5,
+		"z": 259.0
+	},
+	{
+		"id": "shrine_forest_1",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "forest",
+		"x": 323.0,
+		"z": 402.5
+	},
+	{
+		"id": "shrine_forest_2",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "forest",
+		"x": 347.0,
+		"z": 429.5
+	},
+	{
+		"id": "shrine_peaks_1",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "peaks",
+		"x": 192.5,
+		"z": -460.5
+	},
+	{
+		"id": "shrine_peaks_2",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "peaks",
+		"x": -474.0,
+		"z": -523.5
+	},
+	{
+		"id": "shrine_burnt_1",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "burnt",
+		"x": 517.5,
+		"z": 337.0
+	},
+	{
+		"id": "shrine_burnt_2",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "burnt",
+		"x": 656.5,
+		"z": -467.5
+	},
+	{
+		"id": "shrine_swamp_1",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "swamp",
+		"x": -305.5,
+		"z": -172.5
+	},
+	{
+		"id": "shrine_swamp_2",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "swamp",
+		"x": -472.0,
+		"z": 340.0
+	},
+	{
+		"id": "shrine_coast_1",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "valley",
+		"x": -222.5,
+		"z": -111.0
+	},
+	{
+		"id": "shrine_coast_2",
+		"kind": "shrine",
+		"radius": 8.0,
+		"region": "forest",
+		"x": 517.0,
+		"z": 529.5
+	},
+	{
+		"id": "camp_valley_1",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "valley",
+		"x": -200.5,
+		"z": 369.0
+	},
+	{
+		"id": "camp_forest_1",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "forest",
+		"x": -120.0,
+		"z": 447.5
+	},
+	{
+		"id": "camp_forest_2",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "forest",
+		"x": -88.0,
+		"z": 489.5
+	},
+	{
+		"id": "camp_forest_3",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "forest",
+		"x": 53.0,
+		"z": 703.0
+	},
+	{
+		"id": "camp_peaks_1",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "peaks",
+		"x": 201.0,
+		"z": -602.0
+	},
+	{
+		"id": "camp_peaks_2",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "peaks",
+		"x": 62.0,
+		"z": -514.0
+	},
+	{
+		"id": "camp_burnt_1",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "burnt",
+		"x": 357.0,
+		"z": 265.5
+	},
+	{
+		"id": "camp_burnt_2",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "burnt",
+		"x": 553.0,
+		"z": 456.0
+	},
+	{
+		"id": "camp_burnt_3",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "burnt",
+		"x": 691.5,
+		"z": -6.5
+	},
+	{
+		"id": "camp_swamp_1",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "swamp",
+		"x": -411.5,
+		"z": -96.5
+	},
+	{
+		"id": "camp_swamp_2",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "swamp",
+		"x": -368.0,
+		"z": 302.0
+	},
+	{
+		"id": "camp_swamp_3",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "swamp",
+		"x": -380.5,
+		"z": -161.5
+	},
+	{
+		"id": "camp_coast_1",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "valley",
+		"x": 129.0,
+		"z": -23.5
+	},
+	{
+		"id": "camp_coast_2",
+		"kind": "camp",
+		"radius": 0.0,
+		"region": "forest",
+		"x": -47.0,
+		"z": 640.0
+	},
+	{
+		"id": "chest_valley_1",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "valley",
+		"x": -111.0,
+		"z": -2.5
+	},
+	{
+		"id": "chest_valley_2",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "valley",
+		"x": 8.0,
+		"z": 280.0
+	},
+	{
+		"id": "chest_valley_3",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "valley",
+		"x": -240.0,
+		"z": -304.5
+	},
+	{
+		"id": "chest_valley_4",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "valley",
+		"x": 198.0,
+		"z": -302.5
+	},
+	{
+		"id": "chest_valley_5",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "valley",
+		"x": 36.0,
+		"z": 164.0
+	},
+	{
+		"id": "chest_forest_1",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "forest",
+		"x": 158.0,
+		"z": 352.5
+	},
+	{
+		"id": "chest_forest_2",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "forest",
+		"x": 249.0,
+		"z": 670.5
+	},
+	{
+		"id": "chest_forest_3",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "forest",
+		"x": 424.0,
+		"z": 546.5
+	},
+	{
+		"id": "chest_forest_4",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "forest",
+		"x": 339.0,
+		"z": 793.0
+	},
+	{
+		"id": "chest_forest_5",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "forest",
+		"x": -114.0,
+		"z": 478.5
+	},
+	{
+		"id": "chest_forest_6",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "forest",
+		"x": 456.5,
+		"z": 628.5
+	},
+	{
+		"id": "chest_peaks_1",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "peaks",
+		"x": 528.5,
+		"z": -761.0
+	},
+	{
+		"id": "chest_peaks_2",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "peaks",
+		"x": 277.5,
+		"z": -434.0
+	},
+	{
+		"id": "chest_peaks_3",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "peaks",
+		"x": -224.0,
+		"z": -385.5
+	},
+	{
+		"id": "chest_peaks_4",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "peaks",
+		"x": 171.5,
+		"z": -299.0
+	},
+	{
+		"id": "chest_peaks_5",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "peaks",
+		"x": -77.0,
+		"z": -668.5
+	},
+	{
+		"id": "chest_burnt_1",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "burnt",
+		"x": 752.0,
+		"z": 44.5
+	},
+	{
+		"id": "chest_burnt_2",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "burnt",
+		"x": 464.0,
+		"z": 59.0
+	},
+	{
+		"id": "chest_burnt_3",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "burnt",
+		"x": 713.0,
+		"z": 80.0
+	},
+	{
+		"id": "chest_burnt_4",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "burnt",
+		"x": 465.5,
+		"z": 330.5
+	},
+	{
+		"id": "chest_burnt_5",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "burnt",
+		"x": 679.0,
+		"z": -70.0
+	},
+	{
+		"id": "chest_swamp_1",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "swamp",
+		"x": -492.0,
+		"z": -51.0
+	},
+	{
+		"id": "chest_swamp_2",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "swamp",
+		"x": -464.5,
+		"z": -157.5
+	},
+	{
+		"id": "chest_swamp_3",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "swamp",
+		"x": -330.0,
+		"z": -49.0
+	},
+	{
+		"id": "chest_swamp_4",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "swamp",
+		"x": -326.0,
+		"z": -282.5
+	},
+	{
+		"id": "chest_swamp_5",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "swamp",
+		"x": -496.0,
+		"z": -113.5
+	},
+	{
+		"id": "chest_coast_1",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "coast",
+		"x": -574.5,
+		"z": 568.5
+	},
+	{
+		"id": "chest_coast_2",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "forest",
+		"x": 454.0,
+		"z": 563.5
+	},
+	{
+		"id": "chest_coast_3",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "coast",
+		"x": -883.0,
+		"z": 8.0
+	},
+	{
+		"id": "chest_coast_4",
+		"kind": "chest",
+		"radius": 2.0,
+		"region": "forest",
+		"x": 381.0,
+		"z": 616.0
+	},
+	{
+		"id": "viewpoint_peaks_1",
+		"kind": "viewpoint",
+		"radius": 3.0,
+		"region": "peaks",
+		"x": -38.5,
+		"z": -730.0
+	},
+	{
+		"id": "viewpoint_peaks_2",
+		"kind": "viewpoint",
+		"radius": 3.0,
+		"region": "peaks",
+		"x": 21.5,
+		"z": -656.5
+	},
+	{
+		"id": "viewpoint_burnt_1",
+		"kind": "viewpoint",
+		"radius": 3.0,
+		"region": "burnt",
+		"x": 736.5,
+		"z": -104.5
+	},
+	{
+		"id": "viewpoint_coast_1",
+		"kind": "viewpoint",
+		"radius": 3.0,
+		"region": "coast",
+		"x": -144.5,
+		"z": 865.5
+	},
+	{
+		"id": "viewpoint_coast_2",
+		"kind": "viewpoint",
+		"radius": 3.0,
+		"region": "forest",
+		"x": 612.0,
+		"z": 622.5
+	},
+	{
+		"id": "story_valley_1",
+		"kind": "story",
+		"radius": 3.0,
+		"region": "valley",
+		"x": 281.5,
+		"z": -69.5
+	},
+	{
+		"id": "story_forest_1",
+		"kind": "story",
+		"radius": 3.0,
+		"region": "forest",
+		"x": -331.5,
+		"z": 802.0
+	},
+	{
+		"id": "story_swamp_1",
+		"kind": "story",
+		"radius": 3.0,
+		"region": "swamp",
+		"x": -437.5,
+		"z": 100.5
+	},
+	{
+		"id": "story_burnt_1",
+		"kind": "story",
+		"radius": 3.0,
+		"region": "burnt",
+		"x": 600.0,
+		"z": 277.5
+	},
+	{
+		"id": "story_peaks_1",
+		"kind": "story",
+		"radius": 3.0,
+		"region": "peaks",
+		"x": -149.5,
+		"z": -658.0
+	}
+]

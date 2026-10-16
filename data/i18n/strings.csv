@@ -25,3 +25,46 @@ ENEMY_LAKE_SERPENT,Serpente do Lago,Lake Serpent
 HUD_LOCKED,Alvo travado,Target locked
 HUD_NO_MANA,Mana insuficiente,Not enough mana
 HUD_COOLDOWN,Recarregando,Recharging
+UI_CLOSE,Fechar,Close
+INTERACT,Interagir,Interact
+INTERACT_CHEST,Abrir baú,Open chest
+INTERACT_BONFIRE,Acender a fogueira,Light the bonfire
+INTERACT_BONFIRE_REST,Descansar,Rest
+INTERACT_BEACON,Reacender o farol,Rekindle the beacon
+INTERACT_VIEWPOINT,Contemplar o horizonte,Gaze at the horizon
+INTERACT_STORY,Examinar,Examine
+ITEM_SOULS,fragmentos de alma,soul fragments
+ITEM_CRYSTALS,cristais,crystals
+MAT_GOLDEN_HERB,erva dourada,golden herb
+MAT_GLOWCAP,cogumelo-lume,glowcap
+MAT_FROST_SHARD,lasca de geada,frost shard
+MAT_EMBER_STONE,pedra-brasa,ember stone
+MAT_VIOLET_RESIN,resina violeta,violet resin
+MAT_SEA_PEARL,pérola do mar,sea pearl
+BONFIRE_GENERIC,Fogueira,Bonfire
+BONFIRE_BONFIRE_VALLEY,Fogueira do Despertar,Bonfire of Awakening
+BONFIRE_RESTED,"Suas feridas se fecham. A névoa recua por um instante… e os mortos se levantam outra vez.","Your wounds close. The mist recedes for a moment… and the dead rise once more."
+BONFIRE_WAIT_MORNING,Esperar até o amanhecer,Wait until dawn
+BONFIRE_WAIT_NIGHT,Esperar até o anoitecer,Wait until nightfall
+BONFIRE_TRAVEL,Viajar para,Travel to
+BEACON_LIT,Farol Reaceso,Beacon Rekindled
+VIEWPOINT_TITLE,Mirante,Vista
+VIEWPOINT_BODY,"Daqui a ilha inteira se abre diante de você. Você anota no mapa tudo o que a névoa deixa ver.","From here the whole isle opens before you. You mark on your map all that the mist lets you see."
+REGION_VALLEY,Vale do Despertar,Vale of Awakening
+REGION_FOREST,Floresta Sussurrante,Whispering Forest
+REGION_PEAKS,Picos Gélidos,Frozen Peaks
+REGION_BURNT,Terras Calcinadas,Scorched Lands
+REGION_SWAMP,Pântano Violeta,Violet Marsh
+REGION_COAST,Costa dos Naufrágios,Shipwreck Coast
+REGION_CITADEL,Cidadela do Medo,Citadel of Fear
+REGION_SEA,Mar da Névoa,Mist Sea
+STORY_1_TITLE,Altar das Velas Frias,Altar of Cold Candles
+STORY_1_BODY,"As velas ainda queimam, mas não aquecem. Alguém rezou aqui pedindo que o medo poupasse a filha. A névoa respondeu levando as duas.","The candles still burn, but give no warmth. Someone prayed here for fear to spare their daughter. The mist answered by taking both."
+STORY_2_TITLE,O Caixão Selado,The Sealed Coffin
+STORY_2_BODY,"Pregos de prata, gravados com runas de contenção. Na lápide: ""Aqui jaz o primeiro Guardião. Que ele nunca desperte."" A tampa está arranhada por dentro.","Silver nails, carved with binding runes. On the stone: ""Here lies the first Guardian. May he never wake."" The lid is scratched from the inside."
+STORY_3_TITLE,Restos de um Aventureiro,An Adventurer's Remains
+STORY_3_BODY,"Espada partida, escudo rachado. No diário, a última linha: ""O farol do vale ainda brilha. Se eu chegar até ele, talvez o medo me esqueça.""","Broken sword, cracked shield. In the journal, the last line: ""The vale's beacon still shines. If I reach it, perhaps fear will forget me."""
+STORY_4_TITLE,Túmulo do Faroleiro,The Lightkeeper's Grave
+STORY_4_BODY,"A lanterna foi deixada acesa por mãos que já não existem. ""Quatro luzes contra a névoa. Quatro guardiões contra a luz.""","The lantern was left lit by hands long gone. ""Four lights against the mist. Four guardians against the light."""
+STORY_5_TITLE,Placa da Cidadela,The Citadel's Plaque
+STORY_5_BODY,"""Quem governa o medo governa a ilha."" A frase foi riscada e, por baixo, alguém escreveu: ""Quem enfrenta o medo a liberta.""","""Who rules fear rules the isle."" The words were scratched out, and beneath them someone wrote: ""Who faces fear sets it free."""

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3]
+
+[ext_resource type="Script" path="res://ai/enemy_data.gd" id="1_da1hx"]
+
+[resource]
+script = ExtResource("1_da1hx")
+id = &"stone_golem"
+behavior = &"golem"
+name_key = "ENEMY_STONE_GOLEM"
+model_scale = 1.25
+health = 260.0
+damage = 32.0
+walk_speed = 1.2
+run_speed = 2.2
+hearing_range = 12.0
+attack_range = 4.6
+preferred_range = 3.5
+attack_cooldown = 4.0
+windup = 1.1
+knockback_resist = 0.9
+poise = 1.2
+xp = 60
+souls = 35

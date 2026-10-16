@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3]
+
+[ext_resource type="Script" path="res://ai/enemy_data.gd" id="1_nt77i"]
+
+[resource]
+script = ExtResource("1_nt77i")
+id = &"lake_serpent"
+behavior = &"serpent"
+name_key = "ENEMY_LAKE_SERPENT"
+eye_color = Color(0.49803922, 1, 0.61960787, 1)
+health = 140.0
+damage = 16.0
+attack_range = 22.0
+attack_cooldown = 1.6
+windup = 0.7
+projectile_speed = 20.0
+knockback_resist = 1.0
+poise = 0.9
+xp = 45
+souls = 25

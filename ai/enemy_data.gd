@@ -5,6 +5,8 @@ extends Resource
 enum AttackKind { MELEE, RANGED, CASTER }
 
 @export var id: StringName = &""
+## Comportamento (classe): basic, witch, bat, golem, serpent.
+@export var behavior: StringName = &"basic"
 @export var name_key: String = ""
 @export var model_path: String = ""
 @export var weapon_path: String = ""

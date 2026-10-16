@@ -51,7 +51,7 @@ func _ready() -> void:
 		terrain = get_tree().get_first_node_in_group(&"island_terrain") as IslandTerrain
 	clearings.append(Vector3(L.CITADEL_CENTER.x, L.CITADEL_RADIUS + 10.0, L.CITADEL_CENTER.y))
 	clearings.append(Vector3(IslandWorld.SPAWN.x, 14.0, IslandWorld.SPAWN.y))
-	for poi: Dictionary in WorldPois.POIS:
+	for poi: Dictionary in WorldPois.all():
 		var r: float = JsonUtil.get_f(poi, "radius")
 		if r > 0.0:
 			clearings.append(Vector3(JsonUtil.get_f(poi, "x"), r, JsonUtil.get_f(poi, "z")))
