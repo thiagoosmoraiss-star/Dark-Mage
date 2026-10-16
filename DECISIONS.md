@@ -65,3 +65,29 @@ versionados; `.godot/`, `build/` e `reports/` não.
 **D16 · Máquina de desenvolvimento ≠ hardware de referência.**
 O agente roda num Lenovo 83NS (i5-13420H, Intel UHD Graphics). Capturas aqui são funcionais; FPS e
 qualidade final do preset Alto são medidos pelo dono no Nitro V15 (RTX 4050).
+
+## 2026-10-16 (M1)
+
+**D17 · Tonemap AgX.** Mantém cor nos altos (pôr do sol, magia violeta) sem o amarelado do ACES em
+saturação alta; exposição por horário na paleta (`data/day_night_palette.gd`).
+
+**D18 · Céu em shader próprio sem `TIME`.** O relógio das nuvens (`cloud_time`) é enviado pelo script no
+ritmo do preset (`sky_radiance_update_s`: a cada frame no Alto/Ultra, 0,5 s no Médio, 2 s no Baixo). Usar
+`TIME` forçaria recalcular a radiância do céu todo frame. `Sky.PROCESS_MODE_INCREMENTAL`, radiância 256
+(128 no Baixo).
+
+**D19 · Iluminação global: SSIL + luz ambiente do céu (sem SDFGI).** O dia e a noite são dinâmicos; o SDFGI
+custa caro em GPU de notebook e em mundo aberto grande. SSIL no Alto/Ultra; interiores (santuários e covis)
+poderão usar VoxelGI/LightmapGI por cena. Reavaliar no Nitro V15 com o benchmark.
+
+**D20 · Uma luz direcional com sombra por vez.** O sol projeta sombra de dia e a lua à noite (troca quando a
+energia do sol cai abaixo de 0,05).
+
+**D21 · Capturas sempre no preset Alto** (`--preset=high` padrão em `tools/capture.gd`), para o golden não
+depender da GPU detectada.
+
+**D22 · Scripts de linha de comando (`-s`) não referenciam estaticamente classes que usam autoloads.**
+Eles compilam antes dos autoloads existirem; o acesso é dinâmico (`get`/`set`/`call`).
+
+**D23 · Teste que compila todos os scripts e shaders** (`tests/unit/test_scripts_compile.gd`), com controle
+negativo verificado (script não tipado reprova).

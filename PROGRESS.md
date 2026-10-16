@@ -1,13 +1,13 @@
 # Progresso
 
 ## Estado atual (para retomar)
-- **Marco atual:** M0 concluído (tag local `m0`). **Próximo:** M1 — render base e atmosfera.
+- **Marco atual:** M1 concluído (tag `m1`). **Próximo:** M2 — terreno da ilha (Terrain3D).
 - **Godot:** `../tools/godot/Godot_v4.7.2-stable_win64.exe` (ou `GODOT_BIN`).
-- **Verificação:** `bash tools/check.sh` → APROVADO em 2026-10-16.
+- **Verificação:** `bash tools/check.sh` (APROVADO, 33 testes) e `bash tools/capture.sh tests/golden/<m>/shots.json`.
 - **Próximos 3 passos:**
-  1. M1: shader de céu próprio (`shaders/sky.gdshader`) com gradiente, sol, lua, estrelas e nuvens em camadas.
-  2. M1: `world/day_night.gd` (ciclo de ~24 min) controlando sol/lua (`DirectionalLight3D`, PSSM 4), névoa de altura e volumétrica, glow e tonemap; presets aplicados ao `WorldEnvironment`.
-  3. M1: `tools/capture.gd` com poses e horários fixos (amanhecer, meio-dia, pôr do sol, noite) → `tests/golden/m1/` e autocrítica.
+  1. M2: baixar texturas PBR CC0 (ambientCG/Poly Haven) e montar o `Terrain3DAssets`.
+  2. M2: `world/island/island_generator.gd` (heightmap autoral por seed + máscaras de região) e `tools/generate_island.gd` gravando os dados do Terrain3D.
+  3. M2: teste de hash por seed, teste de colisão × altura em 10 mil pontos, capturas de relevo.
 
 ## Ao iniciar uma sessão
 Ler `docs/ROTEIRO.md`, este arquivo, `DECISIONS.md` e `TODO.md`; rodar `bash tools/check.sh`; só então continuar.
@@ -52,3 +52,39 @@ O céu procedural padrão é placeholder (TODO #1). Na primeira tentativa a név
 de roxo; foi corrigido (altura da névoa abaixo da câmera e pouco efeito no céu). A captura com overlay mostrou
 ~48 FPS na Intel UHD numa cena vazia em 1280×720, o que acende um alerta para o preset Baixo nesta classe de
 GPU. Precisa ser medido de verdade com o benchmark do M1.
+
+### 2026-10-16 · M1 — Render base e atmosfera
+
+**Mini-plano:** shader de céu próprio; nó `Atmosphere` com ciclo de 24 min, sol/lua, PSSM, névoa de altura e
+volumétrica, glow, AgX, LUT; presets aplicados ao ambiente; ferramenta de captura por poses; autocrítica.
+
+**Feito:**
+- `shaders/sky.gdshader`: gradiente por horário com horizonte quente do lado do sol, halo de Mie, disco solar,
+  lua com crateras falsas, estrelas cintilantes, duas camadas de nuvens com borda prateada e tinta de corrupção.
+- `world/atmosphere.gd` (`Atmosphere`): constrói WorldEnvironment, Sol e Lua; ciclo de 24 min; só uma luz
+  com sombra por vez; névoa exponencial + altura + volumétrica (violeta com corrupção); glow; AgX; contraste;
+  saturação por horário; LUT 3D (`core/color_grading.gd`: default, corrupted, purified); presets (PSSM 2/4,
+  distância, SSAO/SSIL/SSR, volumétrica e qualidade de sombra suave).
+- `data/day_night_palette.gd`: 9 chaves de cor/energia por hora, interpolação cíclica suave, trajetórias do sol e da lua.
+- `world/props/rock_mesh.gd` + `shaders/rock.gdshader`: rochas esculpidas por código (icosfera + fBm/ridged +
+  cortes de fratura), triplanar com musgo no topo e AO de cavidade — asset definitivo, não primitiva.
+- Cena `levels/sandbox/atmosphere_sandbox.tscn`; `tools/capture.gd` por poses (JSON), `tools/capture.sh`
+  (reprova com erro no log) e `tools/contact_sheet.gd`.
+
+**Testes:**
+| Teste | Resultado |
+|---|---|
+| `tools/check.sh all` (import, smoke, licenças, GdUnit4 33/33) | APROVADO |
+| Ciclo: sol ao meio-dia/meia-noite, leste→oeste, lua à noite, paleta contínua e cíclica, nó troca sombra sol↔lua, 1 min real = 1 h | APROVADO |
+| Controle negativo do teste de compilação | APROVADO (reprovou como esperado) |
+| Capturas `tests/golden/m1/` (8 poses, preset Alto, Intel UHD) | APROVADO (funcional) |
+| Qualidade no hardware de referência | NÃO EXECUTADO (dono) |
+
+**Autocrítica visual (M1):** o amanhecer e o pôr do sol estão bonitos: céu âmbar e laranja, sol com halo, nuvens
+com borda iluminada e silhueta dos morros. O crepúsculo violeta passa bem a "beleza sombria". A noite é
+legível (azul-crepúsculo, estrelas, rochas com luz lunar), mas a lua quase não aparece nos enquadramentos
+atuais. O meio-dia ficou correto, mas um pouco claro e pouco dramático; as sombras curtas do meio-dia não
+ajudam. O estado corrompido ainda é tímido (lavanda em vez de violeta ameaçador) e vai ser calibrado por
+região no M7. **Feio:** o chão provisório tem manchas grandes e repetitivas e listras do normal map. Vai sair
+no M2. Na primeira rodada a névoa de altura lavava todas as cenas de dia; reduzi a densidade em 45%, a
+altura da névoa e o efeito no céu.

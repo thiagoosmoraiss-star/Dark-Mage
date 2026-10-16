@@ -1,0 +1,10 @@
+[
+	{"name": "m1_01_amanhecer", "scene": "res://levels/sandbox/atmosphere_sandbox.tscn", "hour": 6.4, "cam": [-30, 9, 34], "target": [6, 4, -10]},
+	{"name": "m1_02_manha", "hour": 9.0, "cam": [-30, 9, 34], "target": [6, 4, -10]},
+	{"name": "m1_03_meio_dia", "hour": 12.5, "cam": [-30, 9, 34], "target": [6, 4, -10]},
+	{"name": "m1_04_por_do_sol", "hour": 17.7, "cam": [30, 7, 30], "target": [-20, 6, -20]},
+	{"name": "m1_05_crepusculo", "hour": 19.0, "cam": [30, 7, 30], "target": [-20, 6, -20]},
+	{"name": "m1_06_noite", "hour": 23.0, "cam": [-30, 9, 34], "target": [6, 6, -10]},
+	{"name": "m1_07_ceu_noite", "hour": 1.0, "cam": [0, 4, 20], "target": [10, 40, -60], "coverage": 0.3},
+	{"name": "m1_08_corrompido", "hour": 15.0, "cam": [-30, 9, 34], "target": [6, 4, -10], "corruption": 1.0}
+]
