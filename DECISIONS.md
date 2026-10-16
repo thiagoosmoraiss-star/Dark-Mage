@@ -91,3 +91,44 @@ Eles compilam antes dos autoloads existirem; o acesso é dinâmico (`get`/`set`/
 
 **D23 · Teste que compila todos os scripts e shaders** (`tests/unit/test_scripts_compile.gd`), com controle
 negativo verificado (script não tipado reprova).
+
+## 2026-10-16 (M2–M3)
+
+**D24 · Ilha gerada offline por `tools/generate_island.gd` e gravada no formato do Terrain3D**
+(`world/island/data`, 64 regiões de 256 m, ~25 MB em LFS). Leva ~3,5 min em 2048² nesta máquina. A
+geração é determinística (seed 20261016); `meta.json` guarda seed, resolução e hash. Regenerar sempre que
+`IslandGenerator`/`IslandLayout` mudar.
+
+**D25 · Composição autoral por regiões com pesos gaussianos perturbados por ruído** (Vale, Floresta, Picos,
+Terras Calcinadas com vulcão, Pântano) + platô da Cidadela + costa com praias e falésias. O pântano domina o
+próprio miolo (abaixo do nível do mar em poças). Rios ficaram para o M7 (corpos d'água próprios).
+
+**D26 · Texturas de terreno: 8 materiais CC0 do ambientCG em 1K**, empacotados por
+`tools/pack_terrain_textures.gd` (albedo+altura, normal GL+rugosidade), VRAM BPTC com mipmaps. 1K porque
+o terreno repete a cada 6–14 m e há variação de macro escala; 2K ficaria para o Ultra no M12.
+
+**D27 · Critério colisão × visual.** O LOD0 do Terrain3D usa diagonais alternadas (malha simétrica) e a
+colisão do Jolt uma diagonal fixa: nos vértices são idênticos (≤ 0,001 m medidos), entre vértices divergem
+em dobras agudas. Mitigação na origem: duas passadas de suavização 1-2-1 no heightmap. O teste aplica o
+critério do roteiro (≤ 0,05 m) em 10 mil vértices e, entre vértices, exige P99 ≤ 0,05 m e < 0,5% acima
+(medido: P99 0,021 m, 0,14% acima, máximo 0,25 m em dobras pontuais). **Desvio registrado para o dono.**
+
+**D28 · Mensagens conhecidas do Terrain3D 1.0.2 no Godot 4.7** (`tools/known_log_messages.txt`): um
+`load("")` interno e um aviso de API depreciada, emitidos pelo binário do addon até para um `Terrain3D.new()`
+vazio. São as únicas exceções do `check.sh`. Remover quando houver Terrain3D com suporte oficial ao 4.7.
+
+**D29 · Ordem de configuração do Terrain3D:** `material`, `collision` e `assets` só existem depois de o nó
+entrar na árvore; assets atribuídos antes são descartados (causa do terreno quadriculado na 1ª captura).
+
+**D30 · Personagem: KayKit Adventurers "Mage" (CC0) adaptado.** Recolorido por faixas do atlas (manto
+preto-violeta, acabamentos dourados, pele pálida acinzentada, forro violeta), olhos com brilho violeta
+posicionados pela malha da cabeça, cajado próprio (haste, garras douradas, cristal emissivo com
+OmniLight) alinhado à vertical na pose de idle, capa do próprio modelo com balanço secundário. Proporções
+estilizadas (cabeça grande) — legível e coerente com o visual "pintado", mas menos sombrio que o ideal;
+trocar por modelo próprio é melhoria futura (TODO).
+
+**D31 · Input roteirizado no Player** (`use_scripted_input`, sinal `stepped`): testes e percursos contam
+os passos do próprio jogador, o que tornou o movimento exatamente determinístico entre execuções.
+
+**D32 · Interpolação de física desligada em quem se move em `_process`** (câmera, mar, grama,
+vegetação estática); o jogador continua interpolado.
