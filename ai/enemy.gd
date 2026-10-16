@@ -393,6 +393,8 @@ func take_damage(info: DamageInfo) -> bool:
 	if amount > info.amount * 1.5:
 		info.is_critical = true
 	_apply_raw_damage(amount, info.is_critical)
+	if info.status_kind >= 0 and state != State.DEAD:
+		apply_status(info.status_kind as StatusEffects.Kind, info.status_time, info.status_power)
 	Events.damage_dealt.emit(self, info)
 	model.flash()
 	var vfx: Vfx = Vfx.get_for(self)

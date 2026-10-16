@@ -186,4 +186,4 @@ func _epilogue() -> void:
 		panels.show_text(tr("EPILOGUE_TITLE"), tr("EPILOGUE_BODY"))
 	var world: IslandWorld = get_tree().get_first_node_in_group(&"world") as IslandWorld
 	if world != null:
-		world.save_game(0)
+		world.save_game(Game.current_slot)

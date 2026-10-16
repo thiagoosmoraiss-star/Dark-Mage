@@ -3,7 +3,7 @@ extends RefCounted
 ## Formato do save: JSON puro (nunca Resource/.tres, que pode carregar scripts).
 ## Toda mudança de formato incrementa VERSION e ganha um passo em _migrate_step().
 
-const VERSION: int = 1
+const VERSION: int = 2
 const MAGIC: String = "dark-mage-save"
 
 
@@ -25,6 +25,16 @@ static func new_save() -> Dictionary:
 			"time_of_day_h": 8.0,
 			"flags": {},
 		},
+		"inventory": default_inventory(),
+		"map_markers": [],
+	}
+
+
+## Inventário inicial (o mesmo do autoload Inventory.reset()).
+static func default_inventory() -> Dictionary:
+	return {
+		"slots": [{"id": "potion_health", "count": 3}, {"id": "potion_mana", "count": 2}],
+		"equipped": {"staff": "staff_apprentice", "robe": "", "amulet": ""},
 	}
 
 
@@ -72,6 +82,13 @@ static func _migrate_step(data: Dictionary, from_version: int) -> Dictionary:
 			data["player"] = player
 			if not data.has("world"):
 				data["world"] = {"time_of_day_h": 8.0, "flags": {}}
+		1:
+			# v1 → v2 (M9): inventário em grade e marcadores do mapa. Quem já tinha
+			# progresso ganha o inventário inicial; nada do v1 é perdido.
+			if not (data.get("inventory") is Dictionary):
+				data["inventory"] = default_inventory()
+			if not (data.get("map_markers") is Array):
+				data["map_markers"] = []
 	return data
 
 
@@ -96,6 +113,8 @@ static func validate(data: Dictionary) -> bool:
 	var tod: Variant = (world as Dictionary).get("time_of_day_h")
 	var hours: float = num(tod, -1.0)
 	if not (hours >= 0.0 and hours < 24.0):
+		return false
+	if not (data.get("inventory") is Dictionary and data.get("map_markers") is Array):
 		return false
 	return (world as Dictionary).get("flags") is Dictionary
 

@@ -1,5 +1,5 @@
 extends GdUnitTestSuite
-## Save: ida e volta, migração da fixture v0, arquivo corrompido e backup.
+## Save: ida e volta, migração das fixtures v0 e v1, arquivo corrompido e backup.
 
 const TEST_DIR: String = "user://test_saves"
 
@@ -96,3 +96,41 @@ func test_migrates_v0_fixture() -> void:
 	assert_float(_health(data)).is_equal(80.0)
 	assert_bool(player.has("hp")).is_false()
 	assert_bool(data.has("world")).is_true()
+
+
+func test_migrates_v1_fixture_to_v2_keeping_progress() -> void:
+	var text: String = FileAccess.get_file_as_string("res://tests/fixtures/save_v1.json")
+	var data: Dictionary = SaveCodec.decode(text)
+	assert_bool(data.is_empty()).is_false()
+	assert_int(roundi(SaveCodec.num(data["version"], -1.0))).is_equal(2)
+	assert_bool(data["inventory"] is Dictionary).is_true()
+	assert_bool(data["map_markers"] is Array).is_true()
+	# Nada do v1 se perde.
+	var prog: Dictionary = data["progress"]
+	assert_int(JsonUtil.get_i(prog, "souls")).is_equal(840)
+	assert_int(JsonUtil.get_i(prog, "level")).is_equal(5)
+	GameState.from_dict(prog)
+	Inventory.from_dict(data["inventory"] as Dictionary)
+	assert_bool(GameState.has_flag("guardian:forest")).is_true()
+	assert_str(Inventory.equipped["staff"]).is_equal("staff_apprentice")
+	assert_int(Inventory.count("potion_health")).is_equal(3)
+	GameState.reset()
+	Inventory.reset()
+
+
+func test_v2_requires_inventory_and_markers() -> void:
+	var data: Dictionary = SaveCodec.new_save()
+	assert_bool(SaveCodec.validate(data)).is_true()
+	data.erase("inventory")
+	assert_bool(SaveCodec.validate(data)).is_false()
+
+
+func test_slot_info_and_latest_slot() -> void:
+	assert_int(SaveSystem.latest_slot()).is_equal(-1)
+	var a: Dictionary = _sample()
+	a["progress"] = {"level": 7}
+	assert_int(SaveSystem.save_slot(2, a)).is_equal(OK)
+	var info: Dictionary = SaveSystem.slot_info(2)
+	assert_int(JsonUtil.get_i(info, "level")).is_equal(7)
+	assert_int(SaveSystem.latest_slot()).is_equal(2)
+	assert_bool(SaveSystem.slot_info(1).is_empty()).is_true()

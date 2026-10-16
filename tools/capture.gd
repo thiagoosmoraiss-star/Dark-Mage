@@ -102,6 +102,30 @@ func _setup_shot(shot: Dictionary) -> void:
 				fog.call(&"reveal", JsonUtil.vec3(p), 160.0)
 			if not ms.call(&"is_open"):
 				ms.call(&"toggle")
+	# Estado de jogo para as capturas de UI (itens, almas, flags, XP).
+	var gs: Node = root.get_node_or_null(^"/root/GameState")
+	var inv: Node = root.get_node_or_null(^"/root/Inventory")
+	if shot.has("souls") and gs != null:
+		gs.call(&"add_souls", JsonUtil.get_i(shot, "souls"))
+	if shot.has("xp") and gs != null:
+		gs.call(&"add_xp", JsonUtil.get_i(shot, "xp"))
+	if shot.has("flags") and gs != null:
+		for f: Variant in (shot["flags"] as Array):
+			gs.call(&"set_flag", str(f))
+	if shot.has("give") and inv != null:
+		for g: Variant in (shot["give"] as Array):
+			inv.call(&"add", str((g as Array)[0]), roundi(JsonUtil.num((g as Array)[1])))
+	if shot.has("equip") and inv != null:
+		for e: Variant in (shot["equip"] as Array):
+			for i: int in 36:
+				if str(inv.call(&"id_at", i)) == str(e):
+					inv.call(&"equip_from", i)
+					break
+	if shot.get("hide_hud", false) == true:
+		var wn2: Node = root.get_tree().get_first_node_in_group(&"world")
+		var hud_layer: CanvasLayer = wn2.get(&"hud") as CanvasLayer if wn2 != null else null
+		if hud_layer != null:
+			hud_layer.visible = false
 	if shot.has("enter") and player != null:
 		var wn: Node = root.get_tree().get_first_node_in_group(&"world")
 		var structs: Dictionary = wn.get(&"structures")
@@ -119,6 +143,30 @@ func _setup_shot(shot: Dictionary) -> void:
 		var mv: Vector3 = player.global_position + JsonUtil.vec3(shot["move"])
 		player.call(&"teleport", mv)
 		player.rotation.y = deg_to_rad(JsonUtil.get_f(shot, "player_yaw", 0.0))
+	if shot.has("ui"):
+		await root.get_tree().create_timer(0.6).timeout
+		var ui: Node = root.get_tree().get_first_node_in_group(&"game_ui")
+		var which: String = str(shot["ui"])
+		if ui != null:
+			ui.call(&"close_all")
+			match which:
+				"pause":
+					ui.call(&"open_pause")
+				"options":
+					ui.call(&"open_options")
+				"shop":
+					ui.call(&"open_shop")
+				_:
+					ui.call(&"open_game_menu", ["inventory", "character", "spells", "journal"].find(which))
+		if shot.has("tab"):
+			await root.get_tree().process_frame
+			var top: Node = ui.get_child(ui.get_child_count() - 1)
+			top.call(&"set_tab", JsonUtil.get_i(shot, "tab"))
+		if shot.has("focus"):
+			await root.get_tree().process_frame
+			var fc: Control = root.find_child(str(shot["focus"]), true, false) as Control
+			if fc != null:
+				fc.grab_focus()
 	if shot.has("cast") and player != null:
 		var caster: Node = player.get_node_or_null(^"SpellCaster")
 		if caster != null:

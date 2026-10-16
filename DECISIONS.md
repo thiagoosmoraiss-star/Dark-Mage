@@ -217,3 +217,21 @@ A guarda de cada Guardião só cai com o feitiço da sua mecânica; o chefe fina
 
 **D56 · Progressão de feitiços:** começam 4 (Lança, Pulso, Corrente, Égide); os outros 4 vêm dos Guardiões.
 Vida/mana máximas = 100 + 10·(atributo + sigilos) + equipamento (M9); poder = 1 + 0,08·atributo.
+
+**D57 · Fluxo de cenas:** `levels/main_menu.tscn` é a cena principal; `Game.start_new_game/continue_game` preparam
+GameState e Inventory **antes** de montar a ilha (baús e faróis já nascem no estado certo) e trocam de cena pela
+`LoadingScreen` (carga em thread). A ilha aplica o resto do save (`apply_save`) no `_ready`.
+
+**D58 · Save v2:** acrescenta `inventory` e `map_markers`; a migração v1 → v2 dá o inventário inicial e lista vazia.
+Missões do diário são derivadas das flags (sem estado próprio para migrar).
+
+**D59 · Itens em `data/item_db.gd` (constantes, não .tres):** são poucos, versionáveis e fáceis de validar ao
+carregar o save (id desconhecido é descartado). Cajados descrevem o ataque básico (elemento, dano, velocidade,
+leque, cadência, status).
+
+**D60 · Gamepad:** feitiços com LB segurado + A/B/X/Y (ações `pad_spell_N`), que não conflitam com pulo/esquiva/
+interagir; o remapeamento trata esse contexto à parte. Abas dos menus em Q/E e LB/RB (ações `ui_*`, contexto de
+menu, o teste de teclas duplicadas separa os contextos).
+
+**D61 · Daltonismo por daltonização** (Fidaner) num CanvasLayer de tela cheia, além de ícones do mapa distintos por
+forma. Janela/tela cheia só é aplicada pelo menu e pelas opções (capturas, benchmark e testes não mexem na janela).

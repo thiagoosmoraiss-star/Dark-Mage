@@ -10,7 +10,6 @@ const BG: Color = Color(0.043, 0.035, 0.063, 0.62)
 const HEALTH: Color = Color("b8323f")
 const MANA: Color = Color("6b2fd6")
 const MANA_GLOW: Color = Color("b67cff")
-const KEY_LABELS: Array[String] = ["Q", "E", "R", "F"]
 
 var player: Player
 var _alpha: float = 1.0
@@ -29,6 +28,8 @@ var _loot_lines: PackedStringArray = []
 var _loot_t: float = 0.0
 var _title_font: Font
 var _boss: Boss
+var _objective: String = ""
+var _objective_t: float = 0.0
 var _subtitle: String = ""
 var _subtitle_t: float = 0.0
 var _boss_shown: float = 1.0
@@ -135,14 +136,29 @@ func _draw() -> void:
 		draw_string(_font, Vector2(vs.x * 0.5 - w * 0.5, vs.y * 0.3), _message, HORIZONTAL_ALIGNMENT_LEFT, -1, 26,
 			Color(GOLD, a))
 	_draw_world_ui(vs)
+	_draw_objective(vs)
 	if _hurt_flash > 0.0 and Settings.get_value("accessibility", "reduce_flashes") != true:
 		draw_rect(Rect2(Vector2.ZERO, vs), Color(0.6, 0.05, 0.1, 0.12 * _hurt_flash), false, 24.0)
+
+
+## Objetivo principal atual (canto superior esquerdo), discreto.
+func _draw_objective(_vs: Vector2) -> void:
+	_objective_t -= get_process_delta_time()
+	if _objective_t <= 0.0:
+		_objective_t = 1.0
+		var q: Dictionary = Journal.current_objective()
+		_objective = "" if q.is_empty() else "%s  %d/%d" % [q["title"], q["progress"], q["total"]]
+	if _objective == "":
+		return
+	var a: float = 0.85 * _alpha
+	draw_string(_title_font, Vector2(30, 46), tr("HUD_OBJECTIVE"), HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color(GOLD, a))
+	draw_string(_font, Vector2(30, 68), _objective, HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color(0.93, 0.9, 0.84, a))
 
 
 func _draw_world_ui(vs: Vector2) -> void:
 	# Prompt de interação.
 	if _prompt != "":
-		var text: String = "[G]  " + _prompt
+		var text: String = "[%s]  " % InputDefaults.action_label(&"interact", Game.using_gamepad) + _prompt
 		var w: float = _font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x
 		var r: Rect2 = Rect2(Vector2(vs.x * 0.5 - w * 0.5 - 16, vs.y * 0.7), Vector2(w + 32, 38))
 		draw_rect(r, Color(BG, 0.75))
@@ -245,7 +261,21 @@ func _draw_slots(origin: Vector2) -> void:
 			if f > 0.0:
 				draw_rect(Rect2(r.position, Vector2(r.size.x, r.size.y * f)), Color(0, 0, 0, 0.55 * _alpha))
 				draw_arc(center, 22.0, -PI * 0.5, -PI * 0.5 + TAU * (1.0 - f), 32, Color(GOLD, 0.8 * _alpha), 2.0, true)
-		draw_string(_font, r.position + Vector2(4, 13), KEY_LABELS[i], HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(GOLD, 0.9 * _alpha))
+		var key: String = InputDefaults.action_label(SpellCaster.SLOT_ACTIONS[i], Game.using_gamepad)
+		draw_string(_font, r.position + Vector2(4, 13), key, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(GOLD, 0.9 * _alpha))
+	# Poções (atalhos H/J ou D-pad ↓/→).
+	var pots: Array[Array] = [["potion_health", &"quick_potion"], ["potion_mana", &"quick_mana"]]
+	for k: int in 2:
+		var id: String = pots[k][0]
+		var pr: Rect2 = Rect2(origin + Vector2(k * 64 + 128, -44), Vector2(54, 36))
+		_panel(pr)
+		var tex: Texture2D = MenuKit.icon("potion")
+		var n: int = Inventory.count(id)
+		if tex != null:
+			draw_texture_rect(tex, Rect2(pr.position + Vector2(4, 3), Vector2(30, 30)), false, Color(ItemDb.tint(id), _alpha * (1.0 if n > 0 else 0.3)))
+		draw_string(_font, pr.position + Vector2(36, 24), str(n), HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color(0.95, 0.92, 0.85, _alpha))
+		draw_string(_font, pr.position + Vector2(36, 11), InputDefaults.action_label(pots[k][1] as StringName, Game.using_gamepad).left(5),
+			HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(GOLD, 0.8 * _alpha))
 	# Carga.
 	var ch: float = c.charge_ratio()
 	if ch > 0.0:

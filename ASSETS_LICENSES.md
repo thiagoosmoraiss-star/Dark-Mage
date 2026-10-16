@@ -333,3 +333,12 @@ Todo arquivo em `assets/` precisa aparecer aqui pelo caminho relativo a `assets/
 | fonts/Cinzel-Variable.ttf | Cinzel (títulos) | The Cinzel Project Authors (NDISCOVER) | https://github.com/google/fonts/tree/main/ofl/cinzel | SIL OFL 1.1 (`fonts/LICENSE_OFL_Cinzel.md`) | 2026-10-16 |
 | fonts/AlegreyaSans-Regular.ttf | Alegreya Sans (corpo) | The Alegreya Sans Project Authors (Huerta Tipográfica) | https://github.com/google/fonts/tree/main/ofl/alegreyasans | SIL OFL 1.1 (`fonts/LICENSE_OFL_AlegreyaSans.md`) | 2026-10-16 |
 | fonts/AlegreyaSans-Bold.ttf | Alegreya Sans (corpo) | The Alegreya Sans Project Authors (Huerta Tipográfica) | https://github.com/google/fonts/tree/main/ofl/alegreyasans | SIL OFL 1.1 (`fonts/LICENSE_OFL_AlegreyaSans.md`) | 2026-10-16 |
+| ui/icons/staff.svg | Ícone de UI (cajado) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/icons/robe.svg | Ícone de UI (manto) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/icons/amulet.svg | Ícone de UI (amuleto) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/icons/potion.svg | Ícone de UI (poção) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/icons/material.svg | Ícone de UI (material) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/icons/souls.svg | Ícone de UI (fragmentos de alma) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/icons/crystal.svg | Ícone de UI (cristal) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/icons/marker.svg | Ícone de UI (marcador do mapa) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| ui/menu_bg.png | Fundo do menu inicial (captura do próprio jogo, `build/tmp/shots/menu.json`, pose menu_a) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |

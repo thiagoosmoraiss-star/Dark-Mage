@@ -56,6 +56,32 @@ func load_slot(slot: int) -> Dictionary:
 	return data
 
 
+## Resumo para os menus: {} se vazio; senão level, play_time_s, saved_at_unix.
+func slot_info(slot: int) -> Dictionary:
+	if not has_slot(slot):
+		return {}
+	var data: Dictionary = _read_valid(slot_path(slot))
+	if data.is_empty():
+		data = _read_valid(backup_path(slot))
+	if data.is_empty():
+		return {"corrupt": true}
+	var prog: Variant = data.get("progress", {})
+	var lv: int = JsonUtil.get_i(prog as Dictionary, "level", 1) if prog is Dictionary else 1
+	return {"level": lv, "play_time_s": JsonUtil.get_f(data, "play_time_s"), "saved_at_unix": JsonUtil.get_i(data, "saved_at_unix")}
+
+
+## Slot salvo mais recentemente, ou -1.
+func latest_slot() -> int:
+	var best: int = -1
+	var best_t: int = -1
+	for s: int in SLOT_COUNT:
+		var info: Dictionary = slot_info(s)
+		if not info.is_empty() and not info.has("corrupt") and JsonUtil.get_i(info, "saved_at_unix") > best_t:
+			best_t = JsonUtil.get_i(info, "saved_at_unix")
+			best = s
+	return best
+
+
 func has_slot(slot: int) -> bool:
 	return FileAccess.file_exists(slot_path(slot)) or FileAccess.file_exists(backup_path(slot))
 

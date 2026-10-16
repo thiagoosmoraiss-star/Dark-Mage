@@ -24,9 +24,18 @@ func test_alt_is_never_bound() -> void:
 				assert_int(key.physical_keycode).is_not_equal(KEY_ALT)
 
 
+## Contextos separados: jogo e menus (ações ui_*) podem reutilizar teclas, porque
+## os menus pausam o jogo (ex.: Q/E trocam abas e também são feitiços).
 func test_no_duplicate_keyboard_bindings() -> void:
+	for ui_ctx: bool in [false, true]:
+		_check_duplicates(ui_ctx)
+
+
+func _check_duplicates(ui_ctx: bool) -> void:
 	var seen: Dictionary = {}
 	for action: StringName in InputDefaults.ACTIONS:
+		if String(action).begins_with("ui_") != ui_ctx:
+			continue
 		for ev: InputEvent in InputDefaults.events_for(action):
 			var key: InputEventKey = ev as InputEventKey
 			if key == null:

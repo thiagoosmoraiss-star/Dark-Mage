@@ -10,9 +10,6 @@ Prioridade: P1 (bloqueia marco) · P2 (antes do RC) · P3 (desejável).
 ## Pendências
 - [ ] P2 · M12: microbenchmark de 3 s na primeira execução para ajustar o preset detectado pelo nome da GPU.
 - [ ] P1 · M1: testar D3D12 vs Vulkan no Nitro V15 (dono) e registrar.
-- [ ] P2 · M9: aplicar `window_mode` (janela, borderless, tela cheia) a partir das configurações.
-- [ ] P2 · M9: feitiços no gamepad (LB + botões frontais / roda rápida com RB).
-- [ ] P2 · M9: UI de remapeamento (o backend `Settings.remap_action` já existe e tem teste).
 - [ ] P3 · Reativar o plugin de editor do Terrain3D quando houver versão com suporte oficial ao Godot 4.7 (D04).
 - [ ] P2 · M7: graduação de cor (LUT) e corrupção por região, com transição suave ao cruzar fronteiras.
 - [ ] P3 · Lua: fases e textura própria; estrelas um pouco maiores em 1440p.
@@ -22,7 +19,9 @@ Prioridade: P1 (bloqueia marco) · P2 (antes do RC) · P3 (desejável).
 - [ ] P3 · Névoa de longe ainda pesada na vista aérea (1,4 km); calibrar com o benchmark no Nitro.
 - [ ] P2 · Lava nas Terras Calcinadas (material de água emissivo nas poças da região) e cratera do vulcão.
 - [ ] P2 · Brasas da fogueira apagada mais visíveis à noite; topo do farol mais imponente.
-- [ ] P2 · M9: ícones de POIs descobertos no mapa, marcadores personalizados e viagem pelo mapa.
 - [ ] P3 · Fauna ambiente (pássaros, corvos, peixes) e sons por região (M10).
 - [ ] P2 · M10: silhuetas próprias para os Guardiões (hoje esqueleto/golem/serpente escalados e tingidos).
 - [ ] P2 · M10: epílogo com câmera cinematográfica e créditos rolando; arena dos covis menos quadrada.
+- [ ] P2 · M10: mapa pintado com relevo (hoje a prévia colorida por região vira manchas chapadas ao revelar).
+- [ ] P3 · M10: roda rápida de feitiços no RB (hoje RB está livre no jogo; LB + face já cobre os 4 espaços).
+- [ ] P2 · Dono: testar toda a UI com um gamepad físico (testes usam eventos simulados).

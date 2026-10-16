@@ -80,6 +80,16 @@ static func xp_to_next(lv: int) -> int:
 	return roundi(60.0 * pow(float(lv), 1.35))
 
 
+## Gasta um ponto de atributo (vida, mana, stamina ou poder).
+func spend_point(stat: String) -> bool:
+	if attribute_points <= 0 or not attributes.has(stat):
+		return false
+	attribute_points -= 1
+	attributes[stat] += 1
+	changed.emit(&"attributes")
+	return true
+
+
 func add_xp(n: int) -> void:
 	xp += n
 	while xp >= xp_to_next(level):

@@ -20,7 +20,11 @@ const DEFAULTS: Dictionary = {
 		"invert_y": false,
 		"gamepad_sensitivity": 1.0,
 	},
+	"general": {
+		"language": "pt_BR",
+	},
 	"accessibility": {
+		"colorblind_mode": "none",  # none | protanopia | deuteranopia | tritanopia
 		"subtitles": true,
 		"subtitle_size": 1.0,
 		"ui_scale": 1.0,
@@ -36,6 +40,8 @@ const DEFAULTS: Dictionary = {
 var _cfg: ConfigFile = ConfigFile.new()
 ## Caminho alternativo, usado pelos testes para não tocar o arquivo real.
 var path: String = PATH
+var _cb_layer: CanvasLayer
+var _cb_rect: ColorRect
 
 
 func _ready() -> void:
@@ -46,6 +52,8 @@ func _ready() -> void:
 		var guess: StringName = GraphicsPresets.guess_from_adapter(RenderingServer.get_video_adapter_name())
 		set_value("graphics", "preset", String(guess))
 	apply_graphics()
+	apply_language()
+	apply_accessibility()
 
 
 func load_settings() -> void:
@@ -101,6 +109,51 @@ func apply_graphics() -> void:
 	Engine.max_fps = roundi(SaveCodec.num(get_value("graphics", "max_fps"), 0.0))
 
 
+func apply_window_mode() -> void:
+	# Capturas, benchmark e testes passam --windowed/--resolution: não mexe na janela.
+	var args: PackedStringArray = OS.get_cmdline_args()
+	if DisplayServer.get_name() == "headless" or args.has("--windowed") or args.has("--resolution") or Game.has_arg("--bench"):
+		return
+	# Rodando uma ferramenta (-s capture.gd, GdUnit): a janela é da ferramenta.
+	if Engine.get_main_loop() != null and Engine.get_main_loop().get_script() != null:
+		return
+	match str(get_value("graphics", "window_mode")):
+		"windowed":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		"borderless":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		_:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+
+
+func apply_language() -> void:
+	TranslationServer.set_locale(str(get_value("general", "language")))
+
+
+## Filtro de daltonismo (correção por daltonização) num CanvasLayer acima de tudo.
+func apply_accessibility() -> void:
+	var mode: String = str(get_value("accessibility", "colorblind_mode"))
+	var idx: int = ["none", "protanopia", "deuteranopia", "tritanopia"].find(mode)
+	if idx <= 0:
+		if _cb_layer != null:
+			_cb_layer.visible = false
+		return
+	if _cb_layer == null:
+		_cb_layer = CanvasLayer.new()
+		_cb_layer.layer = 120
+		add_child(_cb_layer)
+		_cb_rect = ColorRect.new()
+		_cb_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_cb_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var m: ShaderMaterial = ShaderMaterial.new()
+		m.shader = load("res://shaders/colorblind.gdshader") as Shader
+		_cb_rect.material = m
+		_cb_layer.add_child(_cb_rect)
+	_cb_layer.visible = true
+	(_cb_rect.material as ShaderMaterial).set_shader_parameter(&"mode", idx)
+
+
 # --- Remapeamento -------------------------------------------------------------
 
 ## Substitui os eventos de uma ação. `specs` usa o formato de InputDefaults.
@@ -108,6 +161,38 @@ func remap_action(action: StringName, specs: Array) -> void:
 	_cfg.set_value("input", String(action), specs)
 	_apply_remap(action, specs)
 	Events.input_remapped.emit(action)
+
+
+## Troca o evento de teclado/mouse (ou de gamepad) de `action` por `spec`. Se outra
+## ação remapeável já usava esse evento, ela recebe o evento antigo (troca).
+func rebind(action: StringName, spec: Array) -> void:
+	var pad: bool = InputDefaults.is_pad_spec(spec)
+	var old: Array = []
+	var specs: Array = []
+	for s: Variant in InputDefaults.current_specs(action):
+		var sa: Array = s
+		if InputDefaults.is_pad_spec(sa) == pad and old.is_empty():
+			old = sa
+		else:
+			specs.append(sa)
+	specs.insert(0, spec)
+	# Contextos: os feitiços do gamepad (LB + botão) só conflitam entre si.
+	var modifier_ctx: bool = String(action).begins_with("pad_spell")
+	for other: StringName in InputDefaults.REMAPPABLE:
+		if other == action or String(other).begins_with("pad_spell") != modifier_ctx:
+			continue
+		var os: Array = InputDefaults.current_specs(other)
+		var hit: int = -1
+		for i: int in os.size():
+			if os[i] == spec:
+				hit = i
+		if hit >= 0:
+			if old.is_empty():
+				os.remove_at(hit)
+			else:
+				os[hit] = old
+			remap_action(other, os)
+	remap_action(action, specs)
 
 
 func reset_controls() -> void:

@@ -27,6 +27,10 @@ var panels: WorldPanels
 var ambience: RegionAmbience
 var interiors: InteriorManager
 var citadel: Citadel
+var game_ui: GameUi
+var merchant: Merchant
+## Marcadores do jogador no mapa (posições x/z), salvos no save v2.
+var map_markers: Array[Vector2] = []
 var _autosave_timer: float = 0.0
 var _reveal_timer: float = 0.0
 
@@ -140,8 +144,27 @@ func _spawn_player() -> void:
 	map_screen.name = "MapScreen"
 	map_screen.fog = fog
 	map_screen.player = player
+	map_screen.world = self
 	add_child(map_screen)
+	game_ui = GameUi.new()
+	game_ui.name = "GameUi"
+	game_ui.world = self
+	add_child(game_ui)
+	Inventory.changed.connect(player.apply_progression)
 	fog.reveal(player.global_position, 90.0)
+	if not Game.pending_save.is_empty():
+		apply_save(Game.pending_save)
+		Game.pending_save = {}
+	elif Game.new_game:
+		Game.new_game = false
+		_intro.call_deferred()
+
+
+## Introdução curta do novo jogo (roteiro 4.8).
+func _intro() -> void:
+	await get_tree().create_timer(1.2).timeout
+	panels.show_text(tr("INTRO_TITLE"), tr("INTRO_BODY"))
+	save_game(Game.current_slot)
 
 
 func _build_structures() -> void:
@@ -172,6 +195,8 @@ func _build_structures() -> void:
 				add_child(bf)
 				bf.global_position = pos
 				structures[id] = bf
+				if id == &"bonfire_valley":
+					_place_merchant(pos)
 			&"chest":
 				var ch: Chest = Chest.new()
 				ch.poi_id = String(id)
@@ -208,6 +233,19 @@ func _build_structures() -> void:
 				lp.global_position = pos
 				lp.rotation.y = rng.randf() * TAU
 				structures[id] = lp
+
+
+## O mercador fica a alguns metros da fogueira do Vale, virado para ela.
+func _place_merchant(bonfire_pos: Vector3) -> void:
+	merchant = Merchant.new()
+	merchant.name = "Merchant"
+	add_child(merchant)
+	var p: Vector3 = bonfire_pos + Vector3(4.5, 0.0, 2.5)
+	p.y = terrain.height_at(p)
+	merchant.global_position = p
+	# Os modelos KayKit olham para +Z: vira as costas do look_at para a fogueira.
+	merchant.look_at(Vector3(bonfire_pos.x, p.y, bonfire_pos.z), Vector3.UP, true)
+	structures[&"merchant"] = merchant
 
 
 ## Composição dos acampamentos por região (roteiro 4.4).
@@ -318,7 +356,7 @@ func _on_rest(_bonfire_id: String, hours: float) -> void:
 	if atmosphere != null:
 		atmosphere.set_hours(hours)
 	revive_enemies()
-	save_game(0)
+	save_game(Game.current_slot)
 
 
 func _on_travel(bonfire_id: String) -> void:
@@ -362,18 +400,40 @@ func save_game(slot: int) -> Error:
 	w["flags"] = GameState.flags.duplicate()
 	w["fog"] = fog.to_save()
 	data["progress"] = GameState.to_dict()
+	data["inventory"] = Inventory.to_dict()
+	var mk: Array = []
+	for m: Vector2 in map_markers:
+		mk.append([m.x, m.y])
+	data["map_markers"] = mk
 	return SaveSystem.save_slot(slot, data)
 
 
+## Carrega um slot dentro da mesma cena (testes); o jogo usa Game.continue_game().
 func load_game(slot: int) -> bool:
 	var data: Dictionary = SaveSystem.load_slot(slot)
 	if data.is_empty() or player == null:
 		return false
-	if interiors != null:
-		interiors.force_outdoor()
 	var progress: Variant = data.get("progress", {})
 	if progress is Dictionary:
 		GameState.from_dict(progress as Dictionary)
+	var inv: Variant = data.get("inventory", {})
+	if inv is Dictionary:
+		Inventory.from_dict(inv as Dictionary)
+	apply_save(data)
+	return true
+
+
+## Aplica a parte do save que depende da cena (jogador, hora, névoa, marcadores).
+## GameState e Inventory já foram carregados antes.
+func apply_save(data: Dictionary) -> void:
+	if interiors != null:
+		interiors.force_outdoor()
+	map_markers.clear()
+	var mk: Variant = data.get("map_markers", [])
+	if mk is Array:
+		for m: Variant in (mk as Array):
+			if m is Array and (m as Array).size() == 2:
+				map_markers.append(Vector2(JsonUtil.num((m as Array)[0]), JsonUtil.num((m as Array)[1])))
 	var pl: Dictionary = data["player"]
 	player.teleport(JsonUtil.vec3(pl["position"]))
 	var st: Variant = pl.get("stats", {})
@@ -392,7 +452,11 @@ func load_game(slot: int) -> bool:
 	if un is Array:
 		for v: Variant in (un as Array):
 			player.caster.unlocked[StringName(str(v))] = true
-	return true
+	player.caster.slots_changed.emit()
+	if GameState.respawn_bonfire != "":
+		var bf: Node3D = structures.get(StringName(GameState.respawn_bonfire)) as Node3D
+		if bf != null:
+			player.respawn_point = bf.global_position + bf.global_basis.z * 2.0 + Vector3.UP * 0.3
 
 
 func _physics_process(delta: float) -> void:
@@ -402,7 +466,7 @@ func _physics_process(delta: float) -> void:
 	_autosave_timer += delta
 	if _autosave_timer > 300.0 and player.state == Player.State.GROUND and not player.stats.in_combat:
 		_autosave_timer = 0.0
-		save_game(0)
+		save_game(Game.current_slot)
 	_reveal_timer += delta
 	if _reveal_timer >= 0.5:
 		_reveal_timer = 0.0
@@ -410,9 +474,3 @@ func _physics_process(delta: float) -> void:
 		var h: float = player.global_position.y
 		fog.reveal(player.global_position, clampf(70.0 + h * 0.6, 70.0, 220.0))
 
-
-func _unhandled_input(event: InputEvent) -> void:
-	if map_screen != null and map_screen.is_open():
-		return
-	if event.is_action_pressed(&"pause"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_CAPTURED

@@ -222,3 +222,33 @@ bem. Feio/limitado: os Guardiões reaproveitam esqueleto/golem/serpente com esca
 a arena é uma sala quadrada grande; a cúpula da Cidadela é uma esfera translúcida simples; o epílogo é texto
 sobre o amanhecer, sem cinemática nem créditos rolando (M10). Campanha completa de ponta a ponta **não foi
 jogada manualmente** — está no QA_CHECKLIST para o dono.
+
+### 2026-10-16 · M9 — Progressão, UI completa e gamepad
+
+**Feito:** menu inicial (fundo capturado do próprio jogo, Continuar/Novo/Carregar/Opções/Créditos/Sair) como cena
+principal; tela de carregamento em segundo plano com dicas; pausa (continuar, inventário, diário, mapa, salvar e
+carregar em 3 espaços com confirmação, opções, menu inicial, sair); Grimório com abas — inventário em grade 9×4
+(arrastar e soltar, "mover" pelo teclado/gamepad, equipar/usar, comparação com o equipado), personagem (nível,
+XP, pontos de atributo), feitiços (montar os 4 espaços) e diário (missões principais e descobertas derivadas do
+progresso); 17 itens (6 cajados que mudam o ataque básico, 4 mantos, 4 amuletos, 3 consumíveis) e Mercador
+Misterioso no Vale com estoque que cresce a cada Guardião; opções completas (qualidade, janela/sem bordas/tela
+cheia, V-Sync, limite de FPS, FOV, 6 volumes, sensibilidades, inverter Y, remapeamento de teclado e gamepad com
+troca de conflitos, idioma, legendas e tamanho, escala da UI, filtro de daltonismo por daltonização, tremor,
+clarões, números de dano, assistência de mira, HUD oculto fora de combate); feitiços no gamepad com LB + A/B/X/Y;
+poções rápidas (H/J, D-pad ↓/→); HUD com objetivo atual, poções e rótulos do dispositivo em uso; mapa com ícones
+por forma e estado, cursor por mouse/analógico, viagem rápida pelas fogueiras e até 12 marcadores; save v2
+(inventário + marcadores) com migração do v1; ícones SVG próprios.
+
+**Testes (111/111 APROVADO):** inventário (pilhas, capacidade, mover, equipar, bônus, validação de lixo),
+mercador (estoque, compra, venda), pontos de atributo, diário segue as flags, remapeamento com troca e contexto
+LB separado, migração da fixture v1 → v2 sem perder progresso, `slot_info`/`latest_slot`; **toda tela de menu
+abre com foco e todo controle é alcançável pelas setas** (opções ×4 abas, Grimório ×4, loja ×2, pausa, slots,
+menu inicial); usar poção/equipar/gastar ponto pela UI; cajado de espinheiro dispara 3 projéteis; LB + B vira o
+feitiço 2 e bloqueia o pulo; **salvar e carregar na ilha completa restaura posição, hora, progresso, inventário,
+equipamento, feitiços, marcadores e névoa**. Fumaça do menu e da ilha sem erros.
+
+**Autocrítica (M9):** a UI tem identidade (preto translúcido, dourado, Cinzel) e é toda navegável. O mercador
+(esqueleto encapuzado com lanterna) ficou carismático. Feio/limitado: o mapa usa a prévia colorida por região,
+então as áreas reveladas viram manchas de cor chapadas (precisa de um mapa pintado com relevo, M10); as telas
+são densas em texto pequeno a 720p; o gamepad não foi testado com um controle físico (só eventos simulados) — está
+no QA_CHECKLIST para o dono.

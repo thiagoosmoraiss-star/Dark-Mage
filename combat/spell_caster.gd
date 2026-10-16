@@ -119,27 +119,42 @@ func unlock(id: StringName) -> void:
 
 # --- Conjuração -----------------------------------------------------------------
 
+## O cajado equipado define elemento, dano, velocidade, cor, número de projéteis,
+## abertura do leque, cadência e efeito de status do ataque básico.
 func basic_attack() -> void:
-	var dmg: float = BASIC_DAMAGE[_combo] * power
-	var info: DamageInfo = DamageInfo.make(dmg, DamageInfo.Element.ARCANE, player, &"basic")
-	info.stagger = 0.25 if _combo < 2 else 0.7
-	info.knockback = 1.0 if _combo < 2 else 4.0
+	var staff: Dictionary = Inventory.basic_attack()
+	var count: int = maxi(1, JsonUtil.get_i(staff, "count", 1))
+	var spread: float = deg_to_rad(JsonUtil.get_f(staff, "spread"))
+	var element: DamageInfo.Element = JsonUtil.get_i(staff, "element") as DamageInfo.Element
+	var col: Color = Color(JsonUtil.get_s(staff, "color", "b67cff"))
+	var st: Variant = staff.get("status", [])
 	var pool: ProjectilePool = ProjectilePool.get_for(self)
-	if pool != null:
+	var dir: Vector3 = aim_direction()
+	for k: int in count:
+		var info: DamageInfo = DamageInfo.make(BASIC_DAMAGE[_combo] * power * JsonUtil.get_f(staff, "mult", 1.0), element, player, &"basic")
+		info.stagger = 0.25 if _combo < 2 else 0.7
+		info.knockback = 1.0 if _combo < 2 else 4.0
+		if st is Array and (st as Array).size() == 4 and randf() < JsonUtil.num((st as Array)[3]):
+			info.status_kind = roundi(JsonUtil.num((st as Array)[0]))
+			info.status_time = JsonUtil.num((st as Array)[1])
+			info.status_power = JsonUtil.num((st as Array)[2])
+		if pool == null:
+			break
 		var p: Projectile = pool.take()
 		p.mask = Projectile.MASK_FROM_PLAYER
 		p.max_distance = 40.0
 		p.impact_scale = 0.8 if _combo < 2 else 1.3
 		p.exclude = [player.get_rid()]
 		var size: float = 0.7 if _combo < 2 else 1.1
-		p.launch(cast_origin(), aim_direction(), 52.0, info, Color("b67cff"), size)
+		var off: float = (k - (count - 1) * 0.5) * spread
+		p.launch(cast_origin(), dir.rotated(Vector3.UP, off), JsonUtil.get_f(staff, "speed", 52.0), info, col, size)
 	Audio.play(&"cast_bolt", cast_origin(), 0.0 if _combo < 2 else 3.0)
 	if player.model != null:
 		player.model.play_oneshot(&"attack", 0.18)
 	_face_aim()
 	_combo = (_combo + 1) % 3
 	_combo_timer = COMBO_RESET
-	_basic_cd = BASIC_INTERVAL if _combo != 0 else BASIC_INTERVAL * 1.8
+	_basic_cd = (BASIC_INTERVAL if _combo != 0 else BASIC_INTERVAL * 1.8) * JsonUtil.get_f(staff, "interval", 1.0)
 	Events.spell_cast.emit(&"basic")
 
 
@@ -285,10 +300,12 @@ func _auto_target(range_m: float) -> Node3D:
 			continue
 		var to: Vector3 = en.global_position - player.global_position
 		var d: float = to.length()
-		if d > range_m:
+		if d > range_m * 1.3:
 			continue
 		var c: float = fwd.dot(Vector3(to.x, 0.0, to.z).normalized())
-		if c < AUTO_AIM_COS:
+		# Assistência de mira (acessibilidade): cone de ~55° e alcance 30% maior.
+		var assist: bool = Settings.get_value("accessibility", "aim_assist") == true
+		if c < (0.57 if assist else AUTO_AIM_COS) or (assist == false and d > range_m):
 			continue
 		var score: float = c * 2.0 - d / range_m
 		if score > best_score:

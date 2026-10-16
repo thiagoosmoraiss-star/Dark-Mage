@@ -27,3 +27,12 @@ Roteiro manual. Preencher a cada marco; o checklist de polimento (M10) e a campa
 - [ ] Ver a cúpula da Cidadela sumir depois do 4º Guardião; entrar e vencer O Medo (3 fases).
 - [ ] Ver o epílogo (amanhecer dourado e texto final) e conferir o save automático no slot 1.
 - [ ] Carregar o save depois de cada Guardião: flag, purificação e feitiços mantidos.
+
+## M9 — UI e gamepad (dono)
+- [ ] Abrir o jogo: menu inicial aparece em tela cheia; Novo jogo → escolher espaço → introdução.
+- [ ] Com um **gamepad físico**: navegar menu inicial, pausa (Start), Grimório (Back), abas (LB/RB), opções e loja só com o controle.
+- [ ] LB + A/B/X/Y lança os feitiços; D-pad ↓ usa poção de vida; D-pad ↑ abre o mapa e o cursor anda com o analógico.
+- [ ] Remapear o pulo para outra tecla e um feitiço do gamepad; fechar e reabrir o jogo — o remapeamento continua.
+- [ ] Comprar um cajado no mercador (fogueira do Vale), equipar e ver o ataque básico mudar.
+- [ ] Salvar no espaço 2 pela pausa, sair para o menu, Continuar — tudo volta (inventário, marcadores, hora, posição).
+- [ ] Trocar janela/sem bordas/tela cheia, idioma (en) e filtro de daltonismo; conferir a escala da UI em 0,75 e 1,5.

@@ -18,6 +18,7 @@ var _return_yaw: float = 0.0
 var _env: Environment
 var _fade: ColorRect
 var _slots: int = 0
+var _busy: bool = false
 
 
 func _ready() -> void:
@@ -33,6 +34,11 @@ func _ready() -> void:
 	layer.add_child(_fade)
 
 
+## Verdadeiro durante o fade de entrada/saída (menus não abrem).
+func is_busy() -> bool:
+	return _busy
+
+
 func is_inside() -> bool:
 	return current_id != ""
 
@@ -44,8 +50,9 @@ func interior(id: String) -> Node3D:
 ## Cria (se preciso) e entra no interior `id`. `builder` monta o conteúdo e
 ## devolve o nó raiz, que precisa ter o método spawn_point().
 func enter(id: String, builder: Callable, entrance: Node3D) -> void:
-	if world.player == null or is_inside():
+	if world.player == null or is_inside() or _busy:
 		return
+	_busy = true
 	await _fade_to(1.0)
 	if not _interiors.has(id):
 		var origin: Vector3 = POCKET_ORIGIN + Vector3(_slots * POCKET_SPACING, 0, 0)
@@ -68,11 +75,13 @@ func enter(id: String, builder: Callable, entrance: Node3D) -> void:
 	entered.emit(id)
 	await get_tree().create_timer(0.25, true).timeout
 	await _fade_to(0.0)
+	_busy = false
 
 
 func exit_interior() -> void:
-	if not is_inside():
+	if not is_inside() or _busy:
 		return
+	_busy = true
 	var id: String = current_id
 	await _fade_to(1.0)
 	current_id = ""
@@ -86,6 +95,7 @@ func exit_interior() -> void:
 	exited.emit(id)
 	await get_tree().create_timer(0.25, true).timeout
 	await _fade_to(0.0)
+	_busy = false
 
 
 ## Sai imediatamente, sem fade nem teleporte (carregar jogo, viagem, capturas).

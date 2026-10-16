@@ -1,0 +1,180 @@
+[
+ {
+  "name": "m9_01_menu_inicial",
+  "scene": "res://levels/main_menu.tscn",
+  "frames": 90
+ },
+ {
+  "name": "m9_02_hud_objetivo",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 10.0,
+  "player": [
+   30,
+   0,
+   180
+  ],
+  "player_yaw": 20,
+  "frames": 120
+ },
+ {
+  "name": "m9_02b_mercador",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 18.8,
+  "player": [
+   12,
+   0,
+   163
+  ],
+  "player_yaw": 0,
+  "cam_rel": [
+   5.5,
+   1.7,
+   0.0
+  ],
+  "target_rel": [
+   10.5,
+   1.0,
+   4.3
+  ],
+  "fov": 50,
+  "frames": 150
+ },
+ {
+  "name": "m9_03_inventario",
+  "hour": 10.0,
+  "player": [
+   30,
+   0,
+   180
+  ],
+  "souls": 2400,
+  "give": [
+   [
+    "staff_thorn",
+    1
+   ],
+   [
+    "robe_warden",
+    1
+   ],
+   [
+    "amulet_ember",
+    1
+   ],
+   [
+    "staff_frost",
+    1
+   ],
+   [
+    "elixir_dawn",
+    2
+   ]
+  ],
+  "equip": [
+   "robe_warden"
+  ],
+  "ui": "inventory",
+  "focus": "Slot_2",
+  "frames": 60
+ },
+ {
+  "name": "m9_04_personagem",
+  "hour": 10.0,
+  "player": [
+   30,
+   0,
+   180
+  ],
+  "xp": 900,
+  "ui": "character",
+  "frames": 60
+ },
+ {
+  "name": "m9_05_diario",
+  "hour": 10.0,
+  "player": [
+   30,
+   0,
+   180
+  ],
+  "flags": [
+   "beacon:beacon_valley",
+   "guardian:forest",
+   "shrine_done:shrine_valley_1"
+  ],
+  "ui": "journal",
+  "frames": 60
+ },
+ {
+  "name": "m9_06_loja",
+  "hour": 19.0,
+  "player": [
+   30,
+   0,
+   180
+  ],
+  "ui": "shop",
+  "frames": 60
+ },
+ {
+  "name": "m9_07_opcoes_controles",
+  "hour": 10.0,
+  "player": [
+   30,
+   0,
+   180
+  ],
+  "ui": "options",
+  "tab": 2,
+  "frames": 60
+ },
+ {
+  "name": "m9_08_pausa",
+  "hour": 21.0,
+  "player": [
+   30,
+   0,
+   180
+  ],
+  "ui": "pause",
+  "frames": 60
+ },
+ {
+  "name": "m9_09_mapa_icones",
+  "hour": 10.0,
+  "player": [
+   30,
+   0,
+   180
+  ],
+  "map": true,
+  "reveal": [
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -200
+   ],
+   [
+    60,
+    0,
+    560
+   ],
+   [
+    -300,
+    0,
+    100
+   ],
+   [
+    300,
+    0,
+    300
+   ]
+  ],
+  "frames": 90
+ }
+]

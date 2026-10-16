@@ -33,6 +33,9 @@ if [[ $STEP == smoke || $STEP == all ]]; then
 	echo "== smoke (--quit-after 120)"
 	"$GODOT" --headless --path . --quit-after 120 >"$LOG_DIR/smoke.log" 2>&1 || FAIL=1
 	scan "$LOG_DIR/smoke.log"
+	echo "== smoke da ilha (--quit-after 240)"
+	"$GODOT" --headless --path . --quit-after 240 res://levels/island/island.tscn >"$LOG_DIR/smoke_island.log" 2>&1 || FAIL=1
+	scan "$LOG_DIR/smoke_island.log"
 fi
 
 if [[ $STEP == licenses || $STEP == all ]]; then

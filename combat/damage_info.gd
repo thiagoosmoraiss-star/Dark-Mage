@@ -16,6 +16,10 @@ var stagger: float = 0.3
 var is_critical: bool = false
 ## Golpe de ataque inimigo que pode ser esquivado perfeitamente.
 var dodgeable: bool = true
+## Efeito aplicado ao acertar (cajados): tipo de StatusEffects.Kind ou -1.
+var status_kind: int = -1
+var status_time: float = 0.0
+var status_power: float = 0.0
 
 
 static func make(amount_value: float, element_value: Element, source_node: Node, spell: StringName = &"") -> DamageInfo:

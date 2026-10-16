@@ -118,3 +118,244 @@ BOSS_FEAR_P2,O Medo muda de forma!,Fear changes shape!
 BOSS_FEAR_DEFEAT,"""Eu nunca fui embora... só fiquei pequeno.""","""I never left... I only grew small."""
 EPILOGUE_TITLE,A Ilha Desperta,The Isle Awakens
 EPILOGUE_BODY,"A névoa se desfaz pela primeira vez em cem anos. Os faróis brilham dourados nas quatro direções, e o sol nasce sobre campos que voltam a ter cor. O medo não morreu — ele nunca morre. Mas agora há quem acenda a luz.","The mist lifts for the first time in a hundred years. The beacons shine gold in all four directions, and the sun rises over fields that have colour again. Fear did not die — it never does. But now there is someone to light the flame."
+UI_YES,Sim,Yes
+UI_NO,Não,No
+UI_BACK,Voltar,Back
+UI_OPTIONS,Opções,Options
+UI_QUIT,Sair do jogo,Quit game
+UI_LOADING,Carregando…,Loading…
+UI_GAME_MENU,Grimório,Grimoire
+UI_HINT_TABS,Q/E ou LB/RB: abas   ·   Esc/B: voltar,Q/E or LB/RB: tabs   ·   Esc/B: back
+UI_HINT_OPTIONS,As mudanças são salvas ao sair,Changes are saved on exit
+UI_HINT_INVENTORY,Confirmar: equipar/usar   ·   X/Y: mover   ·   arraste com o mouse,Confirm: equip/use   ·   X/Y: move   ·   drag with the mouse
+UI_HINT_SHOP,Preços em fragmentos de alma,Prices in soul fragments
+TAB_INVENTORY,Inventário,Inventory
+TAB_CHARACTER,Personagem,Character
+TAB_SPELLS,Feitiços,Spells
+TAB_JOURNAL,Diário,Journal
+INV_EQUIPPED,Equipado,Equipped
+INV_BAG,Bolsa,Bag
+INV_COMPARED,Comparado com: %s,Compared to: %s
+SLOT_STAFF,Cajado,Staff
+SLOT_ROBE,Manto,Robe
+SLOT_AMULET,Amuleto,Amulet
+SLOT_CONSUMABLE,Consumível,Consumable
+SLOT_MATERIAL,Material,Material
+CURRENCY_SOULS,fragmentos de alma,soul fragments
+CURRENCY_CRYSTAL,cristais,crystals
+STAT_HEALTH,Vida,Health
+STAT_MANA,Mana,Mana
+STAT_STAMINA,Fôlego,Stamina
+STAT_POWER,Poder arcano,Arcane power
+STAT_DAMAGE,Dano do ataque básico,Basic attack damage
+STAT_RATE,Cadência,Fire rate
+CHAR_LEVEL,Nível %d,Level %d
+CHAR_XP,Experiência: %d / %d,Experience: %d / %d
+CHAR_POINTS,Pontos de atributo: %d,Attribute points: %d
+CHAR_SIGILS,"Sigilos: %d de vida, %d de mana","Sigils: %d life, %d mana"
+CHAR_TIME,Tempo de jogo: %s,Play time: %s
+ATTR_HEALTH,Vitalidade,Vitality
+ATTR_HEALTH_DESC,+10 de vida máxima,+10 max health
+ATTR_MANA,Espírito,Spirit
+ATTR_MANA_DESC,+10 de mana máxima,+10 max mana
+ATTR_STAMINA,Resistência,Endurance
+ATTR_STAMINA_DESC,+10 de fôlego,+10 stamina
+ATTR_POWER,Poder arcano,Arcane power
+ATTR_POWER_DESC,+8% de dano mágico,+8% spell damage
+SPELLS_HELP,"Escolha um espaço (Q, E, R, F — ou LB + A, B, X, Y no gamepad) e depois o feitiço.","Pick a slot (Q, E, R, F — or LB + A, B, X, Y on a gamepad), then the spell."
+SPELLS_ULTIMATE_HELP,Ira do Farol: segure os feitiços 1 e 4 juntos quando a carga estiver cheia.,Beacon's Wrath: hold spells 1 and 4 together when the charge is full.
+SPELL_LOCKED,Vença um Guardião do Medo para aprender.,Defeat a Guardian of Fear to learn it.
+JOURNAL_MAIN,Jornada principal,Main journey
+JOURNAL_OPTIONAL,Descobertas,Discoveries
+QUEST_LOCKED,Ainda não é hora.,Not yet.
+QUEST_AWAKEN,O Despertar,The Awakening
+QUEST_AWAKEN_DESC,Acenda o farol do Vale do Despertar.,Light the beacon of the Valley of Awakening.
+QUEST_BEACONS,Os Quatro Faróis,The Four Beacons
+QUEST_BEACONS_DESC,Acenda os faróis da ilha para afastar a névoa.,Light the island's beacons to push back the mist.
+QUEST_GUARDIANS,Os Guardiões do Medo,The Guardians of Fear
+QUEST_GUARDIANS_DESC,"Vença os Guardiões nos covis da Floresta, dos Picos, das Terras Calcinadas e do Pântano.","Defeat the Guardians in the lairs of the Forest, the Peaks, the Scorched Lands and the Marsh."
+QUEST_CITADEL,A Cidadela do Medo,The Citadel of Fear
+QUEST_CITADEL_DESC,Atravesse a cúpula e enfrente o Medo.,Cross the dome and face Fear itself.
+QUEST_SHRINES,Santuários,Shrines
+QUEST_SHRINES_DESC,Resolva os santuários e receba seus sigilos.,Solve the shrines and claim their sigils.
+QUEST_CHESTS,Tesouros,Treasures
+QUEST_CHESTS_DESC,Abra os baús escondidos pela ilha.,Open the chests hidden across the isle.
+QUEST_VIEWPOINTS,Mirantes,Viewpoints
+QUEST_VIEWPOINTS_DESC,Visite os mirantes e revele o mapa.,Visit the viewpoints to reveal the map.
+QUEST_STORIES,Ecos do passado,Echoes of the past
+QUEST_STORIES_DESC,Encontre as histórias deixadas na ilha.,Find the stories left on the isle.
+QUEST_BONFIRES,Chamas acesas,Kindled flames
+QUEST_BONFIRES_DESC,Descubra as fogueiras para descansar e viajar.,Discover the bonfires to rest and travel.
+QUEST_PURIFY,Ilha purificada,Purified isle
+QUEST_PURIFY_DESC,Livre todas as regiões da corrupção.,Free every region from corruption.
+HUD_OBJECTIVE,OBJETIVO,OBJECTIVE
+PAUSE_TITLE,Pausa,Paused
+PAUSE_SUB,Nível %d  ·  %s de jogo,Level %d  ·  %s played
+PAUSE_RESUME,Continuar,Resume
+PAUSE_MAP,Mapa,Map
+PAUSE_SAVE,Salvar jogo,Save game
+PAUSE_LOAD,Carregar jogo,Load game
+PAUSE_MAIN_MENU,Menu inicial,Main menu
+PAUSE_CONFIRM_MENU,Voltar ao menu? O que não foi salvo se perde.,Return to the menu? Unsaved progress is lost.
+PAUSE_CONFIRM_QUIT,Sair do jogo? O que não foi salvo se perde.,Quit the game? Unsaved progress is lost.
+SLOTS_SAVE,Salvar em…,Save to…
+SLOTS_LOAD,Carregar…,Load…
+SLOTS_NEW,Novo jogo em…,New game in…
+SLOT_EMPTY,Espaço %d — vazio,Slot %d — empty
+SLOT_CORRUPT,Espaço %d — corrompido,Slot %d — corrupted
+SLOT_INFO,Espaço %d — nível %d · %s · %s,Slot %d — level %d · %s · %s
+SLOT_OVERWRITE,Substituir o jogo salvo neste espaço?,Overwrite the game saved in this slot?
+MENU_SUBTITLE,A Ilha do Medo,The Isle of Fear
+MENU_CONTINUE,Continuar,Continue
+MENU_NEW,Novo jogo,New game
+MENU_LOAD,Carregar,Load
+MENU_CREDITS,Créditos,Credits
+OPT_TAB_GRAPHICS,Gráficos,Graphics
+OPT_TAB_AUDIO,Áudio,Audio
+OPT_TAB_CONTROLS,Controles,Controls
+OPT_TAB_ACCESS,Acessibilidade,Accessibility
+OPT_PRESET,Qualidade,Quality
+PRESET_LOW,Baixa,Low
+PRESET_MEDIUM,Média,Medium
+PRESET_HIGH,Alta,High
+PRESET_ULTRA,Ultra,Ultra
+OPT_WINDOW,Modo de janela,Window mode
+OPT_WINDOWED,Janela,Windowed
+OPT_BORDERLESS,Sem bordas,Borderless
+OPT_FULLSCREEN,Tela cheia,Fullscreen
+OPT_VSYNC,Sincronização vertical,V-Sync
+OPT_MAX_FPS,Limite de FPS,FPS limit
+OPT_UNLIMITED,Sem limite,Unlimited
+OPT_FOV,Campo de visão,Field of view
+OPT_VOL_MASTER,Volume geral,Master volume
+OPT_VOL_MUSIC,Música,Music
+OPT_VOL_SFX,Efeitos,Effects
+OPT_VOL_AMBIENT,Ambiente,Ambience
+OPT_VOL_UI,Interface,Interface
+OPT_VOL_VOICE,Vozes,Voices
+OPT_MOUSE_SENS,Sensibilidade do mouse,Mouse sensitivity
+OPT_PAD_SENS,Sensibilidade do gamepad,Gamepad sensitivity
+OPT_INVERT_Y,Inverter eixo vertical,Invert vertical axis
+OPT_REMAP,Remapear controles,Remap controls
+OPT_KEYBOARD,Teclado e mouse,Keyboard & mouse
+OPT_GAMEPAD,Gamepad,Gamepad
+OPT_PRESS_KEY,Pressione… (Esc cancela),Press… (Esc cancels)
+OPT_RESET_CONTROLS,Restaurar controles padrão,Restore default controls
+OPT_LANGUAGE,Idioma,Language
+OPT_SUBTITLES,Legendas,Subtitles
+OPT_SUBTITLE_SIZE,Tamanho das legendas,Subtitle size
+OPT_UI_SCALE,Escala da interface,Interface scale
+OPT_COLORBLIND,Filtro para daltonismo,Colour-blind filter
+OPT_CB_NONE,Desligado,Off
+OPT_CB_PROTAN,Protanopia,Protanopia
+OPT_CB_DEUTAN,Deuteranopia,Deuteranopia
+OPT_CB_TRITAN,Tritanopia,Tritanopia
+OPT_COLORBLIND_MARKERS,Marcadores por forma no mapa,Shape markers on the map
+OPT_SHAKE,Tremor de câmera,Camera shake
+OPT_FLASHES,Reduzir clarões,Reduce flashes
+OPT_DAMAGE_NUMBERS,Números de dano,Damage numbers
+OPT_AIM_ASSIST,Assistência de mira,Aim assist
+OPT_HUD_HIDE,Esconder HUD fora de combate,Hide HUD out of combat
+ACTION_MOVE_FORWARD,Andar para frente,Move forward
+ACTION_MOVE_BACK,Andar para trás,Move back
+ACTION_MOVE_LEFT,Andar para a esquerda,Move left
+ACTION_MOVE_RIGHT,Andar para a direita,Move right
+ACTION_JUMP,Pular / planar,Jump / glide
+ACTION_SPRINT,Correr,Sprint
+ACTION_DODGE,Esquivar,Dodge
+ACTION_ATTACK,Ataque básico,Basic attack
+ACTION_AIM,Mirar,Aim
+ACTION_SPELL_1,Feitiço 1,Spell 1
+ACTION_SPELL_2,Feitiço 2,Spell 2
+ACTION_SPELL_3,Feitiço 3,Spell 3
+ACTION_SPELL_4,Feitiço 4,Spell 4
+ACTION_INTERACT,Interagir,Interact
+ACTION_LOCK_ON,Travar alvo,Lock on
+ACTION_QUICK_POTION,Poção de vida,Health potion
+ACTION_QUICK_MANA,Poção de mana,Mana potion
+ACTION_INVENTORY,Inventário,Inventory
+ACTION_JOURNAL,Diário,Journal
+ACTION_MAP,Mapa,Map
+ACTION_PAUSE,Pausa,Pause
+MAP_TITLE,Mapa da Ilha,Map of the Isle
+MAP_HOVER_NONE,Mova o cursor sobre um local.,Move the cursor over a place.
+MAP_HELP,"Analógico/mouse: cursor
+A/clique: viajar à fogueira
+X/Y/botão direito: marcador
+M/Esc: fechar","Stick/mouse: cursor
+A/click: travel to bonfire
+X/Y/right click: marker
+M/Esc: close"
+MAP_STATE_OPEN,Ainda não concluído,Not yet completed
+MAP_TRAVEL_HINT,Confirmar: viajar para cá,Confirm: travel here
+MAP_TRAVEL_BLOCKED,Não é possível viajar agora (em combate ou num interior).,You can't travel now (in combat or indoors).
+MAP_KIND_BONFIRE,Fogueira,Bonfire
+MAP_KIND_BEACON,Farol,Beacon
+MAP_KIND_SHRINE,Santuário,Shrine
+MAP_KIND_LAIR,Covil,Lair
+MAP_KIND_CHEST,Baú,Chest
+MAP_KIND_VIEWPOINT,Mirante,Viewpoint
+MAP_KIND_STORY,História,Story
+MAP_KIND_CITADEL,Cidadela do Medo,Citadel of Fear
+MAP_KIND_MERCHANT,Mercador,Merchant
+MAP_STATE_DONE_BONFIRE,Descoberta,Discovered
+MAP_STATE_DONE_BEACON,Aceso,Lit
+MAP_STATE_DONE_SHRINE,Concluído,Completed
+MAP_STATE_DONE_LAIR,Guardião vencido,Guardian defeated
+MAP_STATE_DONE_CHEST,Aberto,Opened
+MAP_STATE_DONE_VIEWPOINT,Visitado,Visited
+MAP_STATE_DONE_STORY,Lida,Read
+MAP_STATE_DONE_CITADEL,O Medo foi vencido,Fear has been defeated
+MAP_STATE_DONE_MERCHANT,,
+INTERACT_MERCHANT,Falar com o mercador,Talk to the merchant
+SHOP_TITLE,O Mercador Misterioso,The Mysterious Merchant
+SHOP_BUY,Comprar,Buy
+SHOP_SELL,Vender,Sell
+SHOP_SOULS,Seus fragmentos de alma: %d,Your soul fragments: %d
+SHOP_OWNED,já possui,owned
+SHOP_EMPTY,Nada aqui por enquanto.,Nothing here for now.
+SHOP_GREETING,"""Almas por coisas úteis. Coisas úteis por almas. Os Guardiões caem, e meu estoque cresce…""","""Souls for useful things. Useful things for souls. Guardians fall, and my wares grow…"""
+ITEM_STAFF_APPRENTICE,Cajado do Aprendiz,Apprentice's Staff
+ITEM_STAFF_APPRENTICE_DESC,Dispara setas arcanas em combo de três.,Fires arcane bolts in a three-hit combo.
+ITEM_STAFF_THORN,Cajado de Espinheiro,Thornwood Staff
+ITEM_STAFF_THORN_DESC,Cada ataque abre um leque de três setas mais fracas.,Each attack fans out three weaker bolts.
+ITEM_STAFF_EMBER,Cajado de Brasa,Ember Staff
+ITEM_STAFF_EMBER_DESC,Setas de fogo que podem incendiar o alvo.,Fire bolts that may set the target ablaze.
+ITEM_STAFF_FROST,Cajado da Geada,Frost Staff
+ITEM_STAFF_FROST_DESC,Setas lentas e frias que podem desacelerar o alvo.,"Slow, cold bolts that may slow the target."
+ITEM_STAFF_STORM,Cajado da Tempestade,Storm Staff
+ITEM_STAFF_STORM_DESC,"Raios rápidos em sequência, de dano menor.",Rapid lightning bolts with lower damage.
+ITEM_STAFF_DUSK,Cajado do Crepúsculo,Dusk Staff
+ITEM_STAFF_DUSK_DESC,Setas douradas pesadas. O cajado dos que venceram o Medo.,Heavy golden bolts. The staff of those who defeated Fear.
+ITEM_ROBE_WANDERER,Manto do Andarilho,Wanderer's Robe
+ITEM_ROBE_WANDERER_DESC,Lã grossa que já viu muitas estradas.,Thick wool that has seen many roads.
+ITEM_ROBE_NIGHTWEAVE,Manto Tecido da Noite,Nightweave Robe
+ITEM_ROBE_NIGHTWEAVE_DESC,Fios escuros que guardam mana.,Dark threads that hold mana.
+ITEM_ROBE_WARDEN,Manto do Guardião,Warden's Robe
+ITEM_ROBE_WARDEN_DESC,Couro e placas leves de quem vigiava os faróis.,Leather and light plates of the beacon wardens.
+ITEM_ROBE_ASHEN,Manto Cinzento,Ashen Robe
+ITEM_ROBE_ASHEN_DESC,"Tecido das Terras Calcinadas, ainda quente.","Cloth from the Scorched Lands, still warm."
+ITEM_AMULET_MOON,Amuleto da Lua,Moon Amulet
+ITEM_AMULET_MOON_DESC,Uma lasca de luz lunar presa em prata.,A sliver of moonlight set in silver.
+ITEM_AMULET_EMBER,Amuleto de Brasa,Ember Amulet
+ITEM_AMULET_EMBER_DESC,Pulsa como um coração em chamas.,It throbs like a burning heart.
+ITEM_AMULET_WIND,Amuleto do Vento,Wind Amulet
+ITEM_AMULET_WIND_DESC,Leve como a brisa da costa.,Light as the coastal breeze.
+ITEM_AMULET_HEART,Amuleto do Coração,Heart Amulet
+ITEM_AMULET_HEART_DESC,Rubi que bate devagar.,A ruby that beats slowly.
+ITEM_POTION_HEALTH,Poção de Vida,Health Potion
+ITEM_POTION_HEALTH_DESC,Recupera 45% da vida.,Restores 45% health.
+ITEM_POTION_MANA,Poção de Mana,Mana Potion
+ITEM_POTION_MANA_DESC,Recupera 50% da mana.,Restores 50% mana.
+ITEM_ELIXIR_DAWN,Elixir da Aurora,Dawn Elixir
+ITEM_ELIXIR_DAWN_DESC,"Restaura vida, mana e fôlego por completo.","Fully restores health, mana and stamina."
+INTRO_TITLE,A Ilha do Medo,The Isle of Fear
+INTRO_BODY,"Há cem anos a névoa violeta cobriu a ilha, e os faróis se apagaram um a um. Você desperta no Vale com um cajado nas mãos e uma única certeza: alguém precisa acender a luz de novo. Comece pelo farol do Vale, ao norte.","A hundred years ago the violet mist covered the isle, and the beacons went dark one by one. You wake in the Valley with a staff in your hands and a single certainty: someone must light the flame again. Begin with the Valley beacon, to the north."
+TIP_1,Esquivar no instante do golpe desacelera o tempo.,Dodging at the moment of a hit slows time.
+TIP_2,"Fogueiras salvam o jogo, curam e permitem viajar pelo mapa.","Bonfires save the game, heal you and allow travel from the map."
+TIP_3,Cada Guardião só baixa a guarda diante do feitiço certo.,Each Guardian only drops its guard to the right spell.
+TIP_4,Mirantes revelam uma grande área do mapa.,Viewpoints reveal a large area of the map.
+TIP_5,O mercador do Vale vende mais coisas a cada Guardião vencido.,The Valley merchant sells more with every Guardian defeated.
+TIP_6,"Nos Picos, o frio cansa. Fique perto de fogueiras acesas.",In the Peaks the cold wears you down. Stay near lit bonfires.
+TIP_7,Cajados mudam o ataque básico. Experimente o leque de espinhos.,Staves change your basic attack. Try the thorn fan.
+TIP_8,Santuários dão sigilos que aumentam vida ou mana.,Shrines grant sigils that raise health or mana.

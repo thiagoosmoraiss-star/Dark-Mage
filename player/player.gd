@@ -16,6 +16,10 @@ const STATE_NAMES: Array[String] = ["ground", "air", "climb", "glide", "swim", "
 const CAPSULE_RADIUS: float = 0.35
 const CAPSULE_HEIGHT: float = 1.7
 ## Ações cujo "acabou de apertar" é derivado no modo de input roteirizado.
+## Ações de gamepad que, com LB segurado, valem como feitiços.
+const PAD_SPELLS: Dictionary[StringName, StringName] = {
+	&"spell_1": &"pad_spell_1", &"spell_2": &"pad_spell_2", &"spell_3": &"pad_spell_3", &"spell_4": &"pad_spell_4",
+}
 const TRACKED_ACTIONS: Array[StringName] = [&"jump", &"dodge", &"sprint", &"attack", &"aim", &"lock_on",
 	&"spell_1", &"spell_2", &"spell_3", &"spell_4", &"interact"]
 
@@ -180,13 +184,26 @@ func pressed(action: StringName) -> bool:
 		return false
 	if use_scripted_input:
 		return scripted_input.get(action, false)
+	# Gamepad: LB segurado transforma A/B/X/Y nos feitiços 1–4 (e bloqueia pulo/esquiva/interagir).
+	if Input.is_action_pressed(&"spell_modifier"):
+		if PAD_SPELLS.has(action):
+			return Input.is_action_pressed(action) or Input.is_action_pressed(PAD_SPELLS[action])
+		if action == &"jump" or action == &"dodge" or action == &"interact":
+			return false
 	return Input.is_action_pressed(action)
 
 
 func just_pressed(action: StringName) -> bool:
 	if use_scripted_input:
 		return pressed(action) and not _prev_pressed.get(action, false)
-	return input_enabled and Input.is_action_just_pressed(action)
+	if not input_enabled:
+		return false
+	if Input.is_action_pressed(&"spell_modifier"):
+		if PAD_SPELLS.has(action):
+			return Input.is_action_just_pressed(action) or Input.is_action_just_pressed(PAD_SPELLS[action])
+		if action == &"jump" or action == &"dodge" or action == &"interact":
+			return false
+	return Input.is_action_just_pressed(action)
 
 
 func input_vector(neg_x: StringName, pos_x: StringName, neg_y: StringName, pos_y: StringName) -> Vector2:
@@ -480,10 +497,7 @@ func apply_progression() -> void:
 
 ## Bônus do equipamento (M9); sem equipamento, zero.
 func equipment_bonus(stat: String) -> float:
-	var inv: Node = get_tree().get_first_node_in_group(&"inventory") if is_inside_tree() else null
-	if inv != null and inv.has_method(&"bonus"):
-		return JsonUtil.num(inv.call(&"bonus", stat), 0.0)
-	return 0.0
+	return Inventory.bonus(stat)
 
 
 func has_iframes() -> bool:

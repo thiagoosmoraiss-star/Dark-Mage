@@ -1,0 +1,30 @@
+{
+	"magic": "dark-mage-save",
+	"version": 1,
+	"saved_at_unix": 1792152000,
+	"play_time_s": 5423.5,
+	"world_seed": 20261016,
+	"player": {
+		"position": [32.0, 14.5, 176.0],
+		"health": 130.0,
+		"mana": 90.0,
+		"stamina": 100.0,
+		"stats": {"health": 130.0, "mana": 90.0, "stamina": 100.0},
+		"equipped": ["arcane_lance", "umbral_pulse", "ether_chain", "violet_aegis"],
+		"unlocked": ["arcane_lance", "umbral_pulse", "ether_chain", "violet_aegis", "umbral_step"]
+	},
+	"world": {
+		"time_of_day_h": 17.25,
+		"flags": {"beacon:beacon_valley": true, "guardian:forest": true},
+		"fog": ""
+	},
+	"progress": {
+		"flags": {"beacon:beacon_valley": true, "guardian:forest": true, "chest:chest_valley_1": true},
+		"souls": 840, "crystals": 6, "materials": {"golden_herb": 4},
+		"xp": 30, "level": 5, "attribute_points": 1,
+		"attributes": {"health": 2, "mana": 1, "stamina": 0, "power": 0},
+		"discovered_bonfires": ["bonfire_valley"], "respawn_bonfire": "bonfire_valley",
+		"purification": {"forest": 1.0, "valley": 0.35}, "play_time_s": 5423.5,
+		"sigils_health": 1, "sigils_mana": 0
+	}
+}
