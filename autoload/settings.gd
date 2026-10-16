@@ -22,6 +22,7 @@ const DEFAULTS: Dictionary = {
 	},
 	"general": {
 		"language": "pt_BR",
+		"difficulty": "normal",  # easy | normal | hard
 	},
 	"accessibility": {
 		"colorblind_mode": "none",  # none | protanopia | deuteranopia | tritanopia
@@ -107,6 +108,15 @@ func apply_graphics() -> void:
 	var vsync: bool = get_value("graphics", "vsync")
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
 	Engine.max_fps = roundi(SaveCodec.num(get_value("graphics", "max_fps"), 0.0))
+
+
+## Multiplicadores de dificuldade: [dano recebido pelo jogador, vida dos inimigos].
+const DIFFICULTY: Dictionary = {"easy": [0.6, 0.8], "normal": [1.0, 1.0], "hard": [1.4, 1.25]}
+
+
+func difficulty_mult(index: int) -> float:
+	var row: Variant = DIFFICULTY.get(str(get_value("general", "difficulty")), DIFFICULTY["normal"])
+	return JsonUtil.num((row as Array)[index], 1.0)
 
 
 func apply_window_mode() -> void:

@@ -6,7 +6,7 @@ extends CanvasLayer
 ## Cursor pelo mouse ou pelo analógico esquerdo; A/clique viaja; X/Y marca.
 
 const L = preload("res://world/island/island_layout.gd")
-const MAP_TEXTURE: String = "res://world/island/data/preview.png"
+const MAP_TEXTURE: String = "res://world/island/data/map_painted.png"
 const GOLD: Color = Color("e8b44c")
 const CURSOR_SPEED: float = 620.0
 const PICK_RADIUS: float = 20.0

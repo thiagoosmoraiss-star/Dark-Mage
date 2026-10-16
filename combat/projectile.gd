@@ -124,6 +124,11 @@ func _on_hit(hit: Dictionary) -> void:
 		if splash_radius > 0.0:
 			vfx.shockwave(pos, splash_radius, color)
 	Audio.play(&"impact_heavy" if impact_scale > 1.4 else &"impact_arcane", pos)
+	# Peso: golpes fortes do jogador tremem a câmera (respeita a opção de tremor).
+	if impact_scale > 1.2 and damage != null and damage.source is Player:
+		var pl: Player = damage.source as Player
+		if pl.cam_rig != null and pl.global_position.distance_to(pos) < 40.0:
+			pl.cam_rig.shake(0.08 * impact_scale, 0.18)
 	_finish(true)
 
 

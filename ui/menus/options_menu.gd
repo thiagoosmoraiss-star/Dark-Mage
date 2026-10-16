@@ -199,6 +199,9 @@ func _access_tab() -> Control:
 			Settings.apply_language()
 			title = tr("UI_OPTIONS")
 			refresh())))
+	r.add_child(MenuKit.row(tr("OPT_DIFFICULTY"), MenuKit.choice(
+		[["easy", tr("OPT_DIFF_EASY")], ["normal", tr("OPT_DIFF_NORMAL")], ["hard", tr("OPT_DIFF_HARD")]],
+		str(Settings.get_value("general", "difficulty")), _setter("general", "difficulty"))))
 	r.add_child(MenuKit.row(tr("OPT_SUBTITLES"), MenuKit.toggle(_on("accessibility", "subtitles"),
 		_setter("accessibility", "subtitles"))))
 	r.add_child(_slider_row(tr("OPT_SUBTITLE_SIZE"), JsonUtil.num(Settings.get_value("accessibility", "subtitle_size"), 1.0),

@@ -19,6 +19,7 @@ func _ready() -> void:
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	mesh = build_polar_mesh(radius, rings, segments)
 	material_override = make_material()
+	_apply_lava_mask(material_override as ShaderMaterial)
 	Events.graphics_preset_changed.connect(_on_preset)
 	_on_preset(String(Settings.current_preset()))
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -38,6 +39,21 @@ func _process(_delta: float) -> void:
 func _on_preset(p: String) -> void:
 	var q: int = JsonUtil.get_i(GraphicsPresets.get_preset(StringName(p)), "water_quality", 1)
 	(material_override as ShaderMaterial).shader = WATER_SHADER if q >= 1 else WATER_SIMPLE_SHADER
+
+
+## Máscara de lava (tools/make_map.gd): lagos internos das Terras Calcinadas,
+## borrada para a borda ser suave. Só o mar global usa.
+static func _apply_lava_mask(m: ShaderMaterial) -> void:
+	const PATH: String = "res://world/island/data/lava_mask.png"
+	if not ResourceLoader.exists(PATH):
+		return
+	var mask: Image = (load(PATH) as Texture2D).get_image()
+	if mask.is_compressed():
+		mask.decompress()
+	mask.resize(256, 256, Image.INTERPOLATE_BILINEAR)
+	mask.resize(512, 512, Image.INTERPOLATE_BILINEAR)
+	m.set_shader_parameter(&"lava_mask", ImageTexture.create_from_image(mask))
+	m.set_shader_parameter(&"lava_world_size", IslandLayout.WORLD_SIZE)
 
 
 static func make_material() -> ShaderMaterial:

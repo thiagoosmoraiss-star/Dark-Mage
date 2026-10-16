@@ -168,6 +168,7 @@ func _on_victory(_b: Boss) -> void:
 		hud.set_boss(null)
 		hud.show_subtitle(tr(boss.boss.defeat_key), 6.0)
 	_update_dome()
+	Music.forced = &"explore_day"
 	_epilogue.call_deferred()
 
 

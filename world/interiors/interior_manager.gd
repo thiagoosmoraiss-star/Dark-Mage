@@ -109,6 +109,7 @@ func force_outdoor() -> void:
 
 
 func _set_outdoor(on: bool) -> void:
+	Audio.set_indoor(not on)
 	var cam: Camera3D = world.player.cam_rig.camera if world.player.cam_rig != null else null
 	if cam != null:
 		cam.environment = null if on else _env

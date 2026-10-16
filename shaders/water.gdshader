@@ -20,6 +20,7 @@ uniform vec4 wave_b = vec4(-0.4, 1.0, 0.14, 23.0);
 uniform vec4 wave_c = vec4(0.7, -0.8, 0.1, 11.0);
 uniform float wave_fade_distance = 650.0;
 uniform float corruption = 0.0;
+#include "res://shaders/lava_inc.gdshaderinc"
 
 varying vec3 world_pos;
 varying float crest;
@@ -44,6 +45,7 @@ void vertex() {
 	vec3 offs = gerstner(wave_a, wp, tangent, binormal);
 	offs += gerstner(wave_b, wp, tangent, binormal);
 	offs += gerstner(wave_c, wp, tangent, binormal);
+	fade *= 1.0 - lava_amount(wp.xz);  // lava não ondula
 	wp += offs * fade;
 	crest = offs.y * fade;
 	vec3 n = normalize(cross(binormal, tangent));
@@ -98,4 +100,11 @@ void fragment() {
 	SPECULAR = 0.55;
 	METALLIC = 0.0;
 	ALPHA = 1.0;
+	float lava = lava_amount(world_pos.xz);
+	if (lava > 0.001) {
+		ALBEDO = mix(ALBEDO, vec3(0.05, 0.025, 0.02), lava);
+		EMISSION = mix(EMISSION, lava_emission(world_pos.xz, TIME, foam_noise), lava);
+		ROUGHNESS = mix(ROUGHNESS, 0.9, lava);
+		SPECULAR = mix(SPECULAR, 0.1, lava);
+	}
 }

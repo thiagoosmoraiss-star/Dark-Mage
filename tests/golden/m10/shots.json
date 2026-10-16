@@ -1,0 +1,107 @@
+[
+ {
+  "name": "m10_01_mapa_pintado",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 10.0,
+  "player": [
+   30,
+   0,
+   180
+  ],
+  "map": true,
+  "reveal": [
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -200
+   ],
+   [
+    60,
+    0,
+    560
+   ],
+   [
+    -300,
+    0,
+    100
+   ],
+   [
+    300,
+    0,
+    300
+   ],
+   [
+    600,
+    0,
+    -100
+   ]
+  ],
+  "frames": 90
+ },
+ {
+  "name": "m10_02_lava_cratera",
+  "hour": 20.5,
+  "cam": [
+   790,
+   250,
+   -10
+  ],
+  "target": [
+   690,
+   150,
+   -110
+  ],
+  "fov": 60,
+  "hide_hud": true,
+  "frames": 150
+ },
+ {
+  "name": "m10_03_fogueira_apagada_noite",
+  "hour": 22.5,
+  "player": [
+   380.5,
+   0,
+   707.0
+  ],
+  "player_yaw": 45,
+  "cam_rel": [
+   1.5,
+   2.2,
+   4.5
+  ],
+  "target_rel": [
+   -3,
+   0.5,
+   -4
+  ],
+  "fov": 60,
+  "frames": 120
+ },
+ {
+  "name": "m10_04_farol_de_baixo",
+  "hour": 17.5,
+  "player": [
+   88.0,
+   0,
+   42.0
+  ],
+  "player_yaw": 40,
+  "cam_rel": [
+   1,
+   1.6,
+   3.5
+  ],
+  "target_rel": [
+   -14,
+   18,
+   -18
+  ],
+  "fov": 65,
+  "frames": 120
+ }
+]

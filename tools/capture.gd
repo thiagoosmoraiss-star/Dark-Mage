@@ -93,6 +93,11 @@ func _setup_shot(shot: Dictionary) -> void:
 			rig.set(&"yaw", player.rotation.y + deg_to_rad(JsonUtil.get_f(shot, "cam_yaw", 0.0)))
 			rig.set(&"pitch", deg_to_rad(JsonUtil.get_f(shot, "cam_pitch", -12.0)))
 			rig.global_position = pp + Vector3.UP * 1.55
+	if not shot.has("map"):
+		var wm: Node = root.get_tree().get_first_node_in_group(&"world")
+		var msc: Node = wm.get(&"map_screen") if wm != null else null
+		if msc != null and msc.call(&"is_open"):
+			msc.call(&"toggle")
 	if shot.has("map"):
 		var world_node: Node = root.get_tree().get_first_node_in_group(&"world")
 		var ms: Node = world_node.get(&"map_screen") if world_node != null else null

@@ -359,3 +359,7 @@ TIP_5,O mercador do Vale vende mais coisas a cada Guardião vencido.,The Valley 
 TIP_6,"Nos Picos, o frio cansa. Fique perto de fogueiras acesas.",In the Peaks the cold wears you down. Stay near lit bonfires.
 TIP_7,Cajados mudam o ataque básico. Experimente o leque de espinhos.,Staves change your basic attack. Try the thorn fan.
 TIP_8,Santuários dão sigilos que aumentam vida ou mana.,Shrines grant sigils that raise health or mana.
+OPT_DIFFICULTY,Dificuldade,Difficulty
+OPT_DIFF_EASY,Fácil (história),Easy (story)
+OPT_DIFF_NORMAL,Normal,Normal
+OPT_DIFF_HARD,Difícil,Hard

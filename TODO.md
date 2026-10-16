@@ -17,11 +17,10 @@ Prioridade: P1 (bloqueia marco) · P2 (antes do RC) · P3 (desejável).
 - [ ] P2 · M7: rios e lagos com WaterBody próprio; água do pântano turva e violeta.
 - [ ] P3 · Atualizar o Terrain3D quando sair versão para o Godot 4.7 e remover `tools/known_log_messages.txt` (D28).
 - [ ] P3 · Névoa de longe ainda pesada na vista aérea (1,4 km); calibrar com o benchmark no Nitro.
-- [ ] P2 · Lava nas Terras Calcinadas (material de água emissivo nas poças da região) e cratera do vulcão.
-- [ ] P2 · Brasas da fogueira apagada mais visíveis à noite; topo do farol mais imponente.
 - [ ] P3 · Fauna ambiente (pássaros, corvos, peixes) e sons por região (M10).
 - [ ] P2 · M10: silhuetas próprias para os Guardiões (hoje esqueleto/golem/serpente escalados e tingidos).
 - [ ] P2 · M10: epílogo com câmera cinematográfica e créditos rolando; arena dos covis menos quadrada.
-- [ ] P2 · M10: mapa pintado com relevo (hoje a prévia colorida por região vira manchas chapadas ao revelar).
 - [ ] P3 · M10: roda rápida de feitiços no RB (hoje RB está livre no jogo; LB + face já cobre os 4 espaços).
 - [ ] P2 · Dono: testar toda a UI com um gamepad físico (testes usam eventos simulados).
+- [ ] P3 · Ambientes gravados (CC0) no lugar dos sintetizados, se aparecerem com licença clara.
+- [ ] P3 · Lava com variação de padrão de perto (fluxos direcionais).

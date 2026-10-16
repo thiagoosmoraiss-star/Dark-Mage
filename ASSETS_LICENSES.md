@@ -342,3 +342,18 @@ Todo arquivo em `assets/` precisa aparecer aqui pelo caminho relativo a `assets/
 | ui/icons/crystal.svg | Ícone de UI (cristal) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
 | ui/icons/marker.svg | Ícone de UI (marcador do mapa) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
 | ui/menu_bg.png | Fundo do menu inicial (captura do próprio jogo, `build/tmp/shots/menu.json`, pose menu_a) | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| audio/music/explore_day.mp3 | "Peaceful Forest" (exploração de dia; convertido para MP3 160 kbps) | Samza | https://opengameart.org/content/peaceful-forest | CC0 1.0 | 2026-10-16 |
+| audio/music/explore_night.mp3 | "Fantasy: Rising Moon" (exploração à noite e menu) | RandomMind | https://opengameart.org/content/fantasy-rising-moon | CC0 1.0 | 2026-10-16 |
+| audio/music/dark.ogg | "Dark Shrine Loop" (regiões corrompidas e interiores; remix de "Shrine" de yd) | qubodup / yd | https://opengameart.org/content/dark-shrine-loop | CC0 1.0 | 2026-10-16 |
+| audio/music/combat.mp3 | "Determined Pursuit (epic orchestra loop)" (combate; convertido para MP3) | Emma_MA | https://opengameart.org/content/determined-pursuit-epic-orchestra-loop | CC0 1.0 | 2026-10-16 |
+| audio/music/boss.mp3 | "Dramatic Boss Encounter" (chefes; convertido para MP3) | cynicmusic | https://opengameart.org/content/dramatic-boss-encounter | CC0 1.0 | 2026-10-16 |
+| audio/ambience/crickets.mp3 | "Crickets Ambient Noise (loopable)" | Wolfgang_ | https://opengameart.org/content/crickets-ambient-noise-loopable | CC0 1.0 | 2026-10-16 |
+| audio/ambience/wind_soft.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| audio/ambience/forest_day.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| audio/ambience/wind_peaks.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| audio/ambience/waves.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| audio/ambience/swamp.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| audio/ambience/burnt.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| audio/ambience/fire.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| audio/ambience/cave.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |
+| audio/ambience/corruption.mp3 | Ambiente sintetizado por `tools/synth_ambience.py` | Feito para este projeto | — | CC0 1.0 (obra própria) | 2026-10-16 |

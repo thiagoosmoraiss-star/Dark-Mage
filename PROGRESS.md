@@ -252,3 +252,30 @@ equipamento, feitiços, marcadores e névoa**. Fumaça do menu e da ilha sem err
 então as áreas reveladas viram manchas de cor chapadas (precisa de um mapa pintado com relevo, M10); as telas
 são densas em texto pequeno a 720p; o gamepad não foi testado com um controle físico (só eventos simulados) — está
 no QA_CHECKLIST para o dono.
+
+### 2026-10-16 · M10 — Áudio e polimento
+
+**Feito:** autoload `Music`: música adaptativa com crossfade entre dois players (exploração de dia e de noite,
+trilha sombria em regiões corrompidas e interiores, combate com folga de 5 s, chefe a até 70 m; menu e epílogo
+forçam faixas) e ambiente em camadas no barramento Ambient (vento suave, floresta, vento dos picos, ondas perto do
+mar, pântano, terras calcinadas, caverna nos interiores, zumbido proporcional à corrupção, grilos à noite) e fogo
+3D na fogueira acesa mais próxima; reverb de salão no barramento de efeitos dentro de santuários e covis; 5
+faixas CC0 (OpenGameArt) e 9 ambientes sintetizados por `tools/synth_ambience.py` (obra própria) + grilos CC0;
+mapa pintado em estilo carta antiga (`tools/make_map.gd`: relevo, curvas de nível, costa a tinta, ondas);
+lago de lava na cratera do vulcão (shader, luz, fagulhas, dano só na altura da lava); fogueira apagada mais
+visível; braseiro do farol 1,6× maior; tremor de câmera nos golpes fortes; dificuldade Fácil/Normal/Difícil.
+
+**Testes (112/112 APROVADO):** escolha da trilha por estado na ilha completa (dia → noite → combate → folga →
+chefe → faixa forçada). Fumaças e licenças aprovadas (342 assets registrados).
+
+**Recusado:** pacote "JC Sounds Nature Ambient Pack" (CC-BY 4.0): o autor diz ter misturado sons de bibliotecas
+compradas, sem confirmar a redistribuição — licença duvidosa (seção 13.4), substituído por síntese própria.
+
+**Autocrítica visual (M10):** o mapa agora parece um mapa (antes eram manchas chapadas); a lava dá um ponto focal
+noturno às Terras Calcinadas; o farol lê melhor de baixo. Feio/limitado: o padrão da lava é uniforme de perto;
+as "poças escuras" das Terras Calcinadas são o material de cinza do terreno (não água), ficam como campos de
+cinza.
+**Autocrítica sonora (M10):** NÃO EXECUTADO por ouvido — esta sessão não tem como ouvir áudio. Validado só
+tecnicamente (arquivos decodificam, loops ligados, níveis normalizados, troca de faixa testada). Os ambientes
+sintetizados tendem a soar artificiais perto das gravações; o loop MP3 pode ter um pequeno respiro na emenda.
+Ouvir e ajustar a mixagem está no QA_CHECKLIST do dono.

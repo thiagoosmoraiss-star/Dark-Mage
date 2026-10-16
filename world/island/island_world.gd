@@ -84,6 +84,10 @@ func _ready() -> void:
 		ambience.terrain = terrain
 		add_child(ambience)
 		_build_structures()
+		var lava: LavaPool = LavaPool.new()
+		lava.name = "LavaPool"
+		lava.terrain = terrain
+		add_child(lava)
 		nav = NavBaker.new()
 		nav.name = "Navigation"
 		nav.terrain = terrain
@@ -188,6 +192,8 @@ func _build_structures() -> void:
 				beacon.name = "Beacon"
 				tower.add_child(beacon)
 				beacon.position = Vector3(0, JsonUtil.num(tower.get_meta(&"top_y")), 0)
+				# Braseiro maior para ler bem de baixo (visto a dezenas de metros).
+				beacon.scale = Vector3.ONE * 1.6
 			&"bonfire":
 				var bf: Bonfire = Bonfire.new()
 				bf.poi_id = String(id)

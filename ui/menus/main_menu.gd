@@ -17,6 +17,7 @@ func _ready() -> void:
 	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	Settings.apply_window_mode()
+	Music.forced = &"explore_night"
 	var base: ColorRect = ColorRect.new()
 	base.set_anchors_preset(Control.PRESET_FULL_RECT)
 	base.color = Color(0.03, 0.025, 0.045)

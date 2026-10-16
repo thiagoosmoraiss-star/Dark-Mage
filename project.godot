@@ -25,6 +25,7 @@ SaveSystem="*res://autoload/save_system.gd"
 Audio="*res://autoload/audio.gd"
 GameState="*res://autoload/game_state.gd"
 Inventory="*res://autoload/inventory.gd"
+Music="*res://autoload/music.gd"
 DevOverlay="*res://ui/debug/dev_overlay.gd"
 
 [debug]

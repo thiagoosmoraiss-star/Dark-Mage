@@ -72,7 +72,7 @@ func _ready() -> void:
 	if atmo != null:
 		night = JsonUtil.num(atmo.call(&"night_factor"), 0.0)
 	var mult: float = (1.8 if elite else 1.0) * (1.0 + 0.3 * night)
-	max_health = data.health * mult
+	max_health = data.health * mult * Settings.difficulty_mult(1)
 	health = max_health
 	damage_mult = (1.5 if elite else 1.0) * (1.0 + 0.25 * night)
 	if elite:

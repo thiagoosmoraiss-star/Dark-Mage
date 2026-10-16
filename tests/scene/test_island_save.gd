@@ -77,3 +77,35 @@ func test_save_and_load_restores_everything() -> void:
 	assert_float(_world.map_markers[0].x).is_equal(-120.0)
 	assert_bool(_world.fog.is_revealed(Vector3(300, 0, -300))).is_true()
 	assert_float(_world.atmosphere.hours).is_equal_approx(20.5, 0.01)
+
+
+## M10: a trilha segue o estado — dia, noite, corrupção, combate e chefe.
+func test_adaptive_music_picks_by_state() -> void:
+	var p: Player = _world.player
+	Music.forced = &""
+	_world.atmosphere.set_hours(10.0)
+	p.teleport(Vector3(30.0, _world.terrain.height_at(Vector3(30, 0, 180)) + 0.5, 180.0))
+	for i: int in 70:
+		await get_tree().process_frame
+	assert_str(String(_world.ambience.current_region)).is_equal("valley")
+	assert_str(String(Music.pick_track())).is_equal("explore_day")
+	_world.atmosphere.set_hours(23.0)
+	assert_str(String(Music.pick_track())).is_equal("explore_night")
+	p.stats.in_combat = true
+	assert_str(String(Music.pick_track())).is_equal("combat")
+	p.stats.in_combat = false
+	# Folga: continua em combate alguns segundos depois da luta.
+	assert_str(String(Music.pick_track())).is_equal("combat")
+	Music._combat_hold = 0.0
+	var b: Boss = Boss.new()
+	b.boss = load("res://data/bosses/guardian_forest.tres") as BossData
+	_world.add_child(b)
+	b.global_position = p.global_position + Vector3(8, 0, 0)
+	assert_str(String(Music.pick_track())).is_equal("boss")
+	b.queue_free()
+	await get_tree().process_frame
+	Music.forced = &"explore_night"
+	_world.atmosphere.set_hours(10.0)
+	assert_str(String(Music.pick_track())).is_equal("explore_night")
+	Music.forced = &""
+	assert_str(String(Music.pick_track())).is_equal("explore_day")

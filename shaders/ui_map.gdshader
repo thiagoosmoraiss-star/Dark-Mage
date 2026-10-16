@@ -11,10 +11,9 @@ uniform vec3 fog_color : source_color = vec3(0.09, 0.07, 0.12);
 void fragment() {
 	vec4 map = texture(TEXTURE, UV);
 	float n = texture(paper_noise, UV * 3.0).r;
-	float lum = dot(map.rgb, vec3(0.3, 0.59, 0.11));
 	// Mapa "pintado": mistura a cor do mapa com o papel.
-	vec3 col = mix(paper * (0.85 + n * 0.2), map.rgb * 1.1, 0.78);
-	col = mix(col, ink, smoothstep(0.08, 0.0, abs(lum - 0.45)) * 0.12);
+	// O mapa já vem pintado (tools/make_map.gd): só a textura do papel por cima.
+	vec3 col = map.rgb * (0.9 + n * 0.16);
 	float reveal = texture(fog_mask, UV).r;
 	float swirl = texture(paper_noise, UV * 6.0 + vec2(TIME * 0.01, TIME * 0.006)).r;
 	float fog = 1.0 - smoothstep(0.25, 0.75, reveal + (swirl - 0.5) * 0.25);

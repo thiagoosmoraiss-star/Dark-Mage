@@ -53,8 +53,8 @@ func interact(player: Player) -> void:
 
 func _set_lit(on: bool) -> void:
 	_flames.emitting = on
-	_light.light_energy = 2.2 if on else 0.25
-	_light.omni_range = 9.0 if on else 3.0
+	_light.light_energy = 2.2 if on else 0.8
+	_light.omni_range = 9.0 if on else 5.0
 
 
 func _process(delta: float) -> void:

@@ -74,6 +74,8 @@ func goto_main_menu() -> void:
 
 ## Troca de cena passando pela tela de carregamento (carga em segundo plano).
 func goto(path: String) -> void:
+	Music.forced = &""
+	Music.stop_all()
 	var ls: LoadingScreen = LoadingScreen.new()
 	ls.target = path
 	get_tree().paused = false

@@ -55,6 +55,23 @@ func _ensure_buses() -> void:
 		fx.room_size = 0.8
 		fx.wet = 0.35
 		AudioServer.add_bus_effect(r, fx)
+	# Reverb de salão no barramento de efeitos, ligado só dentro de santuários e covis.
+	var sfx: int = AudioServer.get_bus_index(&"SFX")
+	if AudioServer.get_bus_effect_count(sfx) == 0:
+		var hall: AudioEffectReverb = AudioEffectReverb.new()
+		hall.room_size = 0.75
+		hall.damping = 0.4
+		hall.wet = 0.28
+		hall.dry = 0.9
+		AudioServer.add_bus_effect(sfx, hall)
+		AudioServer.set_bus_effect_enabled(sfx, 0, false)
+
+
+## Liga o reverb de interior (InteriorManager).
+func set_indoor(on: bool) -> void:
+	var sfx: int = AudioServer.get_bus_index(&"SFX")
+	if sfx >= 0 and AudioServer.get_bus_effect_count(sfx) > 0:
+		AudioServer.set_bus_effect_enabled(sfx, 0, on)
 
 
 func apply_volumes() -> void:

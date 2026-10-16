@@ -524,6 +524,8 @@ func take_damage(info: DamageInfo) -> bool:
 		if info.dodgeable and since <= tuning.perfect_dodge_window + tuning.dodge_iframes:
 			_perfect_dodge()
 		return false
+	if info.source is Enemy or info.source is Projectile:
+		info.amount *= Settings.difficulty_mult(0)
 	if barrier_hp > 0.0:
 		var absorbed: float = minf(barrier_hp, info.amount)
 		barrier_hp -= absorbed

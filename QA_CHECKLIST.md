@@ -36,3 +36,14 @@ Roteiro manual. Preencher a cada marco; o checklist de polimento (M10) e a campa
 - [ ] Comprar um cajado no mercador (fogueira do Vale), equipar e ver o ataque básico mudar.
 - [ ] Salvar no espaço 2 pela pausa, sair para o menu, Continuar — tudo volta (inventário, marcadores, hora, posição).
 - [ ] Trocar janela/sem bordas/tela cheia, idioma (en) e filtro de daltonismo; conferir a escala da UI em 0,75 e 1,5.
+
+## M10 — Checklist de polimento
+- [x] Música adaptativa (dia, noite, sombria, combate, chefe) com crossfade — teste automatizado.
+- [x] Ambiente por região, hora, corrupção, mar e interiores; fogo 3D nas fogueiras acesas.
+- [x] Barramentos Master/Música/Efeitos/Ambiente/UI/Voz com volume nas opções; reverb nos interiores.
+- [x] Juice: clarão de luz nos impactos, hit-stop, tremor nos golpes fortes (respeita a opção de tremor), números de dano.
+- [x] Dificuldade Fácil/Normal/Difícil nas opções.
+- [x] Mapa pintado com relevo; ícones por forma e estado.
+- [x] Lava na cratera; fogueira apagada visível à noite; braseiro do farol legível de baixo.
+- [x] Autocrítica visual e sonora registrada em PROGRESS.md (a sonora como NÃO EXECUTADA por ouvido).
+- [ ] (Dono) Ouvir 10 min: transição dia → noite, entrar em combate e sair, entrar num covil; ajustar volumes se algo estourar.

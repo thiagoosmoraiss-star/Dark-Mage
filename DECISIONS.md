@@ -235,3 +235,12 @@ menu, o teste de teclas duplicadas separa os contextos).
 
 **D61 · Daltonismo por daltonização** (Fidaner) num CanvasLayer de tela cheia, além de ícones do mapa distintos por
 forma. Janela/tela cheia só é aplicada pelo menu e pelas opções (capturas, benchmark e testes não mexem na janela).
+
+**D62 · Música por estado, não por stems:** cinco faixas CC0 completas com crossfade (AudioStreamInteractive exigiria
+faixas compostas em camadas, que não existem em CC0 com qualidade). Prioridade: chefe > combate (folga 5 s) >
+interior/corrupção > noite/dia.
+
+**D63 · Ambiente sintetizado:** loops de 24 s gerados em Python (ruído filtrado, chilreios, coaxar, bolhas, fogo,
+gotas) e codificados em MP3 com lameenc — obra própria CC0, sem depender de gravações de licença incerta.
+
+**D64 · Dificuldade** como multiplicadores: dano recebido (0,6 / 1 / 1,4) e vida dos inimigos (0,8 / 1 / 1,25).

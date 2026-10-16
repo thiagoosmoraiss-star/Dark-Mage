@@ -13,3 +13,13 @@
 - Efeitos sonoros: [Kenney](https://kenney.nl) — Impact, Sci-Fi, RPG e Interface Sounds (CC0).
 
 Lista completa em `ASSETS_LICENSES.md`.
+
+## Música (CC0, OpenGameArt)
+- "Peaceful Forest" — Samza
+- "Fantasy: Rising Moon" — RandomMind
+- "Dark Shrine Loop" — qubodup (remix de "Shrine", de yd)
+- "Determined Pursuit (epic orchestra loop)" — Emma_MA
+- "Dramatic Boss Encounter" — cynicmusic
+- "Crickets Ambient Noise (loopable)" — Wolfgang_
+
+Ambientes de vento, folhas, ondas, pântano, fogo e caverna: sintetizados para este projeto.
