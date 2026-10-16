@@ -1,0 +1,9 @@
+{
+	"magic": "dark-mage-save",
+	"version": 0,
+	"world_seed": 20261016,
+	"player": {
+		"position": [1.0, 2.0, 3.0],
+		"hp": 80
+	}
+}

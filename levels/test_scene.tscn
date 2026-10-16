@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_top_color = Color(0.18, 0.29, 0.48, 1)
+sky_horizon_color = Color(0.72, 0.62, 0.55, 1)
+ground_bottom_color = Color(0.043, 0.035, 0.063, 1)
+ground_horizon_color = Color(0.45, 0.38, 0.4, 1)
+sun_angle_max = 20.0
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 2
+sky = SubResource("sky")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 4
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.42, 0.34, 0.52, 1)
+fog_density = 0.0015
+fog_sky_affect = 0.25
+fog_height = -20.0
+fog_height_density = 0.02
+
+[node name="TestScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 20, 0)
+light_color = Color(1, 0.86, 0.68, 1)
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_blend_splits = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 4, 12)
+fov = 75.0
