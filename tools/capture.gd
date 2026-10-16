@@ -75,10 +75,36 @@ func _setup_shot(shot: Dictionary) -> void:
 			atmo.set(&"cloud_coverage", JsonUtil.get_f(shot, "coverage"))
 		atmo.set(&"corruption", JsonUtil.get_f(shot, "corruption", 0.0))
 		atmo.call(&"apply_now")
+	var player: Node3D = root.get_tree().get_first_node_in_group(&"player") as Node3D
+	if player != null and shot.has("player"):
+		var pp: Vector3 = JsonUtil.vec3(shot["player"])
+		var terrain_node: Node = root.get_tree().get_first_node_in_group(&"island_terrain")
+		if terrain_node != null:
+			pp.y = JsonUtil.num(terrain_node.call(&"height_at", pp), pp.y) + 0.05
+		player.call(&"teleport", pp)
+		player.rotation.y = deg_to_rad(JsonUtil.get_f(shot, "player_yaw", 0.0))
+		var rig: Node3D = player.get_node_or_null(^"CameraRig") as Node3D
+		if rig != null:
+			rig.set_process(true)
+			rig.set(&"yaw", player.rotation.y + deg_to_rad(JsonUtil.get_f(shot, "cam_yaw", 0.0)))
+			rig.set(&"pitch", deg_to_rad(JsonUtil.get_f(shot, "cam_pitch", -12.0)))
+			rig.global_position = pp + Vector3.UP * 1.55
+	if shot.has("cam_rel") and player != null:
+		var base: Vector3 = player.global_position
+		shot["cam"] = _arr(base + player.global_basis * JsonUtil.vec3(shot["cam_rel"]))
+		shot["target"] = _arr(base + player.global_basis * JsonUtil.vec3(shot.get("target_rel", [0.0, 1.2, 0.0])))
 	if shot.has("cam"):
-		if _camera == null:
+		# Câmera própria da captura (a da cena pode estar presa a um SpringArm).
+		if _camera == null or not is_instance_valid(_camera):
 			_camera = Camera3D.new()
+			_camera.name = "CaptureCamera"
 			_scene.add_child(_camera)
+		var terrain_node: Node = root.get_tree().get_first_node_in_group(&"island_terrain")
+		if terrain_node != null:
+			var t3d: Node = terrain_node.get(&"terrain")
+			if t3d != null:
+				t3d.call(&"set_camera", _camera)
+		_camera.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 		_camera.global_position = JsonUtil.vec3(shot["cam"])
 		_camera.fov = JsonUtil.get_f(shot, "fov", 70.0)
 		_camera.far = 4000.0
@@ -104,6 +130,10 @@ func _process(_delta: float) -> bool:
 		RenderingServer.get_video_adapter_name(), RenderingServer.get_current_rendering_driver_name()])
 	_next_shot()
 	return false
+
+
+static func _arr(v: Vector3) -> Array:
+	return [v.x, v.y, v.z]
 
 
 static func _arg(key: String, fallback: String) -> String:

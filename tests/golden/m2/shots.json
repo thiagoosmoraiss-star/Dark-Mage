@@ -1,0 +1,10 @@
+[
+	{"name": "m2_01_visao_geral", "scene": "res://levels/island/island_view.tscn", "hour": 10.0, "cam": [600, 700, 1250], "target": [0, 0, -50], "fov": 60},
+	{"name": "m2_02_vale_cidadela", "hour": 9.5, "cam": [20, 70, 330], "target": [0, 90, -360]},
+	{"name": "m2_03_picos", "hour": 14.0, "cam": [-300, 160, -250], "target": [-80, 180, -640]},
+	{"name": "m2_04_vulcao", "hour": 16.5, "cam": [300, 110, 200], "target": [690, 140, -110]},
+	{"name": "m2_05_pantano", "hour": 17.0, "cam": [-350, 40, 250], "target": [-650, 0, 100], "corruption": 0.8},
+	{"name": "m2_06_costa", "hour": 18.0, "cam": [380, 25, 760], "target": [100, 5, 700]},
+	{"name": "m2_07_floresta", "hour": 11.0, "cam": [150, 70, 420], "target": [0, 30, 620]},
+	{"name": "m2_08_transicao_biomas", "hour": 12.0, "cam": [-200, 120, 150], "target": [-400, 20, 0]}
+]

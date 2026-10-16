@@ -11,7 +11,7 @@ mkdir -p build/logs
 	>build/logs/capture.log 2>&1
 rc=$?
 grep -a 'capture:' build/logs/capture.log
-if grep -nE '(SCRIPT ERROR|^ERROR:|^WARNING:)' build/logs/capture.log; then
+if grep -aE '(SCRIPT ERROR|^ERROR:|^WARNING:)' build/logs/capture.log | grep -v -x -F -f tools/known_log_messages.txt | grep .; then
 	echo "REPROVADO: erros na captura"; exit 1
 fi
 exit $rc

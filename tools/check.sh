@@ -10,9 +10,14 @@ mkdir -p "$LOG_DIR"
 STEP="${1:-all}"
 FAIL=0
 
-# Reprova se o log tiver erro ou warning de script ou do motor.
+# Reprova se o log tiver erro ou warning de script ou do motor. As únicas exceções
+# são as linhas exatas de tools/known_log_messages.txt (mensagens do binário do
+# Terrain3D 1.0.2 no Godot 4.7; ver DECISIONS D28).
 scan() {
-	if grep -nE '(SCRIPT ERROR|^ERROR:|^WARNING:|Parse Error|USER ERROR|USER WARNING)' "$1"; then
+	local hits
+	hits=$(grep -aE '(SCRIPT ERROR|^ERROR:|^WARNING:|Parse Error|USER ERROR|USER WARNING)' "$1" 		| grep -v -x -F -f tools/known_log_messages.txt)
+	if [[ -n "$hits" ]]; then
+		echo "$hits"
 		echo "REPROVADO: erros/warnings em $1"
 		FAIL=1
 	fi

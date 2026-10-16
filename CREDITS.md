@@ -6,4 +6,7 @@
 - Terreno: [Terrain3D](https://github.com/TokisanGames/Terrain3D) por Cory Petkovsek e Roope Palmroos (MIT).
 - Testes: [GdUnit4](https://github.com/godot-gdunit-labs/gdUnit4) por Mike Schulze (MIT).
 
-Assets de terceiros (CC0 e afins) serão listados aqui à medida que forem adicionados; ver `ASSETS_LICENSES.md`.
+- Texturas de terreno: [ambientCG](https://ambientcg.com) (CC0).
+- Personagem base do mago: KayKit Adventurers por [Kay Lousberg](https://www.kaylousberg.com) (CC0).
+
+Lista completa em `ASSETS_LICENSES.md`.
