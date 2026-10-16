@@ -293,3 +293,35 @@ conferido = APROVADO**; 112/112 GdUnit4. Offline: o jogo não faz nenhuma chamad
 código). SmartScreen vai alertar (sem assinatura de código — fora do escopo).
 
 **Tamanho:** `DarkMage.exe` 190 MB + `libterrain.windows.release.x86_64.dll` 3,5 MB.
+
+### 2026-10-16 · M12 — Otimização e release candidate (1.0.0-rc1)
+
+**Feito:** draw calls do preset Baixo 347 → 278 (blocos de faróis, ruínas e Cidadela juntados por material com
+`MeshMerge`; estruturas pequenas com alcance de desenho de 150 m e luzes com fade por distância); FPS 24,6 → 27,1
+e P99 94 → 73,5 ms a 1080p nesta Intel UHD; teste de vazamento de 10 min (`tools/soak.gd`) aprovado; microbenchmark
+da primeira execução (`AutoTune`: desce um preset se a média ficar abaixo de 28 FPS); graduação de cor com
+crossfade de 2 s entre regiões; lagos do pântano turvos e violeta; epílogo com câmera orbitando a Cidadela ao
+amanhecer, texto final, créditos rolando e pós-jogo (corrigido: o jogador caía do mapa porque a colisão dinâmica
+do Terrain3D seguia a câmera da cena); versão 1.0.0-rc1 exportada e aprovada na fumaça do executável.
+
+**Testes:** 113/113 GdUnit4, fumaças do menu e da ilha, licenças (344 assets), exportação + fumaça do .exe,
+vazamento 10 min: tudo **APROVADO**.
+
+#### Seção 16 — estado
+- [ ] Jogo completável do início ao fim — **automatizado** (cada Guardião e o chefe final morrem em teste, fluxo de
+  save/carregar no .exe); **jogada manual completa NÃO EXECUTADA** (QA_CHECKLIST, dono).
+- [ ] Nenhuma primitiva crua / autocrítica visual aprovada em todas as regiões — capturas por marco revisadas;
+  restam a esfera translúcida da cúpula da Cidadela e os Guardiões sem silhueta própria (TODO P2). Aprovação final é do dono.
+- [ ] Direção de arte respeitada — capturas m1–m10 e revisão do dono.
+- [x] 8 feitiços, 6 inimigos, 4 Guardiões + chefe final, com VFX e áudio.
+- [x] Escalada, planador, natação, blink, mapa, viagem rápida e save com 3 espaços.
+- [x] Teclado, mouse e gamepad com remapeamento (gamepad físico: dono).
+- [ ] Presets Baixo/Médio/Alto/Ultra — existem; **benchmark do Alto no Nitro V15 NÃO EXECUTADO** (dono).
+- [x] Sem vazamento em 10 min e 200+ conjurações (973 no teste).
+- [x] GdUnit4 verde, golden visual revisado, zero erros e warnings (exceto as 3 linhas conhecidas do Terrain3D, D28).
+- [x] `ASSETS_LICENSES.md` e `CREDITS.md` completos (checagem automática).
+- [x] Executável Windows exportado rodando sem o editor (fumaça automatizada; offline: sem código de rede).
+- [x] `README.md` com editor, testes, exportação e estrutura.
+
+**Próximos passos (dono):** jogar a campanha inteira pelo QA_CHECKLIST, rodar o benchmark do Alto no Nitro V15,
+testar com gamepad físico e ouvir a mixagem; depois decidir o que dos P2 restantes entra antes da 1.0.

@@ -85,6 +85,7 @@ func _build_ruins() -> void:
 	light.omni_range = 30.0
 	light.position = crystal.position
 	body.add_child(light)
+	MeshMerge.merge(body)
 
 
 func _build_dome() -> void:
@@ -172,19 +173,55 @@ func _on_victory(_b: Boss) -> void:
 	_epilogue.call_deferred()
 
 
-## Epílogo visual: o dia nasce dourado sobre a ilha purificada e o texto final aparece.
+## Epílogo: a câmera sobe e orbita a Cidadela enquanto o dia nasce dourado sobre a
+## ilha purificada; depois o texto final, os créditos rolando e o jogo continua.
 func _epilogue() -> void:
 	await get_tree().create_timer(4.0).timeout
+	var world: IslandWorld = get_tree().get_first_node_in_group(&"world") as IslandWorld
+	var player: Player = world.player if world != null else null
+	# O jogador fica congelado; o terreno (e a colisão dinâmica do Terrain3D)
+	# continua centrado na câmera dele, não na câmera da cena.
+	if player != null:
+		player.input_enabled = false
+		player.set_physics_process(false)
 	var atmo: Atmosphere = get_tree().get_first_node_in_group(&"atmosphere") as Atmosphere
 	if atmo != null:
 		var tw: Tween = create_tween()
-		tw.tween_method(atmo.set_hours, atmo.hours, atmo.hours + fposmod(7.0 - atmo.hours, 24.0), 6.0)
+		tw.tween_method(atmo.set_hours, atmo.hours, atmo.hours + fposmod(7.0 - atmo.hours, 24.0), 8.0)
 		atmo.corruption = 0.0
 		atmo.set_grading(&"purified")
-	await get_tree().create_timer(6.5).timeout
+	# Câmera cinematográfica: sobe de 20 m para 90 m enquanto dá meia volta.
+	var cam: Camera3D = Camera3D.new()
+	cam.name = "EpilogueCamera"
+	cam.far = 4000.0
+	add_child(cam)
+	var prev: Camera3D = get_viewport().get_camera_3d()
+	cam.current = true
+	var dur: float = 10.0
+	var t: float = 0.0
+	while t < dur:
+		var k: float = t / dur
+		var a: float = PI * 0.5 + k * PI
+		var r: float = lerpf(55.0, 160.0, k)
+		cam.global_position = _center + Vector3(cos(a) * r, lerpf(20.0, 90.0, smoothstep(0.0, 1.0, k)), sin(a) * r)
+		cam.look_at(_center + Vector3.UP * lerpf(12.0, 0.0, k), Vector3.UP)
+		await get_tree().process_frame
+		t += get_process_delta_time()
+	if prev != null and is_instance_valid(prev):
+		prev.current = true
+	cam.queue_free()
+	if player != null:
+		player.set_physics_process(true)
+		player.input_enabled = true
+	if world != null:
+		world.save_game(Game.current_slot)
 	var panels: WorldPanels = get_tree().get_first_node_in_group(&"world_panels") as WorldPanels
 	if panels != null:
 		panels.show_text(tr("EPILOGUE_TITLE"), tr("EPILOGUE_BODY"))
-	var world: IslandWorld = get_tree().get_first_node_in_group(&"world") as IslandWorld
-	if world != null:
-		world.save_game(Game.current_slot)
+		await panels.closed
+	var roll: CreditsRoll = CreditsRoll.new()
+	add_child(roll)
+	await roll.finished
+	var hud: Hud = get_tree().get_first_node_in_group(&"hud") as Hud
+	if hud != null:
+		hud.show_banner(tr("POSTGAME_TITLE"), tr("POSTGAME_DESC"), 6.0)

@@ -72,7 +72,7 @@ func _initialize() -> void:
 	quit(0)
 
 
-## Máscara de lava (512²): lagos internos (abaixo do mar e sem ligação com o oceano
+## Máscara de água especial (512², R = lava, G = lagos do pântano): lagos internos (abaixo do mar e sem ligação com o oceano
 ## aberto) onde o peso das Terras Calcinadas passa de 0,4.
 func _lava_mask(gen: IslandGenerator) -> void:
 	const M: int = 512
@@ -107,16 +107,21 @@ func _lava_mask(gen: IslandGenerator) -> void:
 				ocean[n] = 1
 				stack.append(n)
 	var out: PackedByteArray = []
-	out.resize(M * M)
+	out.resize(M * M * 3)
 	var lava_px: int = 0
+	var swamp_px: int = 0
 	for z2: int in M:
 		for x2: int in M:
 			var i: int = z2 * M + x2
 			if water[i] == 1 and ocean[i] == 0:
 				var wp: Vector2 = gen.pixel_to_world(x2 * st, z2 * st)
-				if gen.region_weights_at(wp.x, wp.y)[3] > 0.4:
-					out[i] = 255
+				var w: PackedFloat32Array = gen.region_weights_at(wp.x, wp.y)
+				if w[3] > 0.4:
+					out[i * 3] = 255
 					lava_px += 1
-	var img: Image = Image.create_from_data(M, M, false, Image.FORMAT_L8, out)
+				elif w[4] > 0.4:
+					out[i * 3 + 1] = 255
+					swamp_px += 1
+	var img: Image = Image.create_from_data(M, M, false, Image.FORMAT_RGB8, out)
 	var path: String = ProjectSettings.globalize_path("res://world/island/data/lava_mask.png")
-	print("lava: %d px, %s" % [lava_px, error_string(img.save_png(path))])
+	print("lava: %d px, pântano: %d px, %s" % [lava_px, swamp_px, error_string(img.save_png(path))])

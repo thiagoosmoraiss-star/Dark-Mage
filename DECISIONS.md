@@ -251,3 +251,15 @@ gotas) e codificados em MP3 com lameenc — obra própria CC0, sem depender de g
 **D66 · Teste de fumaça do executável** (`-- --export-smoke`): roda o fluxo real de menu, novo jogo, salvar e
 carregar dentro do .exe e grava o resultado em `user://export_smoke.txt`, para o aceite do M11 não depender do
 editor.
+
+**D67 · MeshMerge:** blocos de pedra gerados por código (faróis, ruínas, Cidadela) viram uma malha por material
+depois de montados. Colisões continuam separadas. Props importados e malhas animadas ficam de fora.
+
+**D68 · Alcance de desenho de 150 m** para fogueiras, baús, entradas, histórias e o mercador (luzes somem a partir
+de ~70 m). Faróis, ruínas e Cidadela são marcos e continuam visíveis de longe.
+
+**D69 · AutoTune** só desce o preset (nunca sobe) e só uma vez, na primeira execução; o jogador pode voltar pelas
+opções. O epílogo congela o jogador e não troca a câmera do Terrain3D (a colisão dinâmica segue essa câmera).
+
+**D70 · 1.0.0-rc1:** todos os itens da seção 16 que dependem só do agente estão verdes; os que dependem do dono
+(jogada completa, benchmark no Nitro V15, gamepad físico, ouvir o áudio) estão marcados como NÃO EXECUTADOS.

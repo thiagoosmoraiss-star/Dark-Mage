@@ -148,6 +148,11 @@ func _setup_shot(shot: Dictionary) -> void:
 		var mv: Vector3 = player.global_position + JsonUtil.vec3(shot["move"])
 		player.call(&"teleport", mv)
 		player.rotation.y = deg_to_rad(JsonUtil.get_f(shot, "player_yaw", 0.0))
+	if shot.has("call"):
+		# ["grupo", "método"]: dispara um evento de jogo (ex.: epílogo) antes da foto.
+		var target: Node = root.get_tree().get_first_node_in_group(StringName(str((shot["call"] as Array)[0])))
+		if target != null:
+			target.call(StringName(str((shot["call"] as Array)[1])))
 	if shot.has("ui"):
 		await root.get_tree().create_timer(0.6).timeout
 		var ui: Node = root.get_tree().get_first_node_in_group(&"game_ui")

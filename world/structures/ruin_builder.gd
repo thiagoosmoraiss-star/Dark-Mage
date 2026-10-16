@@ -49,6 +49,7 @@ static func build_ruin(parent: Node3D, center: Vector3, seed_value: int, terrain
 		var p: Vector3 = Vector3(rng.randf_range(-11, 11), 0.0, rng.randf_range(-12, 6))
 		var size: Vector3 = Vector3(rng.randf_range(0.8, 1.6), rng.randf_range(0.5, 0.9), rng.randf_range(0.7, 1.2))
 		_block(root, p, size, size.y * 0.3, rng.randf_range(-0.5, 0.5), rng.randi(), mat, terrain, true)
+	MeshMerge.merge(root)
 	return root
 
 
@@ -199,4 +200,5 @@ static func build_beacon_tower(parent: Node3D, center: Vector3, seed_value: int,
 	top_cs.position = Vector3(0, top_y - 0.2, 0)
 	root.add_child(top_cs)
 	root.set_meta(&"top_y", top_y)
+	MeshMerge.merge(root)
 	return root

@@ -32,6 +32,11 @@ var _sky_accum: float = 999.0
 var _cloud_time: float = 0.0
 var _last_hour_emitted: int = -1
 var _grading: StringName = &""
+const GRADING_FADE: float = 2.0
+var _lut: ImageTexture3D
+var _blend_from: StringName = &"default"
+var _blend_t: float = 1.0
+var _blend_step: float = 0.0
 
 
 func _ready() -> void:
@@ -44,6 +49,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	_update_grading_blend(delta)
 	if running:
 		hours = fposmod(hours + delta * 24.0 / (cycle_minutes * 60.0), 24.0)
 	_cloud_time += delta
@@ -79,11 +85,29 @@ func night_factor() -> float:
 	return smoothstep(0.1, -0.15, DayNightPalette.sun_direction(hours).y)
 
 
+## Troca a graduação com crossfade de ~2 s entre as LUTs (sem salto ao cruzar regiões).
 func set_grading(preset: StringName) -> void:
 	if preset == _grading:
 		return
+	var from: StringName = _grading
 	_grading = preset
-	environment.adjustment_color_correction = ColorGrading.lut_for(preset)
+	if from == &"" or _lut == null:
+		_lut = ColorGrading.lut_for(preset)
+		environment.adjustment_color_correction = _lut
+		return
+	_blend_from = from if _blend_t >= 1.0 else _blend_from
+	_blend_t = 0.0
+
+
+func _update_grading_blend(delta: float) -> void:
+	if _blend_t >= 1.0 or _lut == null:
+		return
+	_blend_t = minf(_blend_t + delta / GRADING_FADE, 1.0)
+	_blend_step -= delta
+	if _blend_step > 0.0 and _blend_t < 1.0:
+		return
+	_blend_step = 0.12
+	ColorGrading.blend_into(_lut, _blend_from, _grading, _blend_t)
 
 
 # --- Construção -------------------------------------------------------------

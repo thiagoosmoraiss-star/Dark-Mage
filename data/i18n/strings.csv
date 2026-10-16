@@ -363,3 +363,8 @@ OPT_DIFFICULTY,Dificuldade,Difficulty
 OPT_DIFF_EASY,Fácil (história),Easy (story)
 OPT_DIFF_NORMAL,Normal,Normal
 OPT_DIFF_HARD,Difícil,Hard
+AUTOTUNE_TITLE,Qualidade ajustada,Quality adjusted
+AUTOTUNE_DESC,"Preset %s para manter o jogo fluido (mude em Opções).","%s preset to keep the game smooth (change it in Options)."
+CREDITS_THANKS,Obrigado por jogar,Thank you for playing
+POSTGAME_TITLE,A ilha é sua,The isle is yours
+POSTGAME_DESC,"Continue explorando: santuários, baús e histórias ainda esperam.","Keep exploring: shrines, chests and stories still await."

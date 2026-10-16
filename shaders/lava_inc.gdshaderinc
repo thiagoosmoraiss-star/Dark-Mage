@@ -8,6 +8,11 @@ float lava_amount(vec2 xz) {
 	return smoothstep(0.25, 0.6, textureLod(lava_mask, uv, 0.0).r);
 }
 
+float swamp_amount(vec2 xz) {
+	vec2 uv = (xz + lava_world_size * 0.5) / lava_world_size;
+	return smoothstep(0.2, 0.6, textureLod(lava_mask, uv, 0.0).g);
+}
+
 vec3 lava_emission(vec2 xz, float t, sampler2D ntex) {
 	float n1 = texture(ntex, xz * 0.05 + vec2(t * 0.01, t * 0.004)).r;
 	float n2 = texture(ntex, xz * 0.13 - vec2(t * 0.006, -t * 0.012)).r;

@@ -84,6 +84,10 @@ func _ready() -> void:
 		ambience.terrain = terrain
 		add_child(ambience)
 		_build_structures()
+		for id: StringName in structures:
+			var st: Node3D = structures[id]
+			if st is Bonfire or st is Chest or st is InteriorEntrance or st is LorePoint or st is Merchant:
+				apply_draw_range(st, SMALL_STRUCTURE_RANGE)
 		var lava: LavaPool = LavaPool.new()
 		lava.name = "LavaPool"
 		lava.terrain = terrain
@@ -150,6 +154,7 @@ func _spawn_player() -> void:
 	map_screen.player = player
 	map_screen.world = self
 	add_child(map_screen)
+	add_child(AutoTune.new())
 	game_ui = GameUi.new()
 	game_ui.name = "GameUi"
 	game_ui.world = self
@@ -239,6 +244,24 @@ func _build_structures() -> void:
 				lp.global_position = pos
 				lp.rotation.y = rng.randf() * TAU
 				structures[id] = lp
+
+
+## Alcance de desenho de estruturas pequenas (fogueiras, baús, entradas, histórias):
+## além disso não se veem de qualquer jeito e custam draw calls. Luzes somem antes.
+const SMALL_STRUCTURE_RANGE: float = 150.0
+
+
+static func apply_draw_range(root: Node, range_m: float) -> void:
+	for g: Node in root.find_children("*", "GeometryInstance3D", true, false):
+		var gi: GeometryInstance3D = g as GeometryInstance3D
+		if gi.visibility_range_end <= 0.0:
+			gi.visibility_range_end = range_m
+			gi.visibility_range_end_margin = 10.0
+	for l: Node in root.find_children("*", "Light3D", true, false):
+		var li: Light3D = l as Light3D
+		li.distance_fade_enabled = true
+		li.distance_fade_begin = range_m * 0.45
+		li.distance_fade_length = range_m * 0.15
 
 
 ## O mercador fica a alguns metros da fogueira do Vale, virado para ela.

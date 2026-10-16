@@ -5,6 +5,7 @@ extends CanvasLayer
 
 signal rest_requested(bonfire_id: String, hours: float)
 signal travel_requested(bonfire_id: String)
+signal closed
 
 var _root: Control
 var _panel: PanelContainer
@@ -68,6 +69,7 @@ func close() -> void:
 	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Audio.play(&"ui_close")
+	closed.emit()
 
 
 func _unhandled_input(event: InputEvent) -> void:

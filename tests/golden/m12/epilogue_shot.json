@@ -1,0 +1,1 @@
+[{"name": "m12_epilogo_orbita", "scene": "res://levels/island/island.tscn", "hour": 5.5, "player": [0, 0, -340], "flags": ["guardian:forest", "guardian:peaks", "guardian:burnt", "guardian:swamp", "final:fear"], "call": ["citadel", "_epilogue"], "frames": 200}]

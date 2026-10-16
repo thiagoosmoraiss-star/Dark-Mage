@@ -20,6 +20,15 @@ Fonte de verdade: o benchmark fixo (`godot --path . -- --bench`, a partir do M1/
 
 ### Atribuição de custo (Baixo, 720p, Intel UHD, antes das otimizações)
 FSR2 ~30 ms (trocado por FSR1) · vegetação ~18 ms · grama ~13 ms · água ~11 ms · sombras ~11 ms.
+| 2026-10-16 | M12 (antes) | Lenovo 83NS, Intel UHD (agente) | Baixo | 1920×1080 | 24,6 | 69,4 ms | 94,3 ms | 347 | `--bench` 20 s, com o conteúdo do M7–M10 |
+| 2026-10-16 | M12 (depois) | Lenovo 83NS, Intel UHD (agente) | Baixo | 1920×1080 | 27,1 | 60,6 ms | 73,5 ms | 278 | `--bench` 20 s, após juntar malhas e alcance de desenho |
+| — | M12 | Acer Nitro V15 (dono) | Alto | 1920×1080 | NÃO EXECUTADO | — | — | — | medir com `-- --bench --preset=high` |
+
+## Vazamento (seção 16)
+`tools/run.sh res://tools/soak.gd -- --seconds=600` (headless): 600 s, 973 conjurações, jogador andando, pulando e
+esquivando. Nós 8004 → 8404 (estáveis a partir de 270 s; +1,1% após o aquecimento, inimigos ativados na região),
+memória estática 308 → 312 MB (+0,1% após o aquecimento), 0 nós órfãos. **APROVADO.** Memória de vídeo no
+benchmark: 248,9 → 248,8 MB.
 
 ### Como medir
 ```bash

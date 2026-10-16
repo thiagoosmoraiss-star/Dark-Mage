@@ -10,6 +10,7 @@ const DEFAULTS: Dictionary = {
 		"vsync": true,
 		"max_fps": 0,
 		"window_mode": "fullscreen",  # windowed | borderless | fullscreen
+		"auto_tuned": false,
 		"fov": 75.0,
 	},
 	"audio": {

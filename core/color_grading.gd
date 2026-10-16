@@ -41,6 +41,12 @@ static func grade(c: Color, p: Dictionary) -> Color:
 
 
 static func make_lut(p: Dictionary) -> ImageTexture3D:
+	var tex: ImageTexture3D = ImageTexture3D.new()
+	tex.create(Image.FORMAT_RGB8, SIZE, SIZE, SIZE, false, lut_images(p))
+	return tex
+
+
+static func lut_images(p: Dictionary) -> Array[Image]:
 	var images: Array[Image] = []
 	for b: int in SIZE:
 		var img: Image = Image.create_empty(SIZE, SIZE, false, Image.FORMAT_RGB8)
@@ -49,9 +55,40 @@ static func make_lut(p: Dictionary) -> ImageTexture3D:
 				var src: Color = Color(float(r) / (SIZE - 1), float(g) / (SIZE - 1), float(b) / (SIZE - 1))
 				img.set_pixel(r, g, grade(src, p))
 		images.append(img)
-	var tex: ImageTexture3D = ImageTexture3D.new()
-	tex.create(Image.FORMAT_RGB8, SIZE, SIZE, SIZE, false, images)
-	return tex
+	return images
+
+
+static var _data_cache: Dictionary[StringName, PackedByteArray] = {}
+
+
+## Bytes RGB8 da LUT (todas as fatias em sequência), em cache por preset.
+static func lut_data(preset: StringName) -> PackedByteArray:
+	if not _data_cache.has(preset):
+		var out: PackedByteArray = []
+		var params: Dictionary = PRESETS.get(preset, PRESETS[&"default"])
+		for img: Image in lut_images(params):
+			out.append_array(img.get_data())
+		_data_cache[preset] = out
+	return _data_cache[preset]
+
+
+## Atualiza `tex` com a mistura linear das LUTs `a` → `b` em `t` (0..1).
+static func blend_data(a: StringName, b: StringName, t: float) -> PackedByteArray:
+	var da: PackedByteArray = lut_data(a)
+	var db: PackedByteArray = lut_data(b)
+	var mixed: PackedByteArray = da.duplicate()
+	for i: int in mixed.size():
+		mixed[i] = roundi(lerpf(da[i], db[i], t))
+	return mixed
+
+
+static func blend_into(tex: ImageTexture3D, a: StringName, b: StringName, t: float) -> void:
+	var mixed: PackedByteArray = blend_data(a, b, t)
+	var slice: int = SIZE * SIZE * 3
+	var images: Array[Image] = []
+	for k: int in SIZE:
+		images.append(Image.create_from_data(SIZE, SIZE, false, Image.FORMAT_RGB8, mixed.slice(k * slice, (k + 1) * slice)))
+	tex.update(images)
 
 
 static func lut_for(preset: StringName) -> ImageTexture3D:

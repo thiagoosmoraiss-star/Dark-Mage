@@ -70,3 +70,18 @@ func test_color_grading_neutral_is_identity() -> void:
 	assert_bool(ColorGrading.grade(c, ColorGrading.NEUTRAL).is_equal_approx(c)).is_true()
 	var lut: ImageTexture3D = ColorGrading.lut_for(&"corrupted")
 	assert_int(lut.get_depth()).is_equal(ColorGrading.SIZE)
+
+
+## M12: a troca de graduação mistura as LUTs (sem salto ao cruzar fronteiras).
+func test_grading_blend_interpolates_luts() -> void:
+	var a: PackedByteArray = ColorGrading.lut_data(&"default")
+	var b: PackedByteArray = ColorGrading.lut_data(&"corrupted")
+	assert_int(a.size()).is_equal(ColorGrading.SIZE * ColorGrading.SIZE * ColorGrading.SIZE * 3)
+	assert_bool(a == b).is_false()
+	var mid: PackedByteArray = ColorGrading.blend_data(&"default", &"corrupted", 0.5)
+	for i: int in range(0, a.size(), 97):
+		assert_int(absi(mid[i] - roundi((a[i] + b[i]) * 0.5))).is_less_equal(1)
+	assert_bool(ColorGrading.blend_data(&"default", &"corrupted", 1.0) == b).is_true()
+	assert_bool(ColorGrading.blend_data(&"default", &"corrupted", 0.0) == a).is_true()
+	# A textura aceita a atualização (o motor não reclama do formato).
+	ColorGrading.blend_into(ColorGrading.lut_for(&"default"), &"default", &"purified", 0.3)

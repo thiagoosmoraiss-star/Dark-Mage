@@ -67,6 +67,13 @@ void fragment() {
 	ALBEDO = mix(water_col, foam_color, foam);
 	ROUGHNESS = mix(0.05, 0.6, foam);
 	SPECULAR = 0.55;
+	// Lagos do pântano: água turva e violeta, quase opaca.
+	float swamp = swamp_amount(world_pos.xz);
+	if (swamp > 0.001) {
+		ALBEDO = mix(ALBEDO, vec3(0.07, 0.035, 0.09), swamp);
+		EMISSION = mix(EMISSION, vec3(0.03, 0.01, 0.05), swamp * 0.85);
+		ROUGHNESS = mix(ROUGHNESS, 0.35, swamp);
+	}
 	float lava = lava_amount(world_pos.xz);
 	if (lava > 0.001) {
 		ALBEDO = mix(ALBEDO, vec3(0.05, 0.025, 0.02), lava);
