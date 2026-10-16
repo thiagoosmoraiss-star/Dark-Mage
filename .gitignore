@@ -1,0 +1,17 @@
+# Godot
+.godot/
+
+# Saída de build, logs e relatórios de teste
+build/
+reports/
+
+# Traduções geradas a partir dos CSV
+*.translation
+
+# Credenciais de exportação
+export_credentials.cfg
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
