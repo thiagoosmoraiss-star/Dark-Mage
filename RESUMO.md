@@ -9,9 +9,9 @@ Data: 16/10/2026. Todos os 13 marcos do roteiro (M0 a M12) foram concluídos. Ca
 
 | O quê | Onde / comando |
 |---|---|
-| **Jogo pronto (Windows)** | `build\export\windows\DarkMage.exe` (a DLL que está ao lado precisa ficar junto) |
-| Projeto no editor | Godot 4.7.2 em `tools\godot\` → abrir a pasta `dark-mage-godot` |
-| Gerar o .exe de novo | `bash tools/export.sh` (dentro de `dark-mage-godot`) |
+| **Jogo pronto (Windows)** | `build\export\windows\DarkMage.exe`, gerado por `tools/export.sh` (fora do Git) (a DLL que está ao lado precisa ficar junto) |
+| Projeto no editor | Godot 4.7.2 stable (godotengine.org) → abrir esta pasta (após clonar: `git lfs pull`) |
+| Gerar o .exe | `bash tools/export.sh` (precisa dos export templates 4.7.2; ver README) |
 | Rodar todos os testes | `bash tools/check.sh all` |
 | Benchmark | `godot --path . -- --bench --preset=high` (o resultado sai em `user://bench/`) |
 | Saves e configurações | `%APPDATA%\Godot\app_userdata\Dark Mage - The Isle of Fear\` |
