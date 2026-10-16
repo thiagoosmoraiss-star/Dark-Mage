@@ -1,0 +1,8 @@
+[
+	{"name": "m3_01_mago_frente", "scene": "res://levels/island/island.tscn", "hour": 9.0, "player": [30, 0, 180], "player_yaw": 0, "cam_yaw": 180, "cam_pitch": -5, "frames": 120},
+	{"name": "m3_02_mago_costas", "hour": 9.0, "player": [30, 0, 180], "player_yaw": 20, "cam_yaw": 0, "cam_pitch": -10, "frames": 90},
+	{"name": "m3_03_mago_por_do_sol", "hour": 17.8, "player": [30, 0, 180], "player_yaw": 70, "cam_yaw": 150, "cam_pitch": -8, "frames": 90},
+	{"name": "m3_04_mago_noite", "hour": 22.5, "player": [30, 0, 180], "player_yaw": 0, "cam_yaw": 160, "cam_pitch": -6, "frames": 90},
+	{"name": "m3_05_retrato", "hour": 10.0, "player": [30, 0, 180], "player_yaw": 0, "cam_rel": [0.4, 1.6, -2.2], "target_rel": [0, 1.25, 0], "fov": 45, "frames": 60},
+	{"name": "m3_06_retrato_costas", "hour": 10.0, "player": [30, 0, 180], "player_yaw": 0, "cam_rel": [0.8, 1.6, 2.6], "target_rel": [0, 1.1, 0], "fov": 45, "frames": 60}
+]
