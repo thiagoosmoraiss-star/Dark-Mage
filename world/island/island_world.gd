@@ -25,6 +25,8 @@ var enemies: Array[Enemy] = []
 var structures: Dictionary[StringName, Node3D] = {}
 var panels: WorldPanels
 var ambience: RegionAmbience
+var interiors: InteriorManager
+var citadel: Citadel
 var _autosave_timer: float = 0.0
 var _reveal_timer: float = 0.0
 
@@ -68,6 +70,10 @@ func _ready() -> void:
 	panels.rest_requested.connect(_on_rest)
 	panels.travel_requested.connect(_on_travel)
 	if terrain != null:
+		interiors = InteriorManager.new()
+		interiors.name = "Interiors"
+		interiors.world = self
+		add_child(interiors)
 		ambience = RegionAmbience.new()
 		ambience.name = "RegionAmbience"
 		ambience.atmosphere = atmosphere
@@ -121,6 +127,15 @@ func _spawn_player() -> void:
 	game_hud.name = "GameHud"
 	hud.add_child(game_hud)
 	game_hud.bind(player)
+	player.apply_progression()
+	GameState.leveled_up.connect(func(_lv: int) -> void:
+		player.apply_progression()
+		game_hud.show_banner(tr("LEVEL_UP"), tr("LEVEL_UP_DESC") % GameState.level, 3.0))
+	Events.enemy_killed.connect(func(e: Node) -> void:
+		var en: Enemy = e as Enemy
+		if en != null and not en is Boss:
+			GameState.add_xp(en.data.xp * (2 if en.elite else 1))
+			GameState.add_souls(en.data.souls * (2 if en.elite else 1)))
 	map_screen = MapScreen.new()
 	map_screen.name = "MapScreen"
 	map_screen.fog = fog
@@ -166,6 +181,22 @@ func _build_structures() -> void:
 				ch.global_position = pos
 				ch.rotation.y = rng.randf() * TAU
 				structures[id] = ch
+			&"shrine", &"lair":
+				var ent: InteriorEntrance = InteriorEntrance.new()
+				ent.kind = InteriorEntrance.Kind.SHRINE if poi["kind"] == &"shrine" else InteriorEntrance.Kind.LAIR
+				ent.poi_id = String(id)
+				ent.region = region
+				ent.archetype = WorldPois.by_kind(&"shrine").find(poi) % 4
+				add_child(ent)
+				ent.global_position = pos - Vector3.UP * 0.1
+				ent.rotation.y = rng.randf() * TAU
+				structures[id] = ent
+			&"citadel":
+				citadel = Citadel.new()
+				citadel.name = "Citadel"
+				citadel.terrain = terrain
+				add_child(citadel)
+				structures[id] = citadel
 			&"viewpoint", &"story":
 				var lp: LorePoint = LorePoint.new()
 				lp.poi_id = String(id)
@@ -239,6 +270,17 @@ static func enemy_class(behavior: StringName) -> Enemy:
 	return Enemy.new()
 
 
+## Cria um inimigo filho de `parent` (interiores usam isto direto).
+static func spawn_into(parent: Node3D, data: EnemyData, pos: Vector3, elite: bool = false) -> Enemy:
+	var e: Enemy = enemy_class(data.behavior)
+	e.data = data
+	e.elite = elite
+	parent.add_child(e)
+	e.global_position = pos
+	e.home = pos
+	return e
+
+
 func spawn_enemy(data: EnemyData, pos: Vector3, elite: bool = false) -> Enemy:
 	var e: Enemy = enemy_class(data.behavior)
 	e.data = data
@@ -283,6 +325,8 @@ func _on_travel(bonfire_id: String) -> void:
 	var target: Node3D = structures.get(StringName(bonfire_id)) as Node3D
 	if target == null or player == null:
 		return
+	if interiors != null:
+		interiors.force_outdoor()
 	player.teleport(target.global_position + target.global_basis.z * 2.0 + Vector3.UP * 0.3)
 	player.respawn_point = player.global_position
 	GameState.respawn_bonfire = bonfire_id
@@ -325,6 +369,8 @@ func load_game(slot: int) -> bool:
 	var data: Dictionary = SaveSystem.load_slot(slot)
 	if data.is_empty() or player == null:
 		return false
+	if interiors != null:
+		interiors.force_outdoor()
 	var progress: Variant = data.get("progress", {})
 	if progress is Dictionary:
 		GameState.from_dict(progress as Dictionary)
@@ -337,6 +383,7 @@ func load_game(slot: int) -> bool:
 	if atmosphere != null:
 		atmosphere.set_hours(JsonUtil.get_f(w, "time_of_day_h", 9.0))
 	fog.from_save(JsonUtil.get_s(w, "fog"))
+	player.apply_progression()
 	var eq: Variant = pl.get("equipped", [])
 	if eq is Array and (eq as Array).size() == 4:
 		for i: int in 4:

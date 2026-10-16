@@ -76,6 +76,9 @@ func _setup_shot(shot: Dictionary) -> void:
 		atmo.set(&"corruption", JsonUtil.get_f(shot, "corruption", 0.0))
 		atmo.call(&"apply_now")
 	var player: Node3D = root.get_tree().get_first_node_in_group(&"player") as Node3D
+	var interiors_node: Node = root.get_tree().get_first_node_in_group(&"interiors")
+	if interiors_node != null and shot.has("player"):
+		interiors_node.call(&"force_outdoor")
 	if player != null and shot.has("player"):
 		var pp: Vector3 = JsonUtil.vec3(shot["player"])
 		var terrain_node: Node = root.get_tree().get_first_node_in_group(&"island_terrain")
@@ -99,6 +102,23 @@ func _setup_shot(shot: Dictionary) -> void:
 				fog.call(&"reveal", JsonUtil.vec3(p), 160.0)
 			if not ms.call(&"is_open"):
 				ms.call(&"toggle")
+	if shot.has("enter") and player != null:
+		var wn: Node = root.get_tree().get_first_node_in_group(&"world")
+		var structs: Dictionary = wn.get(&"structures")
+		var ent: Node = structs.get(StringName(str(shot["enter"])))
+		if ent != null:
+			ent.call(&"interact", player)
+			# O painel de dica pausa o jogo: fecha para a captura seguir.
+			await root.get_tree().create_timer(1.0).timeout
+			var panels: Node = root.get_tree().get_first_node_in_group(&"world_panels")
+			if panels != null:
+				panels.call(&"close")
+	if shot.has("move") and player != null:
+		# Desloca o jogador depois de entrar num interior (relativo ao ponto atual).
+		await root.get_tree().create_timer(1.2).timeout
+		var mv: Vector3 = player.global_position + JsonUtil.vec3(shot["move"])
+		player.call(&"teleport", mv)
+		player.rotation.y = deg_to_rad(JsonUtil.get_f(shot, "player_yaw", 0.0))
 	if shot.has("cast") and player != null:
 		var caster: Node = player.get_node_or_null(^"SpellCaster")
 		if caster != null:
@@ -106,6 +126,14 @@ func _setup_shot(shot: Dictionary) -> void:
 			var cds: RefCounted = caster.get(&"cooldowns")
 			cds.call(&"reset")
 			caster.call(&"cast_spell", spell, JsonUtil.get_f(shot, "charge", 0.0))
+	if not shot.has("cam") and not shot.has("cam_rel") and player != null:
+		# Sem câmera definida: volta para a câmera do jogador.
+		var rig_cam: Node = player.get_node_or_null(^"CameraRig/SpringArm/Camera3D")
+		if rig_cam != null:
+			(rig_cam as Camera3D).current = true
+			var tn: Node = root.get_tree().get_first_node_in_group(&"island_terrain")
+			if tn != null:
+				(tn.get(&"terrain") as Node).call(&"set_camera", rig_cam)
 	if shot.has("cam_rel") and player != null:
 		var base: Vector3 = player.global_position
 		shot["cam"] = _arr(base + player.global_basis * JsonUtil.vec3(shot["cam_rel"]))

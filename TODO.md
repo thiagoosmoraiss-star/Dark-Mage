@@ -24,3 +24,5 @@ Prioridade: P1 (bloqueia marco) · P2 (antes do RC) · P3 (desejável).
 - [ ] P2 · Brasas da fogueira apagada mais visíveis à noite; topo do farol mais imponente.
 - [ ] P2 · M9: ícones de POIs descobertos no mapa, marcadores personalizados e viagem pelo mapa.
 - [ ] P3 · Fauna ambiente (pássaros, corvos, peixes) e sons por região (M10).
+- [ ] P2 · M10: silhuetas próprias para os Guardiões (hoje esqueleto/golem/serpente escalados e tingidos).
+- [ ] P2 · M10: epílogo com câmera cinematográfica e créditos rolando; arena dos covis menos quadrada.

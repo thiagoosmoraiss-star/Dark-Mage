@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BossData" format=3]
+
+[ext_resource type="Script" path="res://ai/boss_data.gd" id="1_aa7ur"]
+
+[resource]
+script = ExtResource("1_aa7ur")
+id = &"guardian_forest"
+name_key = "BOSS_FOREST"
+title_key = "BOSS_FOREST_TITLE"
+region = &"forest"
+model_path = "res://assets/models/characters/kaykit_skeletons/Skeleton_Warrior.glb"
+weapon_path = "res://assets/models/props/kaykit_skeleton_weapons/Skeleton_Axe.gltf"
+tint = Color(0.45, 0.55, 0.35, 1)
+eye_color = Color(0.49803922, 0.8392157, 0.41960785, 1)
+model_scale = 2.8
+health = 1100.0
+damage = 26.0
+move_speed = 3.4
+phase_thresholds = PackedFloat32Array(0.5)
+phase_attacks = [["slam", "sweep", "volley"], ["slam", "summon", "wave", "dash"]]
+mechanic = 1
+breaker_spell = &"umbral_pulse"
+reward_spell = &"umbral_step"
+intro_key = "BOSS_FOREST_INTRO"
+phase2_key = "BOSS_FOREST_P2"
+defeat_key = "BOSS_FOREST_DEFEAT"

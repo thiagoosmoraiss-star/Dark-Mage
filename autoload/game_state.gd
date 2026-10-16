@@ -23,6 +23,9 @@ var discovered_bonfires: Array[String] = []
 var respawn_bonfire: String = ""
 var purification: Dictionary[String, float] = {}
 var play_time_s: float = 0.0
+## Sigilos dos santuários: +10 de vida / +10 de mana cada.
+var sigils_health: int = 0
+var sigils_mana: int = 0
 
 
 func _process(delta: float) -> void:
@@ -43,6 +46,8 @@ func reset() -> void:
 	respawn_bonfire = ""
 	purification.clear()
 	play_time_s = 0.0
+	sigils_health = 0
+	sigils_mana = 0
 
 
 func has_flag(id: String) -> bool:
@@ -112,6 +117,7 @@ func to_dict() -> Dictionary:
 		"xp": xp, "level": level, "attribute_points": attribute_points, "attributes": attributes.duplicate(),
 		"discovered_bonfires": discovered_bonfires.duplicate(), "respawn_bonfire": respawn_bonfire,
 		"purification": purification.duplicate(), "play_time_s": play_time_s,
+		"sigils_health": sigils_health, "sigils_mana": sigils_mana,
 	}
 
 
@@ -144,3 +150,5 @@ func from_dict(d: Dictionary) -> void:
 		for k: Variant in (p as Dictionary):
 			purification[str(k)] = clampf(JsonUtil.num((p as Dictionary)[k]), 0.0, 1.0)
 	play_time_s = JsonUtil.get_f(d, "play_time_s")
+	sigils_health = JsonUtil.get_i(d, "sigils_health")
+	sigils_mana = JsonUtil.get_i(d, "sigils_mana")

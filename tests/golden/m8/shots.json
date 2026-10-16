@@ -1,0 +1,105 @@
+[
+ {
+  "name": "m8_01_santuario_entrada",
+  "scene": "res://levels/island/island.tscn",
+  "hour": 17.0,
+  "player": [
+   318.5,
+   0,
+   169.0
+  ],
+  "player_yaw": 40,
+  "cam_rel": [
+   2,
+   3,
+   7
+  ],
+  "target_rel": [
+   0,
+   1.5,
+   -8
+  ],
+  "fov": 60,
+  "frames": 120
+ },
+ {
+  "name": "m8_02_santuario_braseiros",
+  "hour": 12.0,
+  "player": [
+   313.5,
+   0,
+   163.0
+  ],
+  "enter": "shrine_valley_1",
+  "frames": 150,
+  "scene": "res://levels/island/island.tscn"
+ },
+ {
+  "name": "m8_03_covil_entrada",
+  "hour": 15.0,
+  "player": [
+   33.5,
+   0,
+   529.0
+  ],
+  "player_yaw": 35,
+  "cam_rel": [
+   2,
+   3,
+   8
+  ],
+  "target_rel": [
+   0,
+   2.5,
+   -10
+  ],
+  "fov": 62,
+  "frames": 120,
+  "scene": "res://levels/island/island.tscn"
+ },
+ {
+  "name": "m8_04_covil_arena_chefe",
+  "hour": 12.0,
+  "player": [
+   27.5,
+   0,
+   521.0
+  ],
+  "enter": "lair_forest_1",
+  "move": [
+   0,
+   0,
+   -14
+  ],
+  "player_yaw": 0,
+  "frames": 200,
+  "cam_rel": [
+   2.0,
+   4.5,
+   9.0
+  ],
+  "target_rel": [
+   0,
+   3.0,
+   -14
+  ],
+  "fov": 70,
+  "scene": "res://levels/island/island.tscn"
+ },
+ {
+  "name": "m8_05_cidadela_cupula",
+  "hour": 18.0,
+  "cam": [
+   70.0,
+   170,
+   -270.0
+  ],
+  "target": [
+   0.0,
+   112,
+   -360.0
+  ],
+  "frames": 150,
+  "scene": "res://levels/island/island.tscn"
+ }
+]

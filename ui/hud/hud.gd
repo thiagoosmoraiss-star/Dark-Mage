@@ -28,6 +28,10 @@ var _banner_t: float = 0.0
 var _loot_lines: PackedStringArray = []
 var _loot_t: float = 0.0
 var _title_font: Font
+var _boss: Boss
+var _subtitle: String = ""
+var _subtitle_t: float = 0.0
+var _boss_shown: float = 1.0
 
 
 func _ready() -> void:
@@ -57,6 +61,20 @@ func show_banner(title: String, subtitle: String, seconds: float = 3.5) -> void:
 	_banner_title = title
 	_banner_sub = subtitle
 	_banner_t = seconds
+
+
+func set_boss(b: Boss) -> void:
+	_boss = b
+	if b != null:
+		_boss_shown = 1.0
+
+
+## Legendas (falas breves dos chefes), com tamanho ajustável na acessibilidade.
+func show_subtitle(text: String, seconds: float) -> void:
+	if Settings.get_value("accessibility", "subtitles") == false:
+		return
+	_subtitle = text
+	_subtitle_t = seconds
 
 
 func show_loot(loot: Dictionary) -> void:
@@ -92,6 +110,11 @@ func _process(delta: float) -> void:
 	_hurt_flash = maxf(_hurt_flash - delta * 2.5, 0.0)
 	_banner_t = maxf(_banner_t - delta, 0.0)
 	_loot_t = maxf(_loot_t - delta, 0.0)
+	_subtitle_t = maxf(_subtitle_t - delta, 0.0)
+	if _boss != null and is_instance_valid(_boss):
+		_boss_shown = lerpf(_boss_shown, _boss.health / _boss.max_health, 1.0 - exp(-10.0 * delta))
+	elif _boss != null:
+		_boss = null
 	var ui_scale: float = JsonUtil.num(Settings.get_value("accessibility", "ui_scale"), 1.0)
 	scale = Vector2(ui_scale, ui_scale)
 	size = get_viewport_rect().size / ui_scale
@@ -135,6 +158,30 @@ func _draw_world_ui(vs: Vector2) -> void:
 		if _banner_sub != "":
 			var sw: float = _font.get_string_size(_banner_sub, HORIZONTAL_ALIGNMENT_LEFT, -1, 22).x
 			draw_string(_font, Vector2(vs.x * 0.5 - sw * 0.5, y + 42), _banner_sub, HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color(0.93, 0.9, 0.84, a))
+	# Barra do chefe.
+	if _boss != null and is_instance_valid(_boss) and _boss.is_alive():
+		var bw: float = minf(vs.x * 0.55, 760.0)
+		var br: Rect2 = Rect2(Vector2(vs.x * 0.5 - bw * 0.5, vs.y - 70), Vector2(bw, 12))
+		var name_text: String = tr(_boss.boss.name_key)
+		var nw: float = _title_font.get_string_size(name_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 22).x
+		draw_string(_title_font, Vector2(vs.x * 0.5 - nw * 0.5, br.position.y - 10), name_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 22, GOLD)
+		draw_rect(br.grow(2.0), Color(BG, 0.85))
+		draw_rect(Rect2(br.position, Vector2(bw * _boss_shown, 12)), HEALTH if not _boss.guarded else Color("6b9bd6"))
+		if _boss.vulnerable_time > 0.0:
+			draw_rect(br, Color(GOLD, 0.6 + 0.4 * sin(Time.get_ticks_msec() * 0.02)), false, 2.0)
+		for t: float in _boss.boss.phase_thresholds:
+			var x: float = br.position.x + bw * t
+			draw_line(Vector2(x, br.position.y - 3), Vector2(x, br.end.y + 3), GOLD, 2.0)
+		draw_rect(br, GOLD_DIM, false, 1.0)
+	# Legenda.
+	if _subtitle_t > 0.0:
+		var size_k: float = JsonUtil.num(Settings.get_value("accessibility", "subtitle_size"), 1.0)
+		var fs: int = roundi(22 * size_k)
+		var sw2: float = _font.get_string_size(_subtitle, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+		var sr: Rect2 = Rect2(Vector2(vs.x * 0.5 - sw2 * 0.5 - 14, vs.y - 150), Vector2(sw2 + 28, fs + 16))
+		var sa: float = clampf(_subtitle_t * 2.0, 0.0, 1.0)
+		draw_rect(sr, Color(0, 0, 0, 0.55 * sa))
+		draw_string(_font, sr.position + Vector2(14, fs + 4), _subtitle, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color(0.95, 0.92, 0.85, sa))
 	# Saque recebido.
 	if _loot_t > 0.0:
 		var a2: float = clampf(_loot_t, 0.0, 1.0)

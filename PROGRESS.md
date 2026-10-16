@@ -198,3 +198,27 @@ rochosos com pinheiros, terras calcinadas avermelhadas com golem, pântano roxo 
 do sol). Feio/limitado: as poças das Terras Calcinadas são água escura em vez de lava; o topo da torre do farol
 é pequeno visto de baixo; a fogueira apagada some à noite (precisa de brasas mais visíveis); faltam fauna e
 som ambiente por região (M10); o mapa ainda não mostra ícones dos POIs descobertos (M9).
+
+### 2026-10-16 · M8 — Santuários, Guardiões e chefe final
+
+**Feito:** interiores em "dimensão de bolso" (`InteriorManager`, fade, ambiente próprio, sol/lua/mar desligados,
+respawn na entrada da sala) montados com o KayKit Dungeon (`InteriorBuilder`); 12 santuários em 4 arquétipos
+(Braseiros — só a Lança Arcana acende; Provação — 2 ondas; Abismo — plataformas, queda volta ao início; Runas —
+Corrente revela, disparo acende) com altar que dá Sigilo de Vida ou Mana (+10); 4 covis com corredor de inimigos
+e arena 9×9; `Boss` (fases, 7 ataques, guarda quebrada pelo feitiço certo: Escudo→Pulso, Armadura→Lança,
+Superaquecimento→Grilhões, Submersão→Corrente); Guardiões da Floresta, Picos, Terras Calcinadas e Pântano
+(cada um purifica a região e ensina um feitiço: Passo Umbral, Grilhões de Gelo, Queda Astral, Ira do Farol);
+Cidadela com cúpula que abre após os 4 Guardiões, chefe final "O Medo" em 3 fases (as mecânicas se alternam) e
+epílogo (ilha toda purificada, amanhecer dourado, texto final, save). HUD com barra do chefe, marcas de fase e
+legendas; XP/almas por inimigo, nível com aviso; `Player.apply_progression()` (atributos + sigilos).
+
+**Testes (91/91 APROVADO):** braseiros e runas resolvem só com o feitiço certo; abismo devolve ao início; provação
+completa após 2 ondas; sigilo aumenta o máximo; cada Guardião morre com god mode, troca de fase, tem a mecânica
+quebrada ao menos uma vez, grava a flag, zera a corrupção e concede o feitiço; o chefe final passa pelas 3 fases
+e usa 3 mecânicas diferentes.
+
+**Autocrítica (M8):** os interiores do KayKit ficam coesos e bem iluminados; a barra do chefe e as legendas leem
+bem. Feio/limitado: os Guardiões reaproveitam esqueleto/golem/serpente com escala e tinta (falta silhueta única);
+a arena é uma sala quadrada grande; a cúpula da Cidadela é uma esfera translúcida simples; o epílogo é texto
+sobre o amanhecer, sem cinemática nem créditos rolando (M10). Campanha completa de ponta a ponta **não foi
+jogada manualmente** — está no QA_CHECKLIST para o dono.

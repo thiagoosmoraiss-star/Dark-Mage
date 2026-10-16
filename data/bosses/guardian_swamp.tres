@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BossData" format=3]
+
+[ext_resource type="Script" path="res://ai/boss_data.gd" id="1_wjxjw"]
+
+[resource]
+script = ExtResource("1_wjxjw")
+id = &"guardian_swamp"
+name_key = "BOSS_SWAMP"
+title_key = "BOSS_SWAMP_TITLE"
+region = &"swamp"
+body = &"serpent"
+tint = Color(0.4, 0.3, 0.5, 1)
+model_scale = 1.7
+health = 1500.0
+move_speed = 0.0
+phase_thresholds = PackedFloat32Array(0.5)
+phase_attacks = [["volley", "wave"], ["volley", "summon", "nova", "wave"]]
+mechanic = 4
+breaker_spell = &"ether_chain"
+reward_spell = &"beacon_wrath"
+intro_key = "BOSS_SWAMP_INTRO"
+phase2_key = "BOSS_SWAMP_P2"
+defeat_key = "BOSS_SWAMP_DEFEAT"

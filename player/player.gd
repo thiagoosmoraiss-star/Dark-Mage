@@ -464,6 +464,28 @@ func is_dodging() -> bool:
 	return state == State.DODGE
 
 
+## Aplica atributos e sigilos aos máximos (chamado ao subir de nível, pegar
+## sigilo, carregar o save ou trocar equipamento).
+func apply_progression() -> void:
+	var a: Dictionary[String, int] = GameState.attributes
+	stats.max_health = 100.0 + 10.0 * (a.get("health", 0) + GameState.sigils_health) + equipment_bonus("health")
+	stats.max_mana = 100.0 + 10.0 * (a.get("mana", 0) + GameState.sigils_mana) + equipment_bonus("mana")
+	stats.max_stamina = 100.0 + 10.0 * a.get("stamina", 0) + equipment_bonus("stamina")
+	stats.set_health(minf(stats.health, stats.max_health))
+	stats.set_mana(minf(stats.mana, stats.max_mana))
+	stats.set_stamina(minf(stats.stamina, stats.max_stamina))
+	if caster != null:
+		caster.power = 1.0 + 0.08 * a.get("power", 0) + equipment_bonus("power")
+
+
+## Bônus do equipamento (M9); sem equipamento, zero.
+func equipment_bonus(stat: String) -> float:
+	var inv: Node = get_tree().get_first_node_in_group(&"inventory") if is_inside_tree() else null
+	if inv != null and inv.has_method(&"bonus"):
+		return JsonUtil.num(inv.call(&"bonus", stat), 0.0)
+	return 0.0
+
+
 func has_iframes() -> bool:
 	return _iframes > 0.0
 

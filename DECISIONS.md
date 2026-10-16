@@ -208,3 +208,12 @@ nas costas = 3× dano), Bruxa do Pântano (KayKit Skeleton Mage; cura aliados), 
 emerge, cospe veneno em arco, mergulha). Morcego, golem e serpente são esculpidos e animados por código.
 
 **D53 · Inimigos dormentes a mais de 110 m** do jogador (sem física, sem render) para caber ~70 inimigos na ilha.
+
+**D54 · Interiores em "dimensão de bolso"** (6000, 400, 6000), construídos sob demanda e mantidos em memória; entrar
+= fade + teleporte + ambiente fechado. Evita trocar de cena (o mundo aberto e o save continuam iguais).
+
+**D55 · Chefes = `Boss extends Enemy`** com dados em `data/bosses/*.tres` (gerados por `tools/make_bosses.gd`).
+A guarda de cada Guardião só cai com o feitiço da sua mecânica; o chefe final alterna as mecânicas a cada fase.
+
+**D56 · Progressão de feitiços:** começam 4 (Lança, Pulso, Corrente, Égide); os outros 4 vêm dos Guardiões.
+Vida/mana máximas = 100 + 10·(atributo + sigilos) + equipamento (M9); poder = 1 + 0,08·atributo.

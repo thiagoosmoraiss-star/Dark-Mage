@@ -15,7 +15,7 @@ var weak_point: MeshInstance3D
 
 func build(data: EnemyData) -> void:
 	var rock: ShaderMaterial = Materials.rock(0.35, 0.7).duplicate() as ShaderMaterial
-	rock.set_shader_parameter(&"stone_light", Color("8d857f"))
+	rock.set_shader_parameter(&"stone_light", data.tint if data.tint != Color(0.85, 0.82, 0.9) else Color("8d857f"))
 	torso = _part(Vector3(0, 1.7, 0), RockMesh.build(61, Vector3(1.9, 1.6, 1.3), 3, 0.28), rock)
 	head = _part(Vector3(0, 0.95, -0.25), RockMesh.build(62, Vector3(0.75, 0.6, 0.7), 2, 0.25), rock, torso)
 	arm_l = _limb(torso, Vector3(-1.15, 0.45, 0), rock, 63)

@@ -68,3 +68,53 @@ STORY_4_TITLE,Túmulo do Faroleiro,The Lightkeeper's Grave
 STORY_4_BODY,"A lanterna foi deixada acesa por mãos que já não existem. ""Quatro luzes contra a névoa. Quatro guardiões contra a luz.""","The lantern was left lit by hands long gone. ""Four lights against the mist. Four guardians against the light."""
 STORY_5_TITLE,Placa da Cidadela,The Citadel's Plaque
 STORY_5_BODY,"""Quem governa o medo governa a ilha."" A frase foi riscada e, por baixo, alguém escreveu: ""Quem enfrenta o medo a liberta.""","""Who rules fear rules the isle."" The words were scratched out, and beneath them someone wrote: ""Who faces fear sets it free."""
+INTERACT_SHRINE,Entrar no santuário,Enter the shrine
+INTERACT_SHRINE_DONE,Santuário (concluído),Shrine (completed)
+INTERACT_LAIR,Entrar no covil,Enter the lair
+INTERACT_LAIR_DONE,Covil (purificado),Lair (purified)
+INTERACT_EXIT,Voltar à ilha,Return to the isle
+INTERACT_ALTAR,Receber o sigilo,Receive the sigil
+SHRINE_TITLE_0,Santuário dos Braseiros,Shrine of Braziers
+SHRINE_HINT_0,"Quatro braseiros apagados guardam o altar. Dizem que só a Lança Arcana acende a chama antiga.","Four cold braziers guard the altar. They say only the Arcane Lance can kindle the ancient flame."
+SHRINE_TITLE_1,Santuário da Provação,Shrine of Trial
+SHRINE_HINT_1,"Sobreviva às ondas de criaturas para que o selo se desfaça.","Survive the waves of creatures and the seal will fade."
+SHRINE_TITLE_2,Santuário do Abismo,Shrine of the Abyss
+SHRINE_HINT_2,"Atravesse o abismo. Salte, plane e, se souber, dê um Passo Umbral.","Cross the abyss. Leap, glide and, if you know how, take an Umbral Step."
+SHRINE_TITLE_3,Santuário das Runas,Shrine of Runes
+SHRINE_HINT_3,"Runas dormem nas pedras. A Corrente Etérea as desperta; um disparo as acende.","Runes sleep within the stones. The Ether Chain wakes them; a single shot ignites them."
+SHRINE_SOLVED,O selo se desfaz,The seal fades
+SIGIL_LIFE,Sigilo de Vida,Sigil of Life
+SIGIL_MANA,Sigilo de Mana,Sigil of Mana
+SIGIL_DESC_LIFE,Vida máxima +10,Max health +10
+SIGIL_DESC_MANA,Mana máxima +10,Max mana +10
+GUARDIAN_DEFEATED,Guardião Derrotado,Guardian Defeated
+SPELL_LEARNED,Novo feitiço: %s,New spell: %s
+LEVEL_UP,Nível Acima,Level Up
+LEVEL_UP_DESC,Nível %d — um ponto de atributo para distribuir,Level %d — one attribute point to spend
+BOSS_FOREST,O Ancião Sussurrante,The Whispering Elder
+BOSS_FOREST_TITLE,Guardião da Floresta,Guardian of the Forest
+BOSS_FOREST_INTRO,"""As raízes ouvem seu medo, pequeno mago. Elas sempre ouvem.""","""The roots hear your fear, little mage. They always listen."""
+BOSS_FOREST_P2,As raízes despertam!,The roots awaken!
+BOSS_FOREST_DEFEAT,"""Então... a floresta volta a respirar.""","""So... the forest breathes again."""
+BOSS_PEAKS,O Senhor da Geada,The Frost Lord
+BOSS_PEAKS_TITLE,Guardião dos Picos,Guardian of the Peaks
+BOSS_PEAKS_INTRO,"""Aqui em cima, até o medo congela.""","""Up here, even fear freezes."""
+BOSS_PEAKS_P2,A armadura de gelo se refaz!,The ice armor reforms!
+BOSS_PEAKS_DEFEAT,"""O degelo... finalmente.""","""The thaw... at last."""
+BOSS_BURNT,O Colosso de Brasa,The Ember Colossus
+BOSS_BURNT_TITLE,Guardião das Terras Calcinadas,Guardian of the Scorched Lands
+BOSS_BURNT_INTRO,"""Queime como tudo o que tentou fugir.""","""Burn, like everything that tried to flee."""
+BOSS_BURNT_P2,O Colosso superaquece!,The Colossus overheats!
+BOSS_BURNT_DEFEAT,"""As cinzas... esfriam.""","""The ashes... grow cold."""
+BOSS_SWAMP,A Rainha Afogada,The Drowned Queen
+BOSS_SWAMP_TITLE,Guardiã do Pântano Violeta,Guardian of the Violet Marsh
+BOSS_SWAMP_INTRO,"""Desça comigo. A água guarda todos os medos.""","""Sink with me. The water keeps every fear."""
+BOSS_SWAMP_P2,A Rainha convoca o lodo!,The Queen summons the mire!
+BOSS_SWAMP_DEFEAT,"""A superfície... é tão clara.""","""The surface... is so bright."""
+BOSS_FEAR,O Medo,Fear
+BOSS_FEAR_TITLE,Senhor da Cidadela,Lord of the Citadel
+BOSS_FEAR_INTRO,"""Você acendeu os faróis. Mas quem acende a luz dentro de você?""","""You lit the beacons. But who lights the flame within you?"""
+BOSS_FEAR_P2,O Medo muda de forma!,Fear changes shape!
+BOSS_FEAR_DEFEAT,"""Eu nunca fui embora... só fiquei pequeno.""","""I never left... I only grew small."""
+EPILOGUE_TITLE,A Ilha Desperta,The Isle Awakens
+EPILOGUE_BODY,"A névoa se desfaz pela primeira vez em cem anos. Os faróis brilham dourados nas quatro direções, e o sol nasce sobre campos que voltam a ter cor. O medo não morreu — ele nunca morre. Mas agora há quem acenda a luz.","The mist lifts for the first time in a hundred years. The beacons shine gold in all four directions, and the sun rises over fields that have colour again. Fear did not die — it never does. But now there is someone to light the flame."

@@ -49,8 +49,16 @@ func bake_around(p: Vector3) -> void:
 	var aabb: AABB = AABB(Vector3(p.x - half, p.y - 120.0, p.z - half), Vector3(BAKE_SIZE, 240.0, BAKE_SIZE))
 	navigation_mesh.filter_baking_aabb = aabb
 	var src: NavigationMeshSourceGeometryData3D = NavigationMeshSourceGeometryData3D.new()
-	var faces: PackedVector3Array = terrain.terrain.generate_nav_mesh_source_geometry(aabb, false)
-	src.add_faces(faces, Transform3D.IDENTITY)
+	var mgr: InteriorManager = get_tree().get_first_node_in_group(&"interiors") as InteriorManager
+	if mgr != null and mgr.is_inside():
+		# Dentro de santuários/covis: a malha vem dos colisores da sala.
+		var room: Node = mgr.interior(mgr.current_id)
+		if room != null:
+			NavigationServer3D.parse_source_geometry_data(navigation_mesh, src, room)
+	else:
+		var faces: PackedVector3Array = terrain.terrain.generate_nav_mesh_source_geometry(aabb, false)
+		if not faces.is_empty():
+			src.add_faces(faces, Transform3D.IDENTITY)
 	# Colisores estáticos próximos (troncos, rochas, ruínas) viram obstáculos.
 	var veg: Node = get_tree().get_first_node_in_group(&"vegetation")
 	if veg != null:

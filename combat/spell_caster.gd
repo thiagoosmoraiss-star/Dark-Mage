@@ -19,8 +19,9 @@ const AUTO_AIM_COS: float = 0.82  # ~35°
 var player: Player
 var cooldowns: Cooldowns = Cooldowns.new()
 var equipped: Array[StringName] = [&"arcane_lance", &"umbral_pulse", &"ether_chain", &"violet_aegis"]
+## Os 4 feitiços iniciais; os outros 4 vêm dos Guardiões (blink, gelo, astro, ultimate).
 var unlocked: Dictionary[StringName, bool] = {
-	&"arcane_lance": true, &"umbral_pulse": true, &"ether_chain": true, &"violet_aegis": true, &"umbral_step": true,
+	&"arcane_lance": true, &"umbral_pulse": true, &"ether_chain": true, &"violet_aegis": true,
 }
 var ultimate_charge: float = 0.0
 var lock_target: Node3D = null

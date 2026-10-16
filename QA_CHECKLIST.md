@@ -19,3 +19,11 @@ Roteiro manual. Preencher a cada marco; o checklist de polimento (M10) e a campa
 - [ ] Esquivar (Ctrl/C) no momento do golpe e ver a câmera lenta da esquiva perfeita.
 - [ ] Morrer de propósito e renascer no início.
 - [ ] Escalar a torre do farol e as colunas das ruínas.
+
+## M8 — Campanha completa (dono)
+- [ ] Entrar num santuário de cada arquétipo (Braseiros, Provação, Abismo, Runas), resolver e pegar o sigilo no altar.
+- [ ] Morrer dentro de um santuário: renascer na entrada da sala.
+- [ ] Vencer os 4 Guardiões nos covis; conferir que a região perde a névoa violeta e que o feitiço novo aparece na barra.
+- [ ] Ver a cúpula da Cidadela sumir depois do 4º Guardião; entrar e vencer O Medo (3 fases).
+- [ ] Ver o epílogo (amanhecer dourado e texto final) e conferir o save automático no slot 1.
+- [ ] Carregar o save depois de cada Guardião: flag, purificação e feitiços mantidos.

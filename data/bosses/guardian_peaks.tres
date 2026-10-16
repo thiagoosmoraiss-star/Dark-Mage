@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BossData" format=3]
+
+[ext_resource type="Script" path="res://ai/boss_data.gd" id="1_5avvm"]
+
+[resource]
+script = ExtResource("1_5avvm")
+id = &"guardian_peaks"
+name_key = "BOSS_PEAKS"
+title_key = "BOSS_PEAKS_TITLE"
+region = &"peaks"
+body = &"golem"
+tint = Color(0.62, 0.78, 0.92, 1)
+eye_color = Color(0.62352943, 0.8901961, 1, 1)
+model_scale = 1.8
+health = 1400.0
+damage = 30.0
+move_speed = 2.4
+phase_thresholds = PackedFloat32Array(0.5)
+phase_attacks = [["slam", "volley", "sweep"], ["slam", "wave", "nova", "summon"]]
+mechanic = 2
+breaker_spell = &"arcane_lance"
+summon_id = &"spectral_bat"
+reward_spell = &"frost_shackles"
+intro_key = "BOSS_PEAKS_INTRO"
+phase2_key = "BOSS_PEAKS_P2"
+defeat_key = "BOSS_PEAKS_DEFEAT"

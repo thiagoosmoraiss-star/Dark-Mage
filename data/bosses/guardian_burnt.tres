@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" format=3]
+
+[ext_resource type="Script" path="res://ai/boss_data.gd" id="1_x6cxl"]
+
+[resource]
+script = ExtResource("1_x6cxl")
+id = &"guardian_burnt"
+name_key = "BOSS_BURNT"
+title_key = "BOSS_BURNT_TITLE"
+region = &"burnt"
+body = &"golem"
+tint = Color(0.32, 0.24, 0.22, 1)
+eye_color = Color(1, 0.5411765, 0.23529412, 1)
+model_scale = 2.0
+health = 1600.0
+damage = 34.0
+move_speed = 2.6
+phase_thresholds = PackedFloat32Array(0.5)
+phase_attacks = [["slam", "sweep", "dash"], ["nova", "slam", "volley", "wave"]]
+mechanic = 3
+breaker_spell = &"frost_shackles"
+reward_spell = &"astral_fall"
+intro_key = "BOSS_BURNT_INTRO"
+phase2_key = "BOSS_BURNT_P2"
+defeat_key = "BOSS_BURNT_DEFEAT"

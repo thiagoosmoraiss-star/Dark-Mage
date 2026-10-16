@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="BossData" format=3]
+
+[ext_resource type="Script" path="res://ai/boss_data.gd" id="1_tyr3d"]
+
+[resource]
+script = ExtResource("1_tyr3d")
+id = &"fear"
+name_key = "BOSS_FEAR"
+title_key = "BOSS_FEAR_TITLE"
+region = &"citadel"
+model_path = "res://assets/models/characters/kaykit_skeletons/Skeleton_Mage.glb"
+weapon_path = "res://assets/models/props/kaykit_skeleton_weapons/Skeleton_Staff.gltf"
+tint = Color(0.18, 0.12, 0.26, 1)
+eye_color = Color(0.9098039, 0.7058824, 0.29803923, 1)
+model_scale = 3.4
+health = 3000.0
+damage = 32.0
+move_speed = 3.8
+phase_thresholds = PackedFloat32Array(0.66, 0.33)
+phase_attacks = [["slam", "volley", "sweep"], ["wave", "summon", "dash", "volley"], ["nova", "wave", "volley", "dash", "slam"]]
+mechanic = 5
+intro_key = "BOSS_FEAR_INTRO"
+phase2_key = "BOSS_FEAR_P2"
+defeat_key = "BOSS_FEAR_DEFEAT"
